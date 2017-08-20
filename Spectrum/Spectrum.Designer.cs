@@ -1,0 +1,216 @@
+﻿namespace Spectrum {
+    partial class spectrumFormMain {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(spectrumFormMain));
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.redValue = new System.Windows.Forms.NumericUpDown();
+            this.redLabel = new System.Windows.Forms.Label();
+            this.greenLabel = new System.Windows.Forms.Label();
+            this.greenValue = new System.Windows.Forms.NumericUpDown();
+            this.blueLabel = new System.Windows.Forms.Label();
+            this.blueValue = new System.Windows.Forms.NumericUpDown();
+            this.closeToTrayCheckbox = new System.Windows.Forms.CheckBox();
+            this.spectrumTrayItem = new System.Windows.Forms.NotifyIcon(this.components);
+            this.solidColorButton = new System.Windows.Forms.Button();
+            this.portConnectButton = new System.Windows.Forms.Button();
+            this.serialComboBox = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.redValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.greenValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blueValue)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // serialPort1
+            // 
+            this.serialPort1.PortName = "0";
+            // 
+            // redValue
+            // 
+            this.redValue.InterceptArrowKeys = false;
+            this.redValue.Location = new System.Drawing.Point(128, 280);
+            this.redValue.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.redValue.Name = "redValue";
+            this.redValue.Size = new System.Drawing.Size(60, 20);
+            this.redValue.TabIndex = 1;
+            // 
+            // redLabel
+            // 
+            this.redLabel.AutoSize = true;
+            this.redLabel.Location = new System.Drawing.Point(62, 282);
+            this.redLabel.Name = "redLabel";
+            this.redLabel.Size = new System.Drawing.Size(60, 13);
+            this.redLabel.TabIndex = 2;
+            this.redLabel.Text = "Red Value:";
+            // 
+            // greenLabel
+            // 
+            this.greenLabel.AutoSize = true;
+            this.greenLabel.Location = new System.Drawing.Point(194, 282);
+            this.greenLabel.Name = "greenLabel";
+            this.greenLabel.Size = new System.Drawing.Size(69, 13);
+            this.greenLabel.TabIndex = 4;
+            this.greenLabel.Text = "Green Value:";
+            // 
+            // greenValue
+            // 
+            this.greenValue.InterceptArrowKeys = false;
+            this.greenValue.Location = new System.Drawing.Point(269, 282);
+            this.greenValue.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.greenValue.Name = "greenValue";
+            this.greenValue.Size = new System.Drawing.Size(60, 20);
+            this.greenValue.TabIndex = 3;
+            // 
+            // blueLabel
+            // 
+            this.blueLabel.AutoSize = true;
+            this.blueLabel.Location = new System.Drawing.Point(335, 284);
+            this.blueLabel.Name = "blueLabel";
+            this.blueLabel.Size = new System.Drawing.Size(61, 13);
+            this.blueLabel.TabIndex = 6;
+            this.blueLabel.Text = "Blue Value:";
+            // 
+            // blueValue
+            // 
+            this.blueValue.InterceptArrowKeys = false;
+            this.blueValue.Location = new System.Drawing.Point(401, 282);
+            this.blueValue.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.blueValue.Name = "blueValue";
+            this.blueValue.Size = new System.Drawing.Size(60, 20);
+            this.blueValue.TabIndex = 5;
+            // 
+            // closeToTrayCheckbox
+            // 
+            this.closeToTrayCheckbox.AutoSize = true;
+            this.closeToTrayCheckbox.Location = new System.Drawing.Point(219, 343);
+            this.closeToTrayCheckbox.Name = "closeToTrayCheckbox";
+            this.closeToTrayCheckbox.Size = new System.Drawing.Size(92, 17);
+            this.closeToTrayCheckbox.TabIndex = 7;
+            this.closeToTrayCheckbox.Text = "Close To Tray";
+            this.closeToTrayCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // spectrumTrayItem
+            // 
+            this.spectrumTrayItem.Icon = ((System.Drawing.Icon)(resources.GetObject("spectrumTrayItem.Icon")));
+            this.spectrumTrayItem.Text = "Spectrum";
+            this.spectrumTrayItem.Visible = true;
+            this.spectrumTrayItem.DoubleClick += new System.EventHandler(this.spectrumTrayItem_DoubleClick);
+            // 
+            // solidColorButton
+            // 
+            this.solidColorButton.Location = new System.Drawing.Point(254, 253);
+            this.solidColorButton.Name = "solidColorButton";
+            this.solidColorButton.Size = new System.Drawing.Size(75, 23);
+            this.solidColorButton.TabIndex = 8;
+            this.solidColorButton.Text = "Solid Color";
+            this.solidColorButton.UseVisualStyleBackColor = true;
+            this.solidColorButton.Click += new System.EventHandler(this.solidColorButton_Click);
+            // 
+            // portConnectButton
+            // 
+            this.portConnectButton.Location = new System.Drawing.Point(236, 70);
+            this.portConnectButton.Name = "portConnectButton";
+            this.portConnectButton.Size = new System.Drawing.Size(75, 23);
+            this.portConnectButton.TabIndex = 0;
+            this.portConnectButton.Text = "Connect";
+            this.portConnectButton.UseVisualStyleBackColor = true;
+            this.portConnectButton.Click += new System.EventHandler(this.portConnectButton_Click);
+            // 
+            // serialComboBox
+            // 
+            this.serialComboBox.Location = new System.Drawing.Point(219, 43);
+            this.serialComboBox.Name = "serialComboBox";
+            this.serialComboBox.Size = new System.Drawing.Size(121, 21);
+            this.serialComboBox.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(194, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(180, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Please Select The Correct COM Port";
+            // 
+            // spectrumFormMain
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ClientSize = new System.Drawing.Size(559, 372);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.serialComboBox);
+            this.Controls.Add(this.portConnectButton);
+            this.Controls.Add(this.solidColorButton);
+            this.Controls.Add(this.closeToTrayCheckbox);
+            this.Controls.Add(this.blueLabel);
+            this.Controls.Add(this.blueValue);
+            this.Controls.Add(this.greenLabel);
+            this.Controls.Add(this.greenValue);
+            this.Controls.Add(this.redLabel);
+            this.Controls.Add(this.redValue);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "spectrumFormMain";
+            this.Text = "Spectrum";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.spectrumFormMain_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.redValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.greenValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blueValue)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.NumericUpDown redValue;
+        private System.Windows.Forms.Label redLabel;
+        private System.Windows.Forms.Label greenLabel;
+        private System.Windows.Forms.NumericUpDown greenValue;
+        private System.Windows.Forms.Label blueLabel;
+        private System.Windows.Forms.NumericUpDown blueValue;
+        private System.Windows.Forms.CheckBox closeToTrayCheckbox;
+        private System.Windows.Forms.NotifyIcon spectrumTrayItem;
+        private System.Windows.Forms.Button solidColorButton;
+        private System.Windows.Forms.Button portConnectButton;
+        private System.Windows.Forms.ComboBox serialComboBox;
+        private System.Windows.Forms.Label label1;
+    }
+}
+
