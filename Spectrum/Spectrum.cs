@@ -23,11 +23,11 @@ namespace Spectrum {
         private void portConnectButton_Click(object sender, EventArgs e) {
             string port = serialComboBox.SelectedItem.ToString();
 
-            if (serialPort1.IsOpen) portOptions(false);
+            if (serialPort1.IsOpen) portConnect(false);
 
             try {
                 serialPort1.PortName = port;
-                portOptions(true);
+                portConnect(true);
             }
             catch {
                 MessageBox.Show("Could not connect please make sure the arduino is plugged in and that you have selected the correct port", "Could Not Connect", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -89,7 +89,8 @@ namespace Spectrum {
             serialComboBox.SelectedIndex = 0;
         }
 
-        private void portOptions(bool open) {
+        // Port Connect and Disconnect
+        private void portConnect(bool open) {
             if (open) {
                 serialPort1.Open();
                 Console.WriteLine("Connected to port: " + serialPort1.PortName);
@@ -104,7 +105,10 @@ namespace Spectrum {
             }
         }
 
-        
+        // Save Settings
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
+            Properties.Settings.Default.Save();
+        }
     }
 
 
