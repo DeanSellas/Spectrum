@@ -23,16 +23,14 @@ namespace Spectrum {
         private void portConnectButton_Click(object sender, EventArgs e) {
             string port = serialComboBox.SelectedItem.ToString();
 
-            if (serialPort1.IsOpen) serialPort1.Close();
+            if (serialPort1.IsOpen) portOptions(false);
 
             try {
                 serialPort1.PortName = port;
-                serialPort1.Open();
-                Console.WriteLine("Connected to port: " + port);
-                //MessageBox.Show("Connected to: " + port, "Connected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                portOptions(true);
             }
             catch {
-                MessageBox.Show("could not connect please make sure the arduino is plugged in and that you have the correct port selected", "Could Not Connect", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Could not connect please make sure the arduino is plugged in and that you have selected the correct port", "Could Not Connect", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -55,6 +53,13 @@ namespace Spectrum {
             serialPort1.WriteLine("SolidColor" + red + green + blue);
             Console.WriteLine("SolidColor"+red + green + blue);
         }
+
+        private void rainbowButton_Click(object sender, EventArgs e) {
+            var delay = delayValue.ToString();
+            serialPort1.WriteLine("Rainbow" + delay);
+            Console.WriteLine("Rainbow" + delay);
+        }
+
 
         private void spectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
             // Close App To Tray
@@ -83,6 +88,22 @@ namespace Spectrum {
             // Sets Combo Box to First COM Port
             serialComboBox.SelectedIndex = 0;
         }
+
+        private void portOptions(bool open) {
+            if (open) {
+                serialPort1.Open();
+                Console.WriteLine("Connected to port: " + serialPort1.PortName);
+                //MessageBox.Show("Connected to: " + port, "Connected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                connectedStatusLabel.Text = "Connected";
+                connectedStatusLabel.BackColor = Color.Green;
+            }
+            else {
+                serialPort1.Close();
+                connectedStatusLabel.Text = "Not Connected";
+                connectedStatusLabel.BackColor = Color.Red;
+            }
+        }
+
         
     }
 
