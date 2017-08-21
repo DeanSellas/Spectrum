@@ -35,6 +35,7 @@ int green = 0;
 int red = 255;
 
 int i = 0, j = 0;
+int wait = 100;
 
 void setup() {
   Serial.begin(9600);
@@ -52,9 +53,12 @@ void loop() {
     
     if(data.substring(0,7) == "Rainbow" || rainbowAnimation){
       // Reset Color
-      if(data.substring(0,7) == "Rainbow") i = 0, j = 0;
+      if(data.substring(0,7) == "Rainbow"){
+        i = 0, j = 0;
+        wait = data.substring(7).toInt();
+      }
       
-      int wait = data.substring(7).toInt();
+      Serial.println(wait);
       
       rainbowAnimation = true;
       sentCommand = true;

@@ -72,7 +72,7 @@ namespace Spectrum {
         }
 
         private void rainbowButton_Click(object sender, EventArgs e) {
-            var delay = delayValue.ToString();
+            var delay = delayValue.Value.ToString();
             serialPort1.WriteLine("Rainbow" + delay);
             Console.WriteLine("Rainbow" + delay);
         }
