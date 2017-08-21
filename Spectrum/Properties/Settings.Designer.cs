@@ -25,13 +25,37 @@ namespace Spectrum.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool closeToTrayBool {
             get {
-                return ((string)(this["Setting"]));
+                return ((bool)(this["closeToTrayBool"]));
             }
             set {
-                this["Setting"] = value;
+                this["closeToTrayBool"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool connectOnStartupBool {
+            get {
+                return ((bool)(this["connectOnStartupBool"]));
+            }
+            set {
+                this["connectOnStartupBool"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string port {
+            get {
+                return ((string)(this["port"]));
+            }
+            set {
+                this["port"] = value;
             }
         }
     }

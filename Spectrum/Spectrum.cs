@@ -10,13 +10,28 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Spectrum {
+
     public partial class spectrumFormMain : Form {
+
+        // Variables
+
+        //Bool
+        bool isConnected = false;
+
+
         public spectrumFormMain() {
             InitializeComponent();
 
             listSerialPorts();
 
+            if (!isConnected) startupConnectCheckBox.Enabled = false;
+
             //serialPort1.Open();
+
+            // Sets Check Box
+            if (Properties.Settings.Default.closeToTrayBool) closeToTrayCheckbox.Checked = true;
+            if (Properties.Settings.Default.connectOnStartupBool) startupConnectCheckBox.Checked = true;
+
         }
 
         // Connects to Port
@@ -28,6 +43,8 @@ namespace Spectrum {
             try {
                 serialPort1.PortName = port;
                 portConnect(true);
+                Properties.Settings.Default.port = port;
+                
             }
             catch {
                 MessageBox.Show("Could not connect please make sure the arduino is plugged in and that you have selected the correct port", "Could Not Connect", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -63,7 +80,7 @@ namespace Spectrum {
 
         private void spectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
             // Close App To Tray
-            if (closeToTrayCheckbox.Checked) {
+            if (Properties.Settings.Default.closeToTrayBool) {
                 e.Cancel = true;
                 Hide();
             }
@@ -97,17 +114,44 @@ namespace Spectrum {
                 //MessageBox.Show("Connected to: " + port, "Connected", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 connectedStatusLabel.Text = "Connected";
                 connectedStatusLabel.BackColor = Color.Green;
+                isConnected = true;
+                startupConnectCheckBox.Enabled = true;
             }
             else {
                 serialPort1.Close();
                 connectedStatusLabel.Text = "Not Connected";
                 connectedStatusLabel.BackColor = Color.Red;
+                isConnected = false;
+                startupConnectCheckBox.Enabled = false;
             }
         }
 
         // Save Settings
         private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
             Properties.Settings.Default.Save();
+        }
+
+        private void closeToTrayCheckbox_CheckedChanged(object sender, EventArgs e) {
+            // If Checkbox is Checked Change Bool
+            if (closeToTrayCheckbox.Checked) Properties.Settings.Default.closeToTrayBool = true;
+            else Properties.Settings.Default.closeToTrayBool = false;
+        }
+
+        private void startupConnectCheckBox_CheckedChanged(object sender, EventArgs e) {
+            // If Checkbox is Checked Change Bool
+            if (startupConnectCheckBox.Checked) Properties.Settings.Default.connectOnStartupBool = true;
+            else Properties.Settings.Default.connectOnStartupBool = false;
+        }
+
+        private void spectrumFormMain_Load(object sender, EventArgs e) {
+            if (Properties.Settings.Default.connectOnStartupBool && Properties.Settings.Default.port != "") {
+                serialPort1.PortName = Properties.Settings.Default.port;
+                portConnect(true);
+            }
+        }
+
+        private void resetSettingsToolStripMenuItem_Click(object sender, EventArgs e) {
+            Properties.Settings.Default.Reset();
         }
     }
 
