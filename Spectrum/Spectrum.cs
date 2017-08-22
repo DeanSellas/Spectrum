@@ -14,44 +14,66 @@ namespace Spectrum {
     public partial class spectrumFormMain : Form {
 
         // Variables
-
-        //Bool
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        //Boolin
         bool isConnected = false;
 
+        // Forms
+        Form spectrumForm;
 
+
+        // In The Begining...
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public spectrumFormMain() {
             InitializeComponent();
-
+            
             listSerialPorts();
 
+            // Sets Current Form | Used for Context Menu
+            spectrumForm = this;
+
+
             if (!isConnected) startupConnectCheckBox.Enabled = false;
-
-            //serialPort1.Open();
-
+            
             // Sets Check Box
             if (Properties.Settings.Default.closeToTrayBool) closeToTrayCheckbox.Checked = true;
             if (Properties.Settings.Default.connectOnStartupBool) startupConnectCheckBox.Checked = true;
 
         }
 
+        // On Form Load
+        private void spectrumFormMain_Load(object sender, EventArgs e) {
+            if (Properties.Settings.Default.connectOnStartupBool && Properties.Settings.Default.port != "") {
+                serialPort1.PortName = Properties.Settings.Default.port;
+                portConnect(true);
+            }
+            buttonEnable();
+        }
+        
+        // On Form Close
+        private void spectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
+            // Close App To Tray
+            if (Properties.Settings.Default.closeToTrayBool) {
+                e.Cancel = true;
+                Hide();
+            }
+        }
+
+        // Open From Tray
+        private void spectrumTrayItem_DoubleClick(object sender, EventArgs e) {
+            Show();
+        }
+
         // Connects to Port
         private void portConnectButton_Click(object sender, EventArgs e) {
-            string port = serialComboBox.SelectedItem.ToString();
-
             if (serialPort1.IsOpen) portConnect(false);
 
-            try {
-                serialPort1.PortName = port;
-                portConnect(true);
-                Properties.Settings.Default.port = port;
-                
-            }
+            try {portConnect(true);}
             catch {
                 MessageBox.Show("Could not connect please make sure the arduino is plugged in and that you have selected the correct port", "Could Not Connect", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
 
         // Sets Solid Color
         private void solidColorButton_Click(object sender, EventArgs e) {
@@ -71,6 +93,7 @@ namespace Spectrum {
             Console.WriteLine("SolidColor"+red + green + blue);
         }
 
+        // Rainbow Animation Button
         private void rainbowButton_Click(object sender, EventArgs e) {
             var delay = delayValue.Value.ToString();
             serialPort1.WriteLine("Rainbow" + delay);
@@ -78,18 +101,11 @@ namespace Spectrum {
         }
 
 
-        private void spectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
-            // Close App To Tray
-            if (Properties.Settings.Default.closeToTrayBool) {
-                e.Cancel = true;
-                Hide();
-            }
-        }
-        private void spectrumTrayItem_DoubleClick(object sender, EventArgs e) {
-            Show();
-        }
 
+        // CUSTOM FUNCTIONS
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        // Lists Serial Ports for Combobox and Debugging
         private void listSerialPorts() {
             // Get a list of serial port names.
             string[] ports = SerialPort.GetPortNames();
@@ -106,9 +122,11 @@ namespace Spectrum {
             serialComboBox.SelectedIndex = 0;
         }
 
-        // Port Connect and Disconnect
+        // Port Connect/Disconnect
         private void portConnect(bool open) {
+            string port = serialComboBox.SelectedItem.ToString();
             if (open) {
+                serialPort1.PortName = port;
                 serialPort1.Open();
                 Console.WriteLine("Connected to port: " + serialPort1.PortName);
                 //MessageBox.Show("Connected to: " + port, "Connected", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -116,6 +134,7 @@ namespace Spectrum {
                 connectedStatusLabel.BackColor = Color.Green;
                 isConnected = true;
                 startupConnectCheckBox.Enabled = true;
+                Properties.Settings.Default.port = port;
             }
             else {
                 serialPort1.Close();
@@ -124,36 +143,96 @@ namespace Spectrum {
                 isConnected = false;
                 startupConnectCheckBox.Enabled = false;
             }
+            buttonEnable();
         }
 
-        // Save Settings
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
-            Properties.Settings.Default.Save();
+        // Enables/Disables Buttons
+        private void buttonEnable() {
+            if (isConnected) {
+                solidColorButton.Enabled = true;
+                rainbowButton.Enabled = true;
+            }
+            else {
+                solidColorButton.Enabled = false;
+                rainbowButton.Enabled = false;
+            }
         }
 
+
+
+        // CHECKBOX SETTINGS -- WILL BE MOVING TO ANOTHER FORM SOON
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Close to Tray
         private void closeToTrayCheckbox_CheckedChanged(object sender, EventArgs e) {
             // If Checkbox is Checked Change Bool
             if (closeToTrayCheckbox.Checked) Properties.Settings.Default.closeToTrayBool = true;
             else Properties.Settings.Default.closeToTrayBool = false;
         }
 
+        // Connect at Startup
         private void startupConnectCheckBox_CheckedChanged(object sender, EventArgs e) {
             // If Checkbox is Checked Change Bool
             if (startupConnectCheckBox.Checked) Properties.Settings.Default.connectOnStartupBool = true;
             else Properties.Settings.Default.connectOnStartupBool = false;
         }
 
-        private void spectrumFormMain_Load(object sender, EventArgs e) {
-            if (Properties.Settings.Default.connectOnStartupBool && Properties.Settings.Default.port != "") {
-                serialPort1.PortName = Properties.Settings.Default.port;
-                portConnect(true);
-            }
+
+        // MENU BAR SETTINGS
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Save Settings
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
+            Properties.Settings.Default.Save();
         }
 
+        // Link to Documentation
+        private void documentationToolStripMenuItem_Click(object sender, EventArgs e) {
+            MessageBox.Show("Documentation is not ready at this time");
+        }
+
+        // Reset Settings
         private void resetSettingsToolStripMenuItem_Click(object sender, EventArgs e) {
             Properties.Settings.Default.Reset();
+        }
+
+        // Link to Github
+        private void githubToolStripMenuItem_Click(object sender, EventArgs e) {
+            System.Diagnostics.Process.Start("https://github.com/DeanSellas/Spectrum");
+        }
+
+        // Donate Button
+        private void donateToolStripMenuItem_Click(object sender, EventArgs e) {
+            System.Diagnostics.Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=RVNJATCSR7FGC&lc=US&item_name=Specturm%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted");
+        }
+
+
+
+        // CONTEXT MENUE
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Defines Context Menu Options
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e) {
+            if (isConnected) connectToolStripMenuItem.Text = "Disconnect"; else connectToolStripMenuItem.Text = "Connect";
+            if (spectrumForm.Visible) showToolStripMenuItem.Text = "Hide"; else showToolStripMenuItem.Text = "Show";
+        }
+
+        // Context Menu Connect/Disconnect
+        private void connectToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (isConnected) portConnect(false); else portConnect(true);
+        }
+        // Context Menu Show/Hide
+        private void showToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (spectrumForm.Visible) Hide(); else Show();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
+            Close();
         }
     }
 
 
+
+    // THE END
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
