@@ -56,14 +56,17 @@ void loop() {
       if(data.substring(0,7) == "Rainbow"){
         i = 0, j = 0;
         wait = data.substring(7).toInt();
+        sentCommand = true;
       }
       
       Serial.println(wait);
       
       rainbowAnimation = true;
-      sentCommand = true;
+      
       rainbow(wait);
     }
+
+    
     if(data.substring(0,10) == "SolidColor"){
       rainbowAnimation = false;
 

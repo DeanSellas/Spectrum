@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -177,6 +178,20 @@ namespace Spectrum {
             else Properties.Settings.Default.connectOnStartupBool = false;
         }
 
+        // Start With Windows
+        private void windowsCheckbox_CheckedChanged(object sender, EventArgs e) {
+            if (windowsCheckbox.Checked) {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
+                    key.SetValue("Spectrum", "\"" + Application.ExecutablePath + "\"");
+                }
+            }
+            else {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
+                    key.DeleteValue("Spectrum", false);
+                }
+            }
+        }
+
 
         // MENU BAR SETTINGS
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -229,6 +244,8 @@ namespace Spectrum {
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
             Close();
         }
+
+        
     }
 
 
