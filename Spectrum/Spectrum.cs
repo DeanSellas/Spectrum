@@ -75,9 +75,13 @@ namespace Spectrum {
 
         // Connects to Port
         private void portConnectButton_Click(object sender, EventArgs e) {
-            if (serialPort1.IsOpen) portConnect(false);
+            
 
-            try {portConnect(true);}
+            try {
+                //if (serialPort1.IsOpen) portConnect(false);
+                if (!isConnected) portConnect(true);
+                else portConnect(false);
+            }
             catch {
                 MessageBox.Show("Could not connect please make sure the arduino is plugged in and that you have selected the correct port", "Could Not Connect", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -140,6 +144,7 @@ namespace Spectrum {
                 //MessageBox.Show("Connected to: " + port, "Connected", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 connectedStatusLabel.Text = "Connected";
                 connectedStatusLabel.BackColor = Color.Green;
+                portConnectButton.Text = "Disconnect";
                 isConnected = true;
                 startupConnectCheckBox.Enabled = true;
                 Settings.Default.port = port;
@@ -148,6 +153,7 @@ namespace Spectrum {
                 serialPort1.Close();
                 connectedStatusLabel.Text = "Not Connected";
                 connectedStatusLabel.BackColor = Color.Red;
+                portConnectButton.Text = "Connect";
                 isConnected = false;
                 startupConnectCheckBox.Enabled = false;
             }
@@ -190,11 +196,11 @@ namespace Spectrum {
         private void applySettingsButton_Click(object sender, EventArgs e) {
 
             // Connect at Startup Settings
-            if (startupConnectCheckBox.Checked) Properties.Settings.Default.connectOnStartupBool = true;
+            if (startupConnectCheckBox.Checked) Settings.Default.connectOnStartupBool = true;
             else Properties.Settings.Default.connectOnStartupBool = false;
 
             // Close to Tray Settings
-            if (closeToTrayCheckbox.Checked) Properties.Settings.Default.closeToTrayBool = true;
+            if (closeToTrayCheckbox.Checked) Settings.Default.closeToTrayBool = true;
             else Settings.Default.closeToTrayBool = false;
 
             // Start With Windows
