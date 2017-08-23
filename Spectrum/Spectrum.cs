@@ -20,11 +20,11 @@ namespace Spectrum {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         //Boolin
-        bool isConnected = false;
         bool exitFromTray = false;
 
         // Forms
-        Form spectrumForm;
+        spectrumFormMain spectrumForm;
+        SettingsForm settingsForm;
 
 
         // In The Begining...
@@ -33,17 +33,15 @@ namespace Spectrum {
             InitializeComponent();
             
             listSerialPorts();
-
+            
             // Sets Current Form | Used for Context Menu
             spectrumForm = this;
-
-
-            if (!isConnected) startupConnectCheckBox.Enabled = false;
+            settingsForm = new SettingsForm();
+            if (Settings.Default.connectOnStartupBool) Settings.Default.isConnected = true;
+            else Settings.Default.isConnected = false;
+            if (!Settings.Default.isConnected) startupConnectCheckBox.Enabled = false;
             
-            // Sets Check Box
-            if (Settings.Default.closeToTrayBool) closeToTrayCheckbox.Checked = true;
-            if (Settings.Default.connectOnStartupBool) startupConnectCheckBox.Checked = true;
-            if (Settings.Default.windowsStartupBool) windowsCheckbox.Checked = true;
+            
 
             redValue.Value = Settings.Default.redColor;
             greenValue.Value = Settings.Default.greenColor;
@@ -79,7 +77,7 @@ namespace Spectrum {
             
             try {
                 //if (serialPort1.IsOpen) portConnect(false);
-                if (!isConnected) portConnect(true);
+                if (!Settings.Default.isConnected) portConnect(true);
                 else portConnect(false);
             }
             catch {
@@ -145,8 +143,8 @@ namespace Spectrum {
                 connectedStatusLabel.Text = "Connected";
                 connectedStatusLabel.BackColor = Color.Green;
                 portConnectButton.Text = "Disconnect";
-                isConnected = true;
-                startupConnectCheckBox.Enabled = true;
+                Settings.Default.isConnected = true;
+                settingsForm.startupConnectCheckBox.Enabled = true;
                 Settings.Default.port = port;
             }
             else {
@@ -154,15 +152,15 @@ namespace Spectrum {
                 connectedStatusLabel.Text = "Not Connected";
                 connectedStatusLabel.BackColor = Color.Red;
                 portConnectButton.Text = "Connect";
-                isConnected = false;
-                startupConnectCheckBox.Enabled = false;
+                Settings.Default.isConnected = false;
+                settingsForm.startupConnectCheckBox.Enabled = false;
             }
             buttonEnable();
         }
 
         // Enables/Disables Buttons
         private void buttonEnable() {
-            if (isConnected) {
+            if (Settings.Default.isConnected) {
                 solidColorButton.Enabled = true;
                 rainbowButton.Enabled = true;
             }
@@ -197,7 +195,7 @@ namespace Spectrum {
 
             // Connect at Startup Settings
             if (startupConnectCheckBox.Checked) Settings.Default.connectOnStartupBool = true;
-            else Properties.Settings.Default.connectOnStartupBool = false;
+            else Settings.Default.connectOnStartupBool = false;
 
             // Close to Tray Settings
             if (closeToTrayCheckbox.Checked) Settings.Default.closeToTrayBool = true;
@@ -233,6 +231,11 @@ namespace Spectrum {
             Settings.Default.blueColor = (int)blueValue.Value;
 
             Settings.Default.Save();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
+            settingsForm = new SettingsForm();
+            settingsForm.Show();
         }
 
         // Link to Documentation
@@ -276,13 +279,13 @@ namespace Spectrum {
 
         // Defines Context Menu Options
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e) {
-            if (isConnected) connectToolStripMenuItem.Text = "Disconnect"; else connectToolStripMenuItem.Text = "Connect";
+            if (Settings.Default.isConnected) connectToolStripMenuItem.Text = "Disconnect"; else connectToolStripMenuItem.Text = "Connect";
             if (spectrumForm.Visible) showToolStripMenuItem.Text = "Hide"; else showToolStripMenuItem.Text = "Show";
         }
 
         // Context Menu Connect/Disconnect
         private void connectToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (isConnected) portConnect(false); else portConnect(true);
+            if (Settings.Default.isConnected) portConnect(false); else portConnect(true);
         }
         // Context Menu Show/Hide
         private void showToolStripMenuItem_Click(object sender, EventArgs e) {

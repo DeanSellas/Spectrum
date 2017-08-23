@@ -22,7 +22,19 @@ namespace Spectrum.Properties {
                 return defaultInstance;
             }
         }
-        
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isConnected {
+            get {
+                return ((bool)(this["isConnected"]));
+            }
+            set {
+                this["isConnected"] = value;
+            }
+        }
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -118,5 +130,7 @@ namespace Spectrum.Properties {
                 this["delayValue"] = value;
             }
         }
+        
+        
     }
 }
