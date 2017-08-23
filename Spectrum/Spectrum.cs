@@ -236,7 +236,21 @@ namespace Spectrum {
 
         // Reset Settings
         private void resetSettingsToolStripMenuItem_Click(object sender, EventArgs e) {
-            Settings.Default.Reset();
+
+
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to reset all your settings?", "RESET SETTINGS", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (dialogResult == DialogResult.Yes) {
+                try {
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
+                        key.DeleteValue("Spectrum", false);
+                    }
+                }
+                finally {Settings.Default.Reset();}
+                
+            }
+
+
         }
 
         // Link to Github
