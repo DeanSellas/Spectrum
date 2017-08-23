@@ -21,6 +21,7 @@ namespace Spectrum {
         
         //Boolin
         bool isConnected = false;
+        bool exitFromTray = false;
 
         // Forms
         Form spectrumForm;
@@ -62,7 +63,7 @@ namespace Spectrum {
         // On Form Close
         private void spectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
             // Close App To Tray
-            if (Settings.Default.closeToTrayBool) {
+            if (Settings.Default.closeToTrayBool && !exitFromTray) {
                 e.Cancel = true;
                 Hide();
             }
@@ -76,7 +77,6 @@ namespace Spectrum {
         // Connects to Port
         private void portConnectButton_Click(object sender, EventArgs e) {
             
-
             try {
                 //if (serialPort1.IsOpen) portConnect(false);
                 if (!isConnected) portConnect(true);
@@ -290,7 +290,8 @@ namespace Spectrum {
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
-            Process.GetCurrentProcess().Kill();
+            exitFromTray = true;
+            Close();
         }
 
         
