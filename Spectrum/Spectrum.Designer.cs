@@ -59,6 +59,7 @@
             this.connectedStatusLabel = new System.Windows.Forms.Label();
             this.startupConnectCheckBox = new System.Windows.Forms.CheckBox();
             this.windowsCheckbox = new System.Windows.Forms.CheckBox();
+            this.applySettingsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.redValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueValue)).BeginInit();
@@ -140,13 +141,12 @@
             // closeToTrayCheckbox
             // 
             this.closeToTrayCheckbox.AutoSize = true;
-            this.closeToTrayCheckbox.Location = new System.Drawing.Point(215, 321);
+            this.closeToTrayCheckbox.Location = new System.Drawing.Point(215, 292);
             this.closeToTrayCheckbox.Name = "closeToTrayCheckbox";
             this.closeToTrayCheckbox.Size = new System.Drawing.Size(92, 17);
             this.closeToTrayCheckbox.TabIndex = 7;
             this.closeToTrayCheckbox.Text = "Close To Tray";
             this.closeToTrayCheckbox.UseVisualStyleBackColor = true;
-            this.closeToTrayCheckbox.CheckedChanged += new System.EventHandler(this.closeToTrayCheckbox_CheckedChanged);
             // 
             // spectrumTrayItem
             // 
@@ -366,24 +366,32 @@
             // startupConnectCheckBox
             // 
             this.startupConnectCheckBox.AutoSize = true;
-            this.startupConnectCheckBox.Location = new System.Drawing.Point(215, 298);
+            this.startupConnectCheckBox.Location = new System.Drawing.Point(215, 269);
             this.startupConnectCheckBox.Name = "startupConnectCheckBox";
             this.startupConnectCheckBox.Size = new System.Drawing.Size(120, 17);
             this.startupConnectCheckBox.TabIndex = 12;
             this.startupConnectCheckBox.Text = "Connect On Startup";
             this.startupConnectCheckBox.UseVisualStyleBackColor = true;
-            this.startupConnectCheckBox.CheckedChanged += new System.EventHandler(this.startupConnectCheckBox_CheckedChanged);
             // 
             // windowsCheckbox
             // 
             this.windowsCheckbox.AutoSize = true;
-            this.windowsCheckbox.Location = new System.Drawing.Point(215, 344);
+            this.windowsCheckbox.Location = new System.Drawing.Point(215, 315);
             this.windowsCheckbox.Name = "windowsCheckbox";
             this.windowsCheckbox.Size = new System.Drawing.Size(120, 17);
             this.windowsCheckbox.TabIndex = 13;
             this.windowsCheckbox.Text = "Start With Windows";
             this.windowsCheckbox.UseVisualStyleBackColor = true;
-            this.windowsCheckbox.CheckedChanged += new System.EventHandler(this.windowsCheckbox_CheckedChanged);
+            // 
+            // applySettingsButton
+            // 
+            this.applySettingsButton.Location = new System.Drawing.Point(219, 338);
+            this.applySettingsButton.Name = "applySettingsButton";
+            this.applySettingsButton.Size = new System.Drawing.Size(116, 23);
+            this.applySettingsButton.TabIndex = 14;
+            this.applySettingsButton.Text = "Apply Settings";
+            this.applySettingsButton.UseVisualStyleBackColor = true;
+            this.applySettingsButton.Click += new System.EventHandler(this.applySettingsButton_Click);
             // 
             // spectrumFormMain
             // 
@@ -392,6 +400,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(559, 372);
+            this.Controls.Add(this.applySettingsButton);
             this.Controls.Add(this.windowsCheckbox);
             this.Controls.Add(this.startupConnectCheckBox);
             this.Controls.Add(this.connectedStatusLabel);
@@ -464,6 +473,7 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.CheckBox windowsCheckbox;
+        private System.Windows.Forms.Button applySettingsButton;
     }
 }
 

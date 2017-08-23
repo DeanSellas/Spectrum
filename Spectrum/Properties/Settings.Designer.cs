@@ -49,7 +49,19 @@ namespace Spectrum.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool windowsStartupBool {
+            get {
+                return ((bool)(this["windowsStartupBool"]));
+            }
+            set {
+                this["windowsStartupBool"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public string port {
             get {
                 return ((string)(this["port"]));

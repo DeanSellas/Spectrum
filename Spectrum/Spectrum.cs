@@ -40,6 +40,7 @@ namespace Spectrum {
             // Sets Check Box
             if (Properties.Settings.Default.closeToTrayBool) closeToTrayCheckbox.Checked = true;
             if (Properties.Settings.Default.connectOnStartupBool) startupConnectCheckBox.Checked = true;
+            if (Properties.Settings.Default.windowsStartupBool) windowsCheckbox.Checked = true;
 
         }
 
@@ -164,32 +165,32 @@ namespace Spectrum {
         // CHECKBOX SETTINGS -- WILL BE MOVING TO ANOTHER FORM SOON
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // Close to Tray
-        private void closeToTrayCheckbox_CheckedChanged(object sender, EventArgs e) {
-            // If Checkbox is Checked Change Bool
-            if (closeToTrayCheckbox.Checked) Properties.Settings.Default.closeToTrayBool = true;
-            else Properties.Settings.Default.closeToTrayBool = false;
-        }
+        // Apply Settings Button
+        private void applySettingsButton_Click(object sender, EventArgs e) {
 
-        // Connect at Startup
-        private void startupConnectCheckBox_CheckedChanged(object sender, EventArgs e) {
-            // If Checkbox is Checked Change Bool
+            // Connect at Startup Settings
             if (startupConnectCheckBox.Checked) Properties.Settings.Default.connectOnStartupBool = true;
             else Properties.Settings.Default.connectOnStartupBool = false;
-        }
 
-        // Start With Windows
-        private void windowsCheckbox_CheckedChanged(object sender, EventArgs e) {
+            // Close to Tray Settings
+            if (closeToTrayCheckbox.Checked) Properties.Settings.Default.closeToTrayBool = true;
+            else Properties.Settings.Default.closeToTrayBool = false;
+
+            // Start With Windows
             if (windowsCheckbox.Checked) {
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
                     key.SetValue("Spectrum", "\"" + Application.ExecutablePath + "\"");
+                    Properties.Settings.Default.windowsStartupBool = true;
                 }
             }
             else {
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
                     key.DeleteValue("Spectrum", false);
+                    Properties.Settings.Default.windowsStartupBool = false;
                 }
             }
+
+            Properties.Settings.Default.Save();
         }
 
 
@@ -223,7 +224,7 @@ namespace Spectrum {
 
 
 
-        // CONTEXT MENUE
+        // CONTEXT MENU
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Defines Context Menu Options
@@ -245,7 +246,7 @@ namespace Spectrum {
             Close();
         }
 
-        
+
     }
 
 
