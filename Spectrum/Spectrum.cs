@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
+using Spectrum.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
@@ -38,16 +40,20 @@ namespace Spectrum {
             if (!isConnected) startupConnectCheckBox.Enabled = false;
             
             // Sets Check Box
-            if (Properties.Settings.Default.closeToTrayBool) closeToTrayCheckbox.Checked = true;
-            if (Properties.Settings.Default.connectOnStartupBool) startupConnectCheckBox.Checked = true;
-            if (Properties.Settings.Default.windowsStartupBool) windowsCheckbox.Checked = true;
+            if (Settings.Default.closeToTrayBool) closeToTrayCheckbox.Checked = true;
+            if (Settings.Default.connectOnStartupBool) startupConnectCheckBox.Checked = true;
+            if (Settings.Default.windowsStartupBool) windowsCheckbox.Checked = true;
+
+            redValue.Value = Settings.Default.redColor;
+            greenValue.Value = Settings.Default.greenColor;
+            blueValue.Value = Settings.Default.blueColor;
 
         }
 
         // On Form Load
         private void spectrumFormMain_Load(object sender, EventArgs e) {
-            if (Properties.Settings.Default.connectOnStartupBool && Properties.Settings.Default.port != "") {
-                serialPort1.PortName = Properties.Settings.Default.port;
+            if (Settings.Default.connectOnStartupBool && Settings.Default.port != "") {
+                serialPort1.PortName = Settings.Default.port;
                 portConnect(true);
             }
             buttonEnable();
@@ -56,7 +62,7 @@ namespace Spectrum {
         // On Form Close
         private void spectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
             // Close App To Tray
-            if (Properties.Settings.Default.closeToTrayBool) {
+            if (Settings.Default.closeToTrayBool) {
                 e.Cancel = true;
                 Hide();
             }
@@ -136,7 +142,7 @@ namespace Spectrum {
                 connectedStatusLabel.BackColor = Color.Green;
                 isConnected = true;
                 startupConnectCheckBox.Enabled = true;
-                Properties.Settings.Default.port = port;
+                Settings.Default.port = port;
             }
             else {
                 serialPort1.Close();
@@ -165,6 +171,21 @@ namespace Spectrum {
         // CHECKBOX SETTINGS -- WILL BE MOVING TO ANOTHER FORM SOON
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+        private void settingsCheckboxes_CheckedChanged(object sender, EventArgs e) {
+            if (Settings.Default.connectOnStartupBool != startupConnectCheckBox.Checked) {
+                applySettingsButton.Enabled = true;
+            }
+            else if (Settings.Default.closeToTrayBool != closeToTrayCheckbox.Checked) {
+                applySettingsButton.Enabled = true;
+            }
+            else if (Settings.Default.windowsStartupBool != windowsCheckbox.Checked) {
+                applySettingsButton.Enabled = true;
+            }
+            else applySettingsButton.Enabled = false;
+        }
+
+
         // Apply Settings Button
         private void applySettingsButton_Click(object sender, EventArgs e) {
 
@@ -174,23 +195,24 @@ namespace Spectrum {
 
             // Close to Tray Settings
             if (closeToTrayCheckbox.Checked) Properties.Settings.Default.closeToTrayBool = true;
-            else Properties.Settings.Default.closeToTrayBool = false;
+            else Settings.Default.closeToTrayBool = false;
 
             // Start With Windows
             if (windowsCheckbox.Checked) {
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
                     key.SetValue("Spectrum", "\"" + Application.ExecutablePath + "\"");
-                    Properties.Settings.Default.windowsStartupBool = true;
+                    Settings.Default.windowsStartupBool = true;
                 }
             }
             else {
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
                     key.DeleteValue("Spectrum", false);
-                    Properties.Settings.Default.windowsStartupBool = false;
+                    Settings.Default.windowsStartupBool = false;
                 }
             }
 
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
+            applySettingsButton.Enabled = false;
         }
 
 
@@ -199,7 +221,12 @@ namespace Spectrum {
 
         // Save Settings
         private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
-            Properties.Settings.Default.Save();
+
+            Settings.Default.redColor = (int)redValue.Value;
+            Settings.Default.greenColor = (int)greenValue.Value;
+            Settings.Default.blueColor = (int)blueValue.Value;
+
+            Settings.Default.Save();
         }
 
         // Link to Documentation
@@ -209,17 +236,17 @@ namespace Spectrum {
 
         // Reset Settings
         private void resetSettingsToolStripMenuItem_Click(object sender, EventArgs e) {
-            Properties.Settings.Default.Reset();
+            Settings.Default.Reset();
         }
 
         // Link to Github
         private void githubToolStripMenuItem_Click(object sender, EventArgs e) {
-            System.Diagnostics.Process.Start("https://github.com/DeanSellas/Spectrum");
+            Process.Start("https://github.com/DeanSellas/Spectrum");
         }
 
         // Donate Button
         private void donateToolStripMenuItem_Click(object sender, EventArgs e) {
-            System.Diagnostics.Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=RVNJATCSR7FGC&lc=US&item_name=Specturm%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted");
+            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=RVNJATCSR7FGC&lc=US&item_name=Specturm%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted");
         }
 
 
@@ -243,10 +270,10 @@ namespace Spectrum {
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
-            Close();
+            Process.GetCurrentProcess().Kill();
         }
 
-
+        
     }
 
 

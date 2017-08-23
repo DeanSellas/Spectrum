@@ -145,8 +145,10 @@
             this.closeToTrayCheckbox.Name = "closeToTrayCheckbox";
             this.closeToTrayCheckbox.Size = new System.Drawing.Size(92, 17);
             this.closeToTrayCheckbox.TabIndex = 7;
+            this.closeToTrayCheckbox.Tag = "";
             this.closeToTrayCheckbox.Text = "Close To Tray";
             this.closeToTrayCheckbox.UseVisualStyleBackColor = true;
+            this.closeToTrayCheckbox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
             // 
             // spectrumTrayItem
             // 
@@ -370,8 +372,10 @@
             this.startupConnectCheckBox.Name = "startupConnectCheckBox";
             this.startupConnectCheckBox.Size = new System.Drawing.Size(120, 17);
             this.startupConnectCheckBox.TabIndex = 12;
+            this.startupConnectCheckBox.Tag = "";
             this.startupConnectCheckBox.Text = "Connect On Startup";
             this.startupConnectCheckBox.UseVisualStyleBackColor = true;
+            this.startupConnectCheckBox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
             // 
             // windowsCheckbox
             // 
@@ -380,15 +384,19 @@
             this.windowsCheckbox.Name = "windowsCheckbox";
             this.windowsCheckbox.Size = new System.Drawing.Size(120, 17);
             this.windowsCheckbox.TabIndex = 13;
+            this.windowsCheckbox.Tag = "";
             this.windowsCheckbox.Text = "Start With Windows";
             this.windowsCheckbox.UseVisualStyleBackColor = true;
+            this.windowsCheckbox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
             // 
             // applySettingsButton
             // 
+            this.applySettingsButton.Enabled = false;
             this.applySettingsButton.Location = new System.Drawing.Point(219, 338);
             this.applySettingsButton.Name = "applySettingsButton";
             this.applySettingsButton.Size = new System.Drawing.Size(116, 23);
             this.applySettingsButton.TabIndex = 14;
+            this.applySettingsButton.Tag = "";
             this.applySettingsButton.Text = "Apply Settings";
             this.applySettingsButton.UseVisualStyleBackColor = true;
             this.applySettingsButton.Click += new System.EventHandler(this.applySettingsButton_Click);

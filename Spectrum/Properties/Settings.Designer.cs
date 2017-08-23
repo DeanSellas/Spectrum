@@ -70,5 +70,53 @@ namespace Spectrum.Properties {
                 this["port"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int redColor {
+            get {
+                return ((int)(this["redColor"]));
+            }
+            set {
+                this["redColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int greenColor {
+            get {
+                return ((int)(this["greenColor"]));
+            }
+            set {
+                this["greenColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int blueColor {
+            get {
+                return ((int)(this["blueColor"]));
+            }
+            set {
+                this["blueColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int delayValue {
+            get {
+                return ((int)(this["delayValue"]));
+            }
+            set {
+                this["delayValue"] = value;
+            }
+        }
     }
 }
