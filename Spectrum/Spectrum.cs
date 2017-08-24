@@ -80,7 +80,6 @@ namespace Spectrum {
 
         // Connects to Port
         private void portConnectButton_Click(object sender, EventArgs e) {
-            
             try {
                 //if (serialPort1.IsOpen) portConnect(false);
                 if (!Settings.Default.isConnected) portConnect(true);
@@ -176,35 +175,6 @@ namespace Spectrum {
             }
         }
 
-        /* Apply Settings Button
-        private void applySettingsButton_Click(object sender, EventArgs e) {
-
-            // Connect at Startup Settings
-            if (startupConnectCheckBox.Checked) Settings.Default.connectOnStartupBool = true;
-            else Settings.Default.connectOnStartupBool = false;
-
-            // Close to Tray Settings
-            if (closeToTrayCheckbox.Checked) Settings.Default.closeToTrayBool = true;
-            else Settings.Default.closeToTrayBool = false;
-
-            // Start With Windows
-            if (windowsCheckbox.Checked) {
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
-                    key.SetValue("Spectrum", "\"" + Application.ExecutablePath + "\"");
-                    Settings.Default.windowsStartupBool = true;
-                }
-            }
-            else {
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
-                    key.DeleteValue("Spectrum", false);
-                    Settings.Default.windowsStartupBool = false;
-                }
-            }
-
-            Settings.Default.Save();
-            applySettingsButton.Enabled = false;
-        }*/
-
 
         // MENU BAR SETTINGS
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -227,7 +197,7 @@ namespace Spectrum {
 
         // Link to Documentation
         private void documentationToolStripMenuItem_Click(object sender, EventArgs e) {
-            MessageBox.Show("Documentation is not ready at this time");
+            Process.Start("https://github.com/DeanSellas/Spectrum/wiki");
         }
 
         // Reset Settings
