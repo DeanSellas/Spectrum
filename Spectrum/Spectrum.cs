@@ -26,6 +26,9 @@ namespace Spectrum {
         spectrumFormMain spectrumForm;
         SettingsForm settingsForm;
 
+        // String
+        string currentVersion = Application.ProductVersion;
+
 
         // In The Begining...
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,13 +42,16 @@ namespace Spectrum {
             settingsForm = new SettingsForm();
             if (Settings.Default.connectOnStartupBool) Settings.Default.isConnected = true;
             else Settings.Default.isConnected = false;
-            if (!Settings.Default.isConnected) startupConnectCheckBox.Enabled = false;
+            //if (!Settings.Default.isConnected) startupConnectCheckBox.Enabled = false;
             
             
 
             redValue.Value = Settings.Default.redColor;
             greenValue.Value = Settings.Default.greenColor;
             blueValue.Value = Settings.Default.blueColor;
+
+            // Sets Title
+            spectrumForm.Text = "Spectrum " + currentVersion;
 
         }
 
@@ -170,27 +176,7 @@ namespace Spectrum {
             }
         }
 
-
-
-        // CHECKBOX SETTINGS -- WILL BE MOVING TO ANOTHER FORM SOON
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-        private void settingsCheckboxes_CheckedChanged(object sender, EventArgs e) {
-            if (Settings.Default.connectOnStartupBool != startupConnectCheckBox.Checked) {
-                applySettingsButton.Enabled = true;
-            }
-            else if (Settings.Default.closeToTrayBool != closeToTrayCheckbox.Checked) {
-                applySettingsButton.Enabled = true;
-            }
-            else if (Settings.Default.windowsStartupBool != windowsCheckbox.Checked) {
-                applySettingsButton.Enabled = true;
-            }
-            else applySettingsButton.Enabled = false;
-        }
-
-
-        // Apply Settings Button
+        /* Apply Settings Button
         private void applySettingsButton_Click(object sender, EventArgs e) {
 
             // Connect at Startup Settings
@@ -217,7 +203,7 @@ namespace Spectrum {
 
             Settings.Default.Save();
             applySettingsButton.Enabled = false;
-        }
+        }*/
 
 
         // MENU BAR SETTINGS
@@ -233,6 +219,7 @@ namespace Spectrum {
             Settings.Default.Save();
         }
 
+        // Show Settings
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
             settingsForm = new SettingsForm();
             settingsForm.Show();
@@ -248,18 +235,19 @@ namespace Spectrum {
 
 
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to reset all your settings?", "RESET SETTINGS", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
+            // If Yes
             if (dialogResult == DialogResult.Yes) {
+
+                // Delete Startup Reg Key
                 try {
                     using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
                         key.DeleteValue("Spectrum", false);
                     }
                 }
+                // Reset Settings
                 finally {Settings.Default.Reset();}
                 
             }
-
-
         }
 
         // Link to Github
@@ -287,17 +275,26 @@ namespace Spectrum {
         private void connectToolStripMenuItem_Click(object sender, EventArgs e) {
             if (Settings.Default.isConnected) portConnect(false); else portConnect(true);
         }
+
         // Context Menu Show/Hide
         private void showToolStripMenuItem_Click(object sender, EventArgs e) {
             if (spectrumForm.Visible) Hide(); else Show();
         }
 
+        // Context Menu Settings
+        private void settingsToolStripMenuItem1_Click(object sender, EventArgs e) {
+            settingsForm = new SettingsForm();
+            settingsForm.Show();
+        }
+
+        // Context Menu Exit
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
             exitFromTray = true;
             Close();
         }
 
         
+
     }
 
 
