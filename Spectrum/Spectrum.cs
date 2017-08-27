@@ -20,11 +20,12 @@ namespace Spectrum {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         //Boolin
-        bool exitFromTray = false;
+        bool userExit = false;
 
         // Forms
         spectrumFormMain spectrumForm;
         SettingsForm settingsForm;
+        UpdateForm updateForm;
 
         // String
         string currentVersion = Application.ProductVersion;
@@ -52,6 +53,7 @@ namespace Spectrum {
 
             // Sets Title
             spectrumForm.Text = "Spectrum " + currentVersion;
+            Console.WriteLine("Current Version: " + currentVersion);
 
         }
 
@@ -67,7 +69,7 @@ namespace Spectrum {
         // On Form Close
         private void spectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
             // Close App To Tray
-            if (Settings.Default.closeToTrayBool && !exitFromTray) {
+            if (Settings.Default.closeToTrayBool && !userExit) {
                 e.Cancel = true;
                 Hide();
                 settingsForm.Close();
@@ -196,6 +198,25 @@ namespace Spectrum {
             settingsForm.Show();
         }
 
+        // Check For Updates
+        private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e) {
+            updateForm = new UpdateForm();
+            updateForm.SpectrumUpdate(currentVersion);
+        }
+
+        // Exit Spectrum
+        private void exitToolStripMenuItem1_Click(object sender, EventArgs e) {
+            if (Settings.Default.closeToTrayBool) {
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to close Spectrum?", "Close Spectrum", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (dialogResult == DialogResult.Yes) {
+                    userExit = true;
+                    Close();
+                }
+            }
+            else Close();
+        }
+
         // Link to Documentation
         private void documentationToolStripMenuItem_Click(object sender, EventArgs e) {
             Process.Start("https://github.com/DeanSellas/Spectrum/wiki");
@@ -260,12 +281,11 @@ namespace Spectrum {
 
         // Context Menu Exit
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
-            exitFromTray = true;
+            userExit = true;
             Close();
         }
 
         
-
     }
 
 
