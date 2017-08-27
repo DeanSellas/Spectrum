@@ -20,7 +20,7 @@ namespace Spectrum {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         //Boolin
-        bool userExit = false;
+        public bool userExit = false;
 
         // Forms
         spectrumFormMain spectrumForm;
@@ -200,7 +200,7 @@ namespace Spectrum {
 
         // Check For Updates
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e) {
-            updateForm = new UpdateForm();
+            updateForm = new UpdateForm(null, null);
             updateForm.SpectrumUpdate(currentVersion);
         }
 
