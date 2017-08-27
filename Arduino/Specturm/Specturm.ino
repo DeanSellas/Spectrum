@@ -166,6 +166,26 @@ void rainbow(long wait){
   if(sentCommand) sentCommand = false;
 }
 
+
+void fullRainbow(long wait) {
+// Delay
+  unsigned long currentMillis = millis();
+  if(currentMillis - previousMillis > wait || sentCommand) {
+    previousMillis = currentMillis;
+    
+    if(j < 256*5){
+
+      for(i=0; i<stripLength; i++) {
+        strip.setPixelColor(i, Wheel(((i * 256 / stripLength) + j) & 255));
+      }
+
+      strip.show();
+      j++;
+    } else j = 0;
+  }
+  if(sentCommand) sentCommand = false;
+}
+
 // Input a value 0 to 255 to get a color value.
 // The colours are a transition r - g - b - back to r.
 long Wheel(byte WheelPos) {

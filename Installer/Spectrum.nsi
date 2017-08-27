@@ -2,6 +2,32 @@
 ;Welcome/Finish Page Example Script
 ;Written by Joost Verburg
 
+
+
+
+; Uninstall Before Upgrade
+  Function .onInit
+
+ ReadRegStr $R0 HKLM Software\Microsoft\Windows\CurrentVersion\Uninstall\Spectrum" \
+  "UninstallString"
+  StrCmp $R0 "" done
+  
+MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
+  "Spectrum is already installed. $\n$\nClick `OK` to remove the \
+  previous version or `Cancel` to cancel this upgrade." \
+  IDOK uninst
+  Abort
+ 
+;Run the uninstaller
+uninst:
+    ClearErrors
+    Exec "$INSTDIR\SpectrumUninstall.exe"
+  done:
+ 
+FunctionEnd
+
+
+
 ;--------------------------------
 ;Include Modern UI
 
@@ -9,12 +35,13 @@
   !include "nsDialogs.nsh"
   
 
+
 ;--------------------------------
 ;General
 
   ;Name and file
   Name "Spectrum"
-  OutFile "Spectrum.exe"
+  OutFile "spectrumv0.0.1setup.exe"
   
   !define MUI_PRODUCT "Spectrum"
   !define MUI_FILE "Spectrum"
@@ -26,7 +53,7 @@
   ;Get installation folder from registry if available
   InstallDirRegKey HKCU "Software\Spectrum" ""
 
-  ;Request application privileges for Windows Vista
+  ;Request application privileges for Windows
   RequestExecutionLevel admin
 
 ;--------------------------------
@@ -108,8 +135,6 @@ SectionEnd
 ;Uninstaller Section
 
 Section "Uninstall"
-
-
 
   ;ADD YOUR OWN FILES HERE...
 
