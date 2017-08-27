@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.applySettingsButton = new System.Windows.Forms.Button();
             this.windowsCheckbox = new System.Windows.Forms.CheckBox();
             this.startupConnectCheckBox = new System.Windows.Forms.CheckBox();
@@ -87,6 +88,7 @@
             this.Controls.Add(this.windowsCheckbox);
             this.Controls.Add(this.startupConnectCheckBox);
             this.Controls.Add(this.closeToTrayCheckbox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
             this.Text = "SettingsForm";
             this.ResumeLayout(false);

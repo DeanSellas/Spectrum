@@ -1,0 +1,18 @@
+Spectrum Changelog
+=============================================
+
+CREATOR: DEAN SELLAS
+WEBSITE: http://deansellas.com/spectrum/
+GITHUB: https://github.com/DeanSellas/Spectrum
+ROADMAP: https://github.com/DeanSellas/Spectrum/projects
+SUPPORT: https://github.com/DeanSellas/Spectrum/issues or https://github.com/DeanSellas/Spectrum/wiki
+TWITTER: https://twitter.com/DeanSellas
+
+
+Alpha v0.1
+---------------------------------------------
++ ADDED: Ability To Control Arduino Board
++ ADDED: Custom Variables For Functions
++ ADDED: Settings Menu
+
+# CHANGED: Nothing. This is the first Release

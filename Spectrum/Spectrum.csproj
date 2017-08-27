@@ -115,7 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\Spectrum.ico" />
-    <Content Include="Spectrum.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

@@ -70,6 +70,7 @@ namespace Spectrum {
             if (Settings.Default.closeToTrayBool && !exitFromTray) {
                 e.Cancel = true;
                 Hide();
+                settingsForm.Close();
             }
         }
 
