@@ -46,7 +46,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Assets\Images\Spectrum.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\icons\Spectrum.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -114,7 +114,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Images\Spectrum.ico" />
+    <Content Include="Assets\icons\Spectrum.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

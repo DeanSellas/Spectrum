@@ -211,7 +211,7 @@ namespace Spectrum {
         // Exit Spectrum
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e) {
             if (Settings.Default.closeToTrayBool) {
-                DialogResult dialogResult = MessageBox.Show("Are you sure you want to close Spectrum?", "Close Spectrum", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to exit Spectrum?", "Close Spectrum", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                 if (dialogResult == DialogResult.Yes) {
                     userExit = true;
@@ -248,6 +248,11 @@ namespace Spectrum {
         // Link to Github
         private void githubToolStripMenuItem_Click(object sender, EventArgs e) {
             Process.Start("https://github.com/DeanSellas/Spectrum");
+        }
+
+        // Report Bug
+        private void reportBugToolStripMenuItem_Click(object sender, EventArgs e) {
+            Process.Start("https://github.com/DeanSellas/Spectrum/issues");
         }
 
         // Donate Button
@@ -287,6 +292,8 @@ namespace Spectrum {
             userExit = true;
             Close();
         }
+
+        
     }
 
 

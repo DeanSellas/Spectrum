@@ -31,6 +31,8 @@ namespace Spectrum {
             installerName = installer;
             downloadLocation = download;
 
+            postponeCombobox.SelectedIndex = 0;
+
         }
 
         // Check For Product Updates

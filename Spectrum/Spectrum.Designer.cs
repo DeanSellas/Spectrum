@@ -60,6 +60,7 @@
             this.delayValue = new System.Windows.Forms.NumericUpDown();
             this.delayLabel = new System.Windows.Forms.Label();
             this.connectedStatusLabel = new System.Windows.Forms.Label();
+            this.reportBugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.redValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueValue)).BeginInit();
@@ -294,8 +295,9 @@
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.documentationToolStripMenuItem,
-            this.resetSettingsToolStripMenuItem,
-            this.githubToolStripMenuItem});
+            this.reportBugToolStripMenuItem,
+            this.githubToolStripMenuItem,
+            this.resetSettingsToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -323,10 +325,10 @@
             // 
             // donateToolStripMenuItem
             // 
+            this.donateToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.donateToolStripMenuItem.Name = "donateToolStripMenuItem";
             this.donateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.donateToolStripMenuItem.Text = "Donate";
-            this.donateToolStripMenuItem.Visible = false;
             this.donateToolStripMenuItem.Click += new System.EventHandler(this.donateToolStripMenuItem_Click);
             // 
             // rainbowButton
@@ -382,6 +384,13 @@
             this.connectedStatusLabel.TabIndex = 11;
             this.connectedStatusLabel.Text = "Not Connected";
             this.connectedStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // reportBugToolStripMenuItem
+            // 
+            this.reportBugToolStripMenuItem.Name = "reportBugToolStripMenuItem";
+            this.reportBugToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.reportBugToolStripMenuItem.Text = "Report Bug";
+            this.reportBugToolStripMenuItem.Click += new System.EventHandler(this.reportBugToolStripMenuItem_Click);
             // 
             // spectrumFormMain
             // 
@@ -460,6 +469,7 @@
         private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem reportBugToolStripMenuItem;
     }
 }
 

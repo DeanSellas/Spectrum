@@ -28,6 +28,7 @@
             this.downloadButton = new System.Windows.Forms.Button();
             this.downloadProgressBar = new System.Windows.Forms.ProgressBar();
             this.postponeButton = new System.Windows.Forms.Button();
+            this.postponeCombobox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // webBrowser1
@@ -63,7 +64,7 @@
             // 
             // postponeButton
             // 
-            this.postponeButton.Location = new System.Drawing.Point(318, 363);
+            this.postponeButton.Location = new System.Drawing.Point(210, 363);
             this.postponeButton.Name = "postponeButton";
             this.postponeButton.Size = new System.Drawing.Size(112, 23);
             this.postponeButton.TabIndex = 3;
@@ -71,17 +72,36 @@
             this.postponeButton.UseVisualStyleBackColor = true;
             this.postponeButton.Click += new System.EventHandler(this.postponeButton_Click);
             // 
+            // postponeCombobox
+            // 
+            this.postponeCombobox.DisplayMember = "0";
+            this.postponeCombobox.FormattingEnabled = true;
+            this.postponeCombobox.Items.AddRange(new object[] {
+            "1 Day",
+            "2 Days",
+            "3 Days",
+            "4 Days",
+            "1 Week",
+            "2 Weeks"});
+            this.postponeCombobox.Location = new System.Drawing.Point(328, 363);
+            this.postponeCombobox.Name = "postponeCombobox";
+            this.postponeCombobox.Size = new System.Drawing.Size(121, 21);
+            this.postponeCombobox.TabIndex = 4;
+            // 
             // UpdateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(459, 427);
+            this.Controls.Add(this.postponeCombobox);
             this.Controls.Add(this.postponeButton);
             this.Controls.Add(this.downloadProgressBar);
             this.Controls.Add(this.downloadButton);
             this.Controls.Add(this.webBrowser1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "UpdateForm";
             this.Text = "Update";
             this.ResumeLayout(false);
@@ -94,5 +114,6 @@
         private System.Windows.Forms.Button downloadButton;
         private System.Windows.Forms.ProgressBar downloadProgressBar;
         private System.Windows.Forms.Button postponeButton;
+        private System.Windows.Forms.ComboBox postponeCombobox;
     }
 }
