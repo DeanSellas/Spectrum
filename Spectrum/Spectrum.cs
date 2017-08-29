@@ -18,7 +18,7 @@ namespace Spectrum {
 
         // Variables
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         //Boolin
         public bool userExit = false;
 
@@ -35,17 +35,17 @@ namespace Spectrum {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public spectrumFormMain() {
             InitializeComponent();
-            
+
             listSerialPorts();
-            
+
             // Sets Current Form | Used for Context Menu
             spectrumForm = this;
             settingsForm = new SettingsForm();
             if (Settings.Default.connectOnStartupBool) Settings.Default.isConnected = true;
             else Settings.Default.isConnected = false;
             //if (!Settings.Default.isConnected) startupConnectCheckBox.Enabled = false;
-            
-            
+
+
 
             redValue.Value = Settings.Default.redColor;
             greenValue.Value = Settings.Default.greenColor;
@@ -58,14 +58,17 @@ namespace Spectrum {
         }
 
         // On Form Load
-        private void spectrumFormMain_Load(object sender, EventArgs e) {
+        private void spectrumFormMain_Shown(object sender, EventArgs e) {
+            if (Settings.Default.startMinimizedBool) Hide();
+
             if (Settings.Default.connectOnStartupBool && Settings.Default.port != "") {
                 serialPort1.PortName = Settings.Default.port;
                 portConnect(true);
             }
+
             buttonEnable();
         }
-        
+
         // On Form Close
         private void spectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
             // Close App To Tray
@@ -87,8 +90,7 @@ namespace Spectrum {
                 //if (serialPort1.IsOpen) portConnect(false);
                 if (!Settings.Default.isConnected) portConnect(true);
                 else portConnect(false);
-            }
-            catch {
+            } catch {
                 MessageBox.Show("Could not connect please make sure the arduino is plugged in and that you have selected the correct port", "Could Not Connect", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -108,7 +110,7 @@ namespace Spectrum {
             if (blueValue.Value < 10) blue = "00" + blue; if (blueValue.Value >= 10 && blueValue.Value < 100) blue = "0" + blue;
 
             serialPort1.WriteLine("SolidColor" + red + green + blue);
-            Console.WriteLine("SolidColor"+red + green + blue);
+            Console.WriteLine("SolidColor" + red + green + blue);
         }
 
         // Rainbow Animation Button
@@ -127,17 +129,21 @@ namespace Spectrum {
         private void listSerialPorts() {
             // Get a list of serial port names.
             string[] ports = SerialPort.GetPortNames();
-
+            int portsVal = 0;
             Console.WriteLine("The following serial ports were found:");
 
             // Display each port name to the console.
             foreach (string port in ports) {
                 Console.WriteLine(port);
                 serialComboBox.Items.Add(port);
+                portsVal++;
             }
-            
+
+            Console.WriteLine(serialComboBox.SelectionLength);
             // Sets Combo Box to First COM Port
-            serialComboBox.SelectedIndex = 0;
+            if (portsVal != 0) serialComboBox.SelectedIndex = 0;
+            else MessageBox.Show("No serial ports found please make sure your arduino is plugged in. If the problem presits please submit a support ticket", "No Serial Ports Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
         }
 
         // Port Connect/Disconnect
@@ -154,8 +160,7 @@ namespace Spectrum {
                 Settings.Default.isConnected = true;
                 settingsForm.startupConnectCheckBox.Enabled = true;
                 Settings.Default.port = port;
-            }
-            else {
+            } else {
                 serialPort1.Close();
                 connectedStatusLabel.Text = "Not Connected";
                 connectedStatusLabel.BackColor = Color.Red;
@@ -171,8 +176,7 @@ namespace Spectrum {
             if (Settings.Default.isConnected) {
                 solidColorButton.Enabled = true;
                 rainbowButton.Enabled = true;
-            }
-            else {
+            } else {
                 solidColorButton.Enabled = false;
                 rainbowButton.Enabled = false;
             }
@@ -213,8 +217,7 @@ namespace Spectrum {
                     userExit = true;
                     Close();
                 }
-            }
-            else Close();
+            } else Close();
         }
 
         // Link to Documentation
@@ -237,8 +240,8 @@ namespace Spectrum {
                     }
                 }
                 // Reset Settings
-                finally {Settings.Default.Reset();}
-                
+                finally { Settings.Default.Reset(); }
+
             }
         }
 
@@ -284,8 +287,6 @@ namespace Spectrum {
             userExit = true;
             Close();
         }
-
-        
     }
 
 

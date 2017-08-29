@@ -27,6 +27,7 @@
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.downloadButton = new System.Windows.Forms.Button();
             this.downloadProgressBar = new System.Windows.Forms.ProgressBar();
+            this.postponeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // webBrowser1
@@ -47,7 +48,7 @@
             // 
             this.downloadButton.Location = new System.Drawing.Point(12, 363);
             this.downloadButton.Name = "downloadButton";
-            this.downloadButton.Size = new System.Drawing.Size(100, 23);
+            this.downloadButton.Size = new System.Drawing.Size(111, 23);
             this.downloadButton.TabIndex = 1;
             this.downloadButton.Text = "Download";
             this.downloadButton.UseVisualStyleBackColor = true;
@@ -60,11 +61,22 @@
             this.downloadProgressBar.Size = new System.Drawing.Size(435, 23);
             this.downloadProgressBar.TabIndex = 2;
             // 
+            // postponeButton
+            // 
+            this.postponeButton.Location = new System.Drawing.Point(318, 363);
+            this.postponeButton.Name = "postponeButton";
+            this.postponeButton.Size = new System.Drawing.Size(112, 23);
+            this.postponeButton.TabIndex = 3;
+            this.postponeButton.Text = "Postpone Update";
+            this.postponeButton.UseVisualStyleBackColor = true;
+            this.postponeButton.Click += new System.EventHandler(this.postponeButton_Click);
+            // 
             // UpdateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(459, 427);
+            this.Controls.Add(this.postponeButton);
             this.Controls.Add(this.downloadProgressBar);
             this.Controls.Add(this.downloadButton);
             this.Controls.Add(this.webBrowser1);
@@ -81,5 +93,6 @@
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.Button downloadButton;
         private System.Windows.Forms.ProgressBar downloadProgressBar;
+        private System.Windows.Forms.Button postponeButton;
     }
 }

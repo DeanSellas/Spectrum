@@ -28,6 +28,7 @@
             this.windowsCheckbox = new System.Windows.Forms.CheckBox();
             this.startupConnectCheckBox = new System.Windows.Forms.CheckBox();
             this.closeToTrayCheckbox = new System.Windows.Forms.CheckBox();
+            this.startMinCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // applySettingsButton
@@ -58,7 +59,7 @@
             // 
             this.startupConnectCheckBox.AutoSize = true;
             this.startupConnectCheckBox.Enabled = false;
-            this.startupConnectCheckBox.Location = new System.Drawing.Point(82, 84);
+            this.startupConnectCheckBox.Location = new System.Drawing.Point(82, 64);
             this.startupConnectCheckBox.Name = "startupConnectCheckBox";
             this.startupConnectCheckBox.Size = new System.Drawing.Size(120, 17);
             this.startupConnectCheckBox.TabIndex = 16;
@@ -70,7 +71,7 @@
             // closeToTrayCheckbox
             // 
             this.closeToTrayCheckbox.AutoSize = true;
-            this.closeToTrayCheckbox.Location = new System.Drawing.Point(82, 107);
+            this.closeToTrayCheckbox.Location = new System.Drawing.Point(82, 87);
             this.closeToTrayCheckbox.Name = "closeToTrayCheckbox";
             this.closeToTrayCheckbox.Size = new System.Drawing.Size(92, 17);
             this.closeToTrayCheckbox.TabIndex = 15;
@@ -79,11 +80,24 @@
             this.closeToTrayCheckbox.UseVisualStyleBackColor = true;
             this.closeToTrayCheckbox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
             // 
+            // startMinCheckbox
+            // 
+            this.startMinCheckbox.AutoSize = true;
+            this.startMinCheckbox.Location = new System.Drawing.Point(82, 110);
+            this.startMinCheckbox.Name = "startMinCheckbox";
+            this.startMinCheckbox.Size = new System.Drawing.Size(97, 17);
+            this.startMinCheckbox.TabIndex = 19;
+            this.startMinCheckbox.Tag = "";
+            this.startMinCheckbox.Text = "Start Minimized";
+            this.startMinCheckbox.UseVisualStyleBackColor = true;
+            this.startMinCheckbox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.startMinCheckbox);
             this.Controls.Add(this.applySettingsButton);
             this.Controls.Add(this.windowsCheckbox);
             this.Controls.Add(this.startupConnectCheckBox);
@@ -102,5 +116,6 @@
         private System.Windows.Forms.CheckBox windowsCheckbox;
         private System.Windows.Forms.CheckBox closeToTrayCheckbox;
         public System.Windows.Forms.CheckBox startupConnectCheckBox;
+        private System.Windows.Forms.CheckBox startMinCheckbox;
     }
 }

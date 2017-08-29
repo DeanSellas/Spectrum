@@ -26,6 +26,18 @@ namespace Spectrum.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isConnected {
+            get {
+                return ((bool)(this["isConnected"]));
+            }
+            set {
+                this["isConnected"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool closeToTrayBool {
             get {
                 return ((bool)(this["closeToTrayBool"]));
@@ -122,12 +134,12 @@ namespace Spectrum.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isConnected {
+        public bool startMinimizedBool {
             get {
-                return ((bool)(this["isConnected"]));
+                return ((bool)(this["startMinimizedBool"]));
             }
             set {
-                this["isConnected"] = value;
+                this["startMinimizedBool"] = value;
             }
         }
     }

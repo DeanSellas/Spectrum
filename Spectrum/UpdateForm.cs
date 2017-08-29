@@ -45,7 +45,7 @@ namespace Spectrum {
 
                 // Sets Proper Variables
                 // Change != to == for testing purposes
-                if (currentVersion != onlineVersion) {
+                if (currentVersion == onlineVersion) {
                     updateAvailable = true;
                     installerName = "spectrumv" + onlineVersion + "setup.exe";
                     Console.WriteLine(installerName);
@@ -60,7 +60,7 @@ namespace Spectrum {
                 updateForm.ShowDialog();
                 
             }
-            else MessageBox.Show("You already have the latest version of Spectrum.");
+            else MessageBox.Show("You already have the latest version of Spectrum.", "No Updates Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Starts Download
@@ -75,6 +75,10 @@ namespace Spectrum {
             downloadButton.Text = "Downloading...";
             downloadButton.Enabled = false;
 
+        }
+
+        private void postponeButton_Click(object sender, EventArgs e) {
+            Close();
         }
 
         // Updates Progress Bar

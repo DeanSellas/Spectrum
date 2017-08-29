@@ -21,6 +21,7 @@ namespace Spectrum {
             // Sets Check Box
             if (Settings.Default.closeToTrayBool) closeToTrayCheckbox.Checked = true;
             if (Settings.Default.connectOnStartupBool) startupConnectCheckBox.Checked = true;
+            if (Settings.Default.startMinimizedBool) startMinCheckbox.Checked = true;
             if (Settings.Default.windowsStartupBool) windowsCheckbox.Checked = true;
         }
 
@@ -30,6 +31,9 @@ namespace Spectrum {
                 applySettingsButton.Enabled = true;
             }
             else if (Settings.Default.closeToTrayBool != closeToTrayCheckbox.Checked) {
+                applySettingsButton.Enabled = true;
+            }
+            else if(Settings.Default.startMinimizedBool != startMinCheckbox.Checked) {
                 applySettingsButton.Enabled = true;
             }
             else if (Settings.Default.windowsStartupBool != windowsCheckbox.Checked) {
@@ -49,6 +53,10 @@ namespace Spectrum {
             // Close to Tray Settings
             if (closeToTrayCheckbox.Checked) Settings.Default.closeToTrayBool = true;
             else Settings.Default.closeToTrayBool = false;
+
+            // Start Minimized
+            if (startMinCheckbox.Checked) Settings.Default.startMinimizedBool = true;
+            else Settings.Default.startMinimizedBool = false;
 
             // Start With Windows
             if (windowsCheckbox.Checked) {
