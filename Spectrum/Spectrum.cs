@@ -24,6 +24,7 @@ namespace Spectrum {
         //Boolin
         public bool userExit = false;
         bool checkForUpdate = false;
+        bool postponeUpdate = false;
 
 
         // Date Time
@@ -43,24 +44,29 @@ namespace Spectrum {
         public spectrumFormMain() {
             InitializeComponent();
 
-            // If Update At Startup is Applied
-            if (Settings.Default.startupUpdate) {
-                Settings.Default.lastUpdateCheck = DateTime.Now.Date;
-                Settings.Default.nextUpdateCheck = DateTime.Now.Date;
-                Console.WriteLine(Settings.Default.lastUpdateCheck);
-                Settings.Default.Save();
-                checkForUpdate = true;
+
+            if (Settings.Default.postponeUpdateDate == DateTime.Today) Settings.Default.postponeUpdateBool = false;
+
+            // If Postpone Update
+            if (!Settings.Default.postponeUpdateBool) {
+
+                // If Update At Startup is Applied
+                if (Settings.Default.startupUpdateDate) {
+                    Settings.Default.lastUpdateCheck = DateTime.Now.Date;
+                    Settings.Default.nextUpdateCheck = DateTime.Now.Date;
+                    Console.WriteLine(Settings.Default.lastUpdateCheck);
+                    Settings.Default.Save();
+                    checkForUpdate = true;
+                }
+                // Else
+                if (Settings.Default.updateComboBoxInt != 1) Settings.Default.startupUpdateDate = false;
+
+                if (Settings.Default.updateComboBoxInt == 2) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddDays(1);
+                if (Settings.Default.updateComboBoxInt == 3) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddDays(7);
+                if (Settings.Default.updateComboBoxInt == 4) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddMonths(1);
+                Console.WriteLine(Settings.Default.nextUpdateCheck);
+                if (Settings.Default.nextUpdateCheck == DateTime.Today) checkForUpdate = true;
             }
-
-            // Else
-            if (Settings.Default.updateComboBoxInt != 1) Settings.Default.startupUpdate = false;
-
-            // Sets Update Times
-            if (Settings.Default.updateComboBoxInt == 2) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddDays(1);
-            if (Settings.Default.updateComboBoxInt == 3) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddDays(7); 
-            if (Settings.Default.updateComboBoxInt == 4) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddMonths(1);
-            Console.WriteLine(Settings.Default.nextUpdateCheck);
-            if (Settings.Default.nextUpdateCheck == DateTime.Today) checkForUpdate = true;
 
             listSerialPorts();
 

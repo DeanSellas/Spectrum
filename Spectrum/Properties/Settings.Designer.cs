@@ -168,12 +168,12 @@ namespace Spectrum.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool startupUpdate {
+        public bool startupUpdateDate {
             get {
-                return ((bool)(this["startupUpdate"]));
+                return ((bool)(this["startupUpdateDate"]));
             }
             set {
-                this["startupUpdate"] = value;
+                this["startupUpdateDate"] = value;
             }
         }
         
@@ -186,6 +186,29 @@ namespace Spectrum.Properties {
             }
             set {
                 this["updateComboBoxInt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime postponeUpdateDate {
+            get {
+                return ((global::System.DateTime)(this["postponeUpdateDate"]));
+            }
+            set {
+                this["postponeUpdateDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool postponeUpdateBool {
+            get {
+                return ((bool)(this["postponeUpdateBool"]));
+            }
+            set {
+                this["postponeUpdateBool"] = value;
             }
         }
     }

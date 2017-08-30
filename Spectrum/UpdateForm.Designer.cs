@@ -64,7 +64,7 @@
             // 
             // postponeButton
             // 
-            this.postponeButton.Location = new System.Drawing.Point(253, 363);
+            this.postponeButton.Location = new System.Drawing.Point(253, 361);
             this.postponeButton.Name = "postponeButton";
             this.postponeButton.Size = new System.Drawing.Size(112, 23);
             this.postponeButton.TabIndex = 3;
