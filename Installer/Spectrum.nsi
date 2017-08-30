@@ -138,9 +138,9 @@ Section "Uninstall"
 
   ;ADD YOUR OWN FILES HERE...
 
-  Delete "$INSTDIR\*"
+  ;Delete "$INSTDIR\*\*"
 
-  RMDir "$INSTDIR"
+  RMDir /r "$INSTDIR"
 
   ;Delete Start Menu Shortcuts
   Delete "$DESKTOP\${MUI_PRODUCT}.lnk"

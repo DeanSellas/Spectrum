@@ -16,7 +16,6 @@ namespace Spectrum {
         int originalComboBoxVal = Settings.Default.updateComboBoxInt;
 
         bool checkChanged = false;
-
         public SettingsForm() {
             InitializeComponent();
 
@@ -34,8 +33,6 @@ namespace Spectrum {
 
 
             treeView1.TabIndex = 0;
-
-
         }
 
 
@@ -136,7 +133,6 @@ namespace Spectrum {
             }
             Settings.Default.Save();
         }
-
 
     }
 }

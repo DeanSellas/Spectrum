@@ -413,7 +413,6 @@
             this.offButton.TabIndex = 13;
             this.offButton.Text = "Off";
             this.offButton.UseVisualStyleBackColor = true;
-            this.offButton.Click += new System.EventHandler(this.offButton_Click);
             // 
             // spectrumFormMain
             // 

@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -50,6 +51,9 @@ namespace Spectrum {
         
         
         public spectrumFormMain() {
+
+            AppDomain.CurrentDomain.SetData("Spectrum.exe.config", Application.StartupPath+"/common");
+
             InitializeComponent();
 
             listSerialPorts();

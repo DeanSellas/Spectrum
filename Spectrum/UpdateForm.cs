@@ -15,9 +15,7 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Spectrum {
     public partial class UpdateForm : Form {
 
-
         UpdateForm updateForm;
-        spectrumFormMain spectrumMainForm;
 
         string installerName, downloadLocation, fileLoaction;
 
