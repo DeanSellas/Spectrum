@@ -64,7 +64,7 @@
             // 
             // postponeButton
             // 
-            this.postponeButton.Location = new System.Drawing.Point(210, 363);
+            this.postponeButton.Location = new System.Drawing.Point(253, 363);
             this.postponeButton.Name = "postponeButton";
             this.postponeButton.Size = new System.Drawing.Size(112, 23);
             this.postponeButton.TabIndex = 3;
@@ -83,9 +83,9 @@
             "4 Days",
             "1 Week",
             "2 Weeks"});
-            this.postponeCombobox.Location = new System.Drawing.Point(328, 363);
+            this.postponeCombobox.Location = new System.Drawing.Point(371, 363);
             this.postponeCombobox.Name = "postponeCombobox";
-            this.postponeCombobox.Size = new System.Drawing.Size(121, 21);
+            this.postponeCombobox.Size = new System.Drawing.Size(76, 21);
             this.postponeCombobox.TabIndex = 4;
             // 
             // UpdateForm

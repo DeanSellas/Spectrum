@@ -142,5 +142,51 @@ namespace Spectrum.Properties {
                 this["startMinimizedBool"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime lastUpdateCheck {
+            get {
+                return ((global::System.DateTime)(this["lastUpdateCheck"]));
+            }
+            set {
+                this["lastUpdateCheck"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime nextUpdateCheck {
+            get {
+                return ((global::System.DateTime)(this["nextUpdateCheck"]));
+            }
+            set {
+                this["nextUpdateCheck"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FirstLaunch {
+            get {
+                return ((bool)(this["FirstLaunch"]));
+            }
+            set {
+                this["FirstLaunch"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int updateComboBoxInt {
+            get {
+                return ((int)(this["updateComboBoxInt"]));
+            }
+            set {
+                this["updateComboBoxInt"] = value;
+            }
+        }
     }
 }

@@ -13,6 +13,10 @@ using System.Windows.Forms;
 namespace Spectrum {
     public partial class SettingsForm : Form {
 
+        int originalComboBoxVal = Settings.Default.updateComboBoxInt;
+
+        bool checkChanged = false;
+
         spectrumFormMain spectrumForm;
 
         public SettingsForm() {
@@ -23,22 +27,27 @@ namespace Spectrum {
             if (Settings.Default.connectOnStartupBool) startupConnectCheckBox.Checked = true;
             if (Settings.Default.startMinimizedBool) startMinCheckbox.Checked = true;
             if (Settings.Default.windowsStartupBool) windowsCheckbox.Checked = true;
+
+            updateComboBox.SelectedIndex = Settings.Default.updateComboBoxInt;
         }
 
 
         private void settingsCheckboxes_CheckedChanged(object sender, EventArgs e) {
             if (Settings.Default.connectOnStartupBool != startupConnectCheckBox.Checked) {
-                applySettingsButton.Enabled = true;
+                checkChanged = true;
             }
             else if (Settings.Default.closeToTrayBool != closeToTrayCheckbox.Checked) {
-                applySettingsButton.Enabled = true;
+                checkChanged = true;
             }
-            else if(Settings.Default.startMinimizedBool != startMinCheckbox.Checked) {
-                applySettingsButton.Enabled = true;
+            else if (Settings.Default.startMinimizedBool != startMinCheckbox.Checked) {
+                checkChanged = true;
             }
             else if (Settings.Default.windowsStartupBool != windowsCheckbox.Checked) {
-                applySettingsButton.Enabled = true;
+                checkChanged = true;
             }
+            else checkChanged = false;
+
+            if (checkChanged || Settings.Default.updateComboBoxInt != originalComboBoxVal) applySettingsButton.Enabled = true;
             else applySettingsButton.Enabled = false;
         }
 
@@ -74,6 +83,15 @@ namespace Spectrum {
 
             Settings.Default.Save();
             applySettingsButton.Enabled = false;
+        }
+
+
+        private void updateComboBox_SelectedIndexChanged(object sender, EventArgs e) {
+            Settings.Default.updateComboBoxInt = updateComboBox.SelectedIndex;
+
+            if(Settings.Default.updateComboBoxInt != originalComboBoxVal) applySettingsButton.Enabled = true;
+            else if (!checkChanged) applySettingsButton.Enabled = false;
+            
         }
     }
 }

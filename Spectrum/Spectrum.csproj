@@ -48,6 +48,9 @@
   <PropertyGroup>
     <ApplicationIcon>Assets\icons\Spectrum.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />

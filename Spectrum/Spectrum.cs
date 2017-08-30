@@ -22,6 +22,9 @@ namespace Spectrum {
         //Boolin
         public bool userExit = false;
 
+        // Date Time
+        DateTime currentTime = DateTime.Now.Date;
+
         // Forms
         spectrumFormMain spectrumForm;
         SettingsForm settingsForm;
@@ -35,6 +38,16 @@ namespace Spectrum {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public spectrumFormMain() {
             InitializeComponent();
+
+            if (Settings.Default.FirstLaunch) {
+                Settings.Default.lastUpdateCheck = DateTime.Now.Date;
+                Settings.Default.nextUpdateCheck = DateTime.Now.Date;
+                Console.WriteLine(Settings.Default.lastUpdateCheck);
+                Settings.Default.FirstLaunch = false;
+                Settings.Default.Save();
+            }
+
+            
 
             listSerialPorts();
 
@@ -55,6 +68,8 @@ namespace Spectrum {
             spectrumForm.Text = "Spectrum " + currentVersion;
             Console.WriteLine("Current Version: " + currentVersion);
 
+            
+
         }
 
         // On Form Load
@@ -64,6 +79,11 @@ namespace Spectrum {
             if (Settings.Default.connectOnStartupBool && Settings.Default.port != "") {
                 serialPort1.PortName = Settings.Default.port;
                 portConnect(true);
+            }
+            // Check For Updates On Startup
+            if (Settings.Default.nextUpdateCheck.Date != Settings.Default.lastUpdateCheck.Date) {
+                Settings.Default.lastUpdateCheck = DateTime.Now.Date;
+                checkForUpdatesToolStripMenuItem_Click(sender, e);
             }
 
             buttonEnable();
@@ -238,6 +258,7 @@ namespace Spectrum {
                     using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
                         key.DeleteValue("Spectrum", false);
                     }
+                    
                 }
                 // Reset Settings
                 finally { Settings.Default.Reset(); }

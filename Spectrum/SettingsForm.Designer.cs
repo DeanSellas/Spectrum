@@ -29,12 +29,14 @@
             this.startupConnectCheckBox = new System.Windows.Forms.CheckBox();
             this.closeToTrayCheckbox = new System.Windows.Forms.CheckBox();
             this.startMinCheckbox = new System.Windows.Forms.CheckBox();
+            this.updateComboBox = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // applySettingsButton
             // 
             this.applySettingsButton.Enabled = false;
-            this.applySettingsButton.Location = new System.Drawing.Point(86, 153);
+            this.applySettingsButton.Location = new System.Drawing.Point(82, 207);
             this.applySettingsButton.Name = "applySettingsButton";
             this.applySettingsButton.Size = new System.Drawing.Size(116, 23);
             this.applySettingsButton.TabIndex = 18;
@@ -92,11 +94,36 @@
             this.startMinCheckbox.UseVisualStyleBackColor = true;
             this.startMinCheckbox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
             // 
+            // updateComboBox
+            // 
+            this.updateComboBox.FormattingEnabled = true;
+            this.updateComboBox.Items.AddRange(new object[] {
+            "On Startup",
+            "On Startup Daily",
+            "On Startup Weekly",
+            "On Startup Monthly"});
+            this.updateComboBox.Location = new System.Drawing.Point(126, 166);
+            this.updateComboBox.Name = "updateComboBox";
+            this.updateComboBox.Size = new System.Drawing.Size(117, 21);
+            this.updateComboBox.TabIndex = 20;
+            this.updateComboBox.SelectedIndexChanged += new System.EventHandler(this.updateComboBox_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 169);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(114, 13);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "Check Updates Every:";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.updateComboBox);
             this.Controls.Add(this.startMinCheckbox);
             this.Controls.Add(this.applySettingsButton);
             this.Controls.Add(this.windowsCheckbox);
@@ -117,5 +144,7 @@
         private System.Windows.Forms.CheckBox closeToTrayCheckbox;
         public System.Windows.Forms.CheckBox startupConnectCheckBox;
         private System.Windows.Forms.CheckBox startMinCheckbox;
+        private System.Windows.Forms.ComboBox updateComboBox;
+        private System.Windows.Forms.Label label1;
     }
 }
