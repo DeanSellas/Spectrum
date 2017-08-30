@@ -22,6 +22,8 @@ namespace Spectrum {
         // Variables
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        
+        
         //Boolin
         public bool userExit = false;
         bool checkForUpdate = false;
@@ -44,6 +46,9 @@ namespace Spectrum {
 
         // In The Begining...
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        
+        
         public spectrumFormMain() {
             InitializeComponent();
 
@@ -68,7 +73,7 @@ namespace Spectrum {
 
             checkForUpdatesVoid(false, false);
 
-
+            rainbowTypeComboBox.SelectedIndex = 0;
         }
 
         // On Form Load
@@ -79,8 +84,6 @@ namespace Spectrum {
                 serialPort1.PortName = Settings.Default.port;
                 portConnect(true);
             }
-
-            
 
             buttonEnable();
         }
@@ -116,6 +119,13 @@ namespace Spectrum {
             }
         }
 
+
+
+        // Button Settings
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
         // Sets Solid Color
         private void solidColorButton_Click(object sender, EventArgs e) {
 
@@ -136,16 +146,28 @@ namespace Spectrum {
 
         // Rainbow Animation Button
         private void rainbowButton_Click(object sender, EventArgs e) {
+            string rainbowType = "";
+            if(rainbowTypeComboBox.SelectedIndex == 0) {
+                rainbowType = "RainbowCycle";
+            }
+            if(rainbowTypeComboBox.SelectedIndex == 1) {
+                rainbowType = "RainbowFull";
+            }
+
             var delay = delayValue.Value.ToString();
-            serialPort1.WriteLine("Rainbow" + delay);
-            Console.WriteLine("Rainbow" + delay);
+            serialPort1.WriteLine(rainbowType + delay);
+            Console.WriteLine(rainbowType + delay);
         }
+
+        private void offButton_Click(object sender, EventArgs e) {serialPort1.WriteLine("turnOff");}
 
 
 
         // CUSTOM FUNCTIONS
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        
+        
         // Lists Serial Ports for Combobox and Debugging
         private void listSerialPorts() {
             // Get a list of serial port names.
@@ -199,12 +221,15 @@ namespace Spectrum {
             if (Settings.Default.isConnected) {
                 solidColorButton.Enabled = true;
                 rainbowButton.Enabled = true;
+                offButton.Enabled = true;
             } else {
                 solidColorButton.Enabled = false;
                 rainbowButton.Enabled = false;
+                offButton.Enabled = false;
             }
         }
 
+        // Updates Void
         public void checkForUpdatesVoid(bool updateAvailable, bool userCheck) {
 
             // Reads Version.txt
@@ -223,8 +248,6 @@ namespace Spectrum {
                     downloadLocation = "https://github.com/DeanSellas/Spectrum/blob/master/Installer/" + installerName + "?raw=true";
                 }
             }
-
-
 
             if (Settings.Default.postponeUpdateDate == DateTime.Today) Settings.Default.postponeUpdateBool = false;
 
@@ -270,9 +293,13 @@ namespace Spectrum {
             }
         }
 
+
+
         // MENU BAR SETTINGS
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        
+        
         // Save Settings
         private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
 
@@ -286,7 +313,7 @@ namespace Spectrum {
         // Show Settings
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
             settingsForm = new SettingsForm();
-            settingsForm.ShowDialog();
+            settingsForm.Show();
         }
 
         // Check For Updates
@@ -353,6 +380,8 @@ namespace Spectrum {
         // CONTEXT MENU
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        
+        
         // Defines Context Menu Options
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e) {
             if (Settings.Default.isConnected) connectToolStripMenuItem.Text = "Disconnect"; else connectToolStripMenuItem.Text = "Connect";
@@ -372,16 +401,21 @@ namespace Spectrum {
         // Context Menu Settings
         private void settingsToolStripMenuItem1_Click(object sender, EventArgs e) {
             settingsForm = new SettingsForm();
-            settingsForm.ShowDialog();
+            settingsForm.Show();
         }
 
         // Context Menu Exit
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
-            userExit = true;
-            Close();
-        }
+            if (Settings.Default.closeToTrayBool) {
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to exit Spectrum?", "Close Spectrum", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
-        
+                if (dialogResult == DialogResult.Yes) {
+                    userExit = true;
+                    Close();
+                }
+            }
+            else Close();
+        }   
     }
 
 

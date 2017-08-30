@@ -130,9 +130,9 @@
             // treeView1
             // 
             this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView1.Indent = 19;
+            this.treeView1.Indent = 10;
             this.treeView1.ItemHeight = 20;
-            this.treeView1.Location = new System.Drawing.Point(12, 34);
+            this.treeView1.Location = new System.Drawing.Point(12, 42);
             this.treeView1.Name = "treeView1";
             treeNode1.Name = "generalNode";
             treeNode1.Text = "General";
@@ -142,8 +142,7 @@
             treeNode1,
             treeNode2});
             this.treeView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.treeView1.ShowRootLines = false;
-            this.treeView1.Size = new System.Drawing.Size(73, 208);
+            this.treeView1.Size = new System.Drawing.Size(64, 198);
             this.treeView1.TabIndex = 22;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
@@ -153,7 +152,7 @@
             this.generalSettingsGroupBox.Controls.Add(this.closeToTrayCheckbox);
             this.generalSettingsGroupBox.Controls.Add(this.windowsCheckbox);
             this.generalSettingsGroupBox.Controls.Add(this.startMinCheckbox);
-            this.generalSettingsGroupBox.Location = new System.Drawing.Point(111, 34);
+            this.generalSettingsGroupBox.Location = new System.Drawing.Point(82, 34);
             this.generalSettingsGroupBox.Name = "generalSettingsGroupBox";
             this.generalSettingsGroupBox.Size = new System.Drawing.Size(257, 208);
             this.generalSettingsGroupBox.TabIndex = 23;
@@ -187,7 +186,7 @@
             // 
             this.updatesGroupBox.Controls.Add(this.updateComboBox);
             this.updatesGroupBox.Controls.Add(this.label1);
-            this.updatesGroupBox.Location = new System.Drawing.Point(374, 34);
+            this.updatesGroupBox.Location = new System.Drawing.Point(381, 34);
             this.updatesGroupBox.Name = "updatesGroupBox";
             this.updatesGroupBox.Size = new System.Drawing.Size(257, 208);
             this.updatesGroupBox.TabIndex = 22;

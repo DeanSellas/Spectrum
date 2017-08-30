@@ -1,7 +1,6 @@
 
 long previousMillis = 0;
-bool rainbowAnimation = false;
-bool sentCommand = false;
+
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
   #include <avr/power.h>
@@ -38,6 +37,11 @@ int red = 255;
 int i = 0, j = 0;
 int wait = 100;
 
+
+bool rainbowCycleBool = false;
+bool rainbowFullBool = false;
+bool sentCommand = false;
+
 void setup() {
   Serial.begin(9600);
   strip.begin();
@@ -51,25 +55,48 @@ void loop() {
     //colorWipe(100, strip.Color(red, green, blue));
     //solidColor(strip.Color(0,255,0));
     String data = Serial.readString();
-    
-    if(data.substring(0,7) == "Rainbow" || rainbowAnimation){
+
+    // RainbowCycle Animation
+    if(data.substring(0,12) == "RainbowCycle" || rainbowCycleBool){
+
+      if(rainbowFullBool) rainbowFullBool = false;
+      
       // Reset Color
       if(data.substring(0,7) == "Rainbow"){
         i = 0, j = 0;
-        wait = data.substring(7).toInt();
+        wait = data.substring(12).toInt();
         sentCommand = true;
       }
       
       Serial.println(wait);
       
-      rainbowAnimation = true;
+      rainbowCycleBool = true;
       
-      rainbow(wait);
+      rainbowCycle(wait);
     }
 
+    // RainbowFull Animation
+    if(data.substring(0,11) == "RainbowFull" || rainbowFullBool){
+
+      if(rainbowCycleBool) rainbowCycleBool = false;
+      
+      // Reset Color
+      if(data.substring(0,7) == "Rainbow"){
+        i = 0, j = 0;
+        wait = data.substring(11).toInt();
+        sentCommand = true;
+      }
+      
+      Serial.println(wait);
+      
+      rainbowFullBool = true;
+      
+      rainbowFull(wait);
+    }
     
     if(data.substring(0,10) == "SolidColor"){
-      rainbowAnimation = false;
+      if(rainbowCycleBool) rainbowCycleBool = false;
+      if(rainbowFullBool) rainbowFullBool = false;
 
       
       String redString = data.substring(10,13);
@@ -77,8 +104,11 @@ void loop() {
       String blueString = data.substring(16,19);
       solidColor(strip.Color(redString.toInt(),greenString.toInt(),blueString.toInt()));
     }
-    if(data == "Off"){
-      rainbowAnimation= false;
+
+    // Turns Lights Off
+    if(data.substring(0,7) == "turnOff"){
+      if(rainbowCycleBool) rainbowCycleBool = false;
+      if(rainbowFullBool) rainbowFullBool = false;
 
       
       strip.clear();
@@ -146,7 +176,7 @@ void solidColor(float color){
 }
 
 
-void rainbow(long wait){
+void rainbowCycle(long wait){
 
   // Delay
   unsigned long currentMillis = millis();
@@ -167,7 +197,7 @@ void rainbow(long wait){
 }
 
 
-void fullRainbow(long wait) {
+void rainbowFull(long wait) {
 // Delay
   unsigned long currentMillis = millis();
   if(currentMillis - previousMillis > wait || sentCommand) {

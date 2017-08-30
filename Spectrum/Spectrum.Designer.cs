@@ -61,6 +61,8 @@
             this.delayValue = new System.Windows.Forms.NumericUpDown();
             this.delayLabel = new System.Windows.Forms.Label();
             this.connectedStatusLabel = new System.Windows.Forms.Label();
+            this.rainbowTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.offButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.redValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueValue)).BeginInit();
@@ -351,7 +353,7 @@
             // delayValue
             // 
             this.delayValue.InterceptArrowKeys = false;
-            this.delayValue.Location = new System.Drawing.Point(288, 194);
+            this.delayValue.Location = new System.Drawing.Point(385, 194);
             this.delayValue.Maximum = new decimal(new int[] {
             276447232,
             23283,
@@ -374,7 +376,7 @@
             // delayLabel
             // 
             this.delayLabel.AutoSize = true;
-            this.delayLabel.Location = new System.Drawing.Point(149, 196);
+            this.delayLabel.Location = new System.Drawing.Point(246, 196);
             this.delayLabel.Name = "delayLabel";
             this.delayLabel.Size = new System.Drawing.Size(133, 13);
             this.delayLabel.TabIndex = 2;
@@ -392,6 +394,27 @@
             this.connectedStatusLabel.Text = "Not Connected";
             this.connectedStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // rainbowTypeComboBox
+            // 
+            this.rainbowTypeComboBox.FormattingEnabled = true;
+            this.rainbowTypeComboBox.Items.AddRange(new object[] {
+            "Cycle",
+            "Full Rainbow"});
+            this.rainbowTypeComboBox.Location = new System.Drawing.Point(149, 191);
+            this.rainbowTypeComboBox.Name = "rainbowTypeComboBox";
+            this.rainbowTypeComboBox.Size = new System.Drawing.Size(91, 21);
+            this.rainbowTypeComboBox.TabIndex = 12;
+            // 
+            // offButton
+            // 
+            this.offButton.Location = new System.Drawing.Point(236, 250);
+            this.offButton.Name = "offButton";
+            this.offButton.Size = new System.Drawing.Size(75, 38);
+            this.offButton.TabIndex = 13;
+            this.offButton.Text = "Off";
+            this.offButton.UseVisualStyleBackColor = true;
+            this.offButton.Click += new System.EventHandler(this.offButton_Click);
+            // 
             // spectrumFormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -399,6 +422,8 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(559, 372);
+            this.Controls.Add(this.offButton);
+            this.Controls.Add(this.rainbowTypeComboBox);
             this.Controls.Add(this.connectedStatusLabel);
             this.Controls.Add(this.rainbowButton);
             this.Controls.Add(this.label1);
@@ -472,6 +497,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem reportBugToolStripMenuItem;
+        private System.Windows.Forms.ComboBox rainbowTypeComboBox;
+        private System.Windows.Forms.Button offButton;
     }
 }
 
