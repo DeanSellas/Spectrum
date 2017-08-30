@@ -17,8 +17,6 @@ namespace Spectrum {
 
         bool checkChanged = false;
 
-        spectrumFormMain spectrumForm;
-
         public SettingsForm() {
             InitializeComponent();
 

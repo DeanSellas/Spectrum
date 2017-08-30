@@ -18,7 +18,6 @@ namespace Spectrum {
         bool updateAvailable = false;
 
         UpdateForm updateForm;
-        spectrumFormMain spectrumForm;
 
         string installerName, downloadLocation, fileLoaction;
 
@@ -48,7 +47,7 @@ namespace Spectrum {
 
                 // Sets Proper Variables
                 // Change != to == for testing purposes
-                if (currentVersion == onlineVersion) {
+                if (currentVersion != onlineVersion) {
                     updateAvailable = true;
                     installerName = "spectrumv" + onlineVersion + "setup.exe";
                     Console.WriteLine(installerName);

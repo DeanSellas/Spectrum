@@ -12,14 +12,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+// I DONE GOOFED ON THE UPDATES I WILL FIX IT TOMORROW...
+
+
+
 namespace Spectrum {
 
     public partial class spectrumFormMain : Form {
 
         // Variables
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        
 
         //Boolin
         public bool userExit = false;
@@ -43,28 +46,6 @@ namespace Spectrum {
         public spectrumFormMain() {
             InitializeComponent();
 
-
-            if (Settings.Default.postponeUpdateDate == DateTime.Today) Settings.Default.postponeUpdateBool = false;
-
-            // If Postpone Update
-            if (!Settings.Default.postponeUpdateBool) {
-
-                // If Update At Startup Not Applied
-                if (Settings.Default.updateComboBoxInt != 1) Settings.Default.startupUpdateDate = false;
-                else {
-                    Settings.Default.lastUpdateCheck = DateTime.Now.Date;
-                    Settings.Default.nextUpdateCheck = DateTime.Now.Date;
-                    checkForUpdate = true;
-                }
-                
-
-                if (Settings.Default.updateComboBoxInt == 2) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddDays(1);
-                if (Settings.Default.updateComboBoxInt == 3) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddDays(7);
-                if (Settings.Default.updateComboBoxInt == 4) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddMonths(1);
-                Console.WriteLine(Settings.Default.nextUpdateCheck);
-                if (Settings.Default.nextUpdateCheck == DateTime.Today && Settings.Default.updateComboBoxInt != 0) checkForUpdate = true;
-            }
-
             listSerialPorts();
 
             // Sets Current Form | Used for Context Menu
@@ -84,7 +65,8 @@ namespace Spectrum {
             spectrumForm.Text = "Spectrum " + currentVersion;
             Console.WriteLine("Current Version: " + currentVersion);
 
-            Settings.Default.Save();
+            checkForUpdatesVoid(false);
+
 
         }
 
@@ -97,18 +79,7 @@ namespace Spectrum {
                 portConnect(true);
             }
 
-            // Check For Updates
-            if (checkForUpdate) {
-
-                DialogResult dialogResult = MessageBox.Show("New Version Of Spectrum Is Avaliable Do You Want to Download it?", "Update Spectrum?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if(dialogResult == DialogResult.Yes) {
-                    checkForUpdatesToolStripMenuItem_Click(sender, e);
-                }
-                Settings.Default.lastUpdateCheck = DateTime.Now.Date;
-                Settings.Default.Save();
-
-            }
+            
 
             buttonEnable();
         }
@@ -233,6 +204,49 @@ namespace Spectrum {
             }
         }
 
+        private void checkForUpdatesVoid(bool userCheck) {
+            if (Settings.Default.postponeUpdateDate == DateTime.Today) Settings.Default.postponeUpdateBool = false;
+
+            // If Postpone Update
+            if (!Settings.Default.postponeUpdateBool) {
+
+                // If Update At Startup Not Applied
+                if (Settings.Default.updateComboBoxInt != 1) Settings.Default.startupUpdateDate = false;
+                else {
+                    Settings.Default.lastUpdateCheck = DateTime.Now.Date;
+                    Settings.Default.nextUpdateCheck = DateTime.Now.Date;
+                    checkForUpdate = true;
+                }
+
+
+                if (Settings.Default.updateComboBoxInt == 2) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddDays(1);
+                if (Settings.Default.updateComboBoxInt == 3) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddDays(7);
+                if (Settings.Default.updateComboBoxInt == 4) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddMonths(1);
+                Console.WriteLine(Settings.Default.nextUpdateCheck);
+                if (Settings.Default.nextUpdateCheck == DateTime.Today && Settings.Default.updateComboBoxInt != 0) checkForUpdate = true;
+
+
+                // Check For Updates
+                if (checkForUpdate && !userCheck) {
+
+                    DialogResult dialogResult = MessageBox.Show("New Version Of Spectrum Is Avaliable Do You Want to Download it?", "Update Spectrum?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (dialogResult == DialogResult.Yes) {
+                        updateForm = new UpdateForm(null, null);
+                        updateForm.SpectrumUpdate(currentVersion);
+                    }
+                    Settings.Default.lastUpdateCheck = DateTime.Now.Date;
+
+                }
+                else {
+                    updateForm = new UpdateForm(null, null);
+                    updateForm.SpectrumUpdate(currentVersion);
+                }
+
+                Settings.Default.Save();
+
+            }
+        }
 
         // MENU BAR SETTINGS
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -255,8 +269,7 @@ namespace Spectrum {
 
         // Check For Updates
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e) {
-            updateForm = new UpdateForm(null, null);
-            updateForm.SpectrumUpdate(currentVersion);
+            checkForUpdatesVoid(true);
         }
 
         // Exit Spectrum
@@ -348,7 +361,6 @@ namespace Spectrum {
 
         
     }
-
 
 
     // THE END

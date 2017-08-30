@@ -414,8 +414,10 @@
             this.Controls.Add(this.delayValue);
             this.Controls.Add(this.redValue);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "spectrumFormMain";
             this.Text = "Spectrum";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.spectrumFormMain_FormClosing);

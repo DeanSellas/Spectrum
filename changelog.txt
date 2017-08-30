@@ -1,7 +1,7 @@
 Spectrum Changelog
 =============================================
 
-CREATOR: DEAN SELLAS
+CREATOR: Dean Sellas
 WEBSITE: http://deansellas.com/spectrum/
 GITHUB: https://github.com/DeanSellas/Spectrum
 ROADMAP: https://github.com/DeanSellas/Spectrum/projects
@@ -15,6 +15,6 @@ Alpha v0.1
 + ADDED: Custom Variables For Functions
 + ADDED: Settings Menu
 + ADDED: Update Form
-+ ADDED: Ability to choose when updates are checked
++ ADDED: Ability to choose when to check for updates
 
 # CHANGED: Nothing. This is the first Release
