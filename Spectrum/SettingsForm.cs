@@ -21,6 +21,10 @@ namespace Spectrum {
 
         public SettingsForm() {
             InitializeComponent();
+
+
+            Size = new Size(391, 320);
+
             if (Settings.Default.isConnected) startupConnectCheckBox.Enabled = true;
             // Sets Check Box
             if (Settings.Default.closeToTrayBool) closeToTrayCheckbox.Checked = true;
@@ -29,6 +33,11 @@ namespace Spectrum {
             if (Settings.Default.windowsStartupBool) windowsCheckbox.Checked = true;
 
             updateComboBox.SelectedIndex = Settings.Default.updateComboBoxInt;
+
+
+            treeView1.TabIndex = 0;
+
+
         }
 
 
@@ -99,8 +108,16 @@ namespace Spectrum {
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e) {
-            if (treeView1.SelectedNode.Name == "generalNode") generalSettingsGroupBox.Visible = true;
-            else generalSettingsGroupBox.Visible = false;
+            if (treeView1.SelectedNode.Name == "generalNode") {
+                updatesGroupBox.Visible = false;
+                generalSettingsGroupBox.Visible = true;
+            }
+            else if (treeView1.SelectedNode.Name == "updatesNode") {
+                generalSettingsGroupBox.Visible = false;
+                updatesGroupBox.Left = 111;
+                updatesGroupBox.Top = 34;
+                updatesGroupBox.Visible = true;
+            }
         }
 
         private void cancelButton_Click(object sender, EventArgs e) {

@@ -24,7 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("General");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Hide");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Updates");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.applySettingsButton = new System.Windows.Forms.Button();
             this.windowsCheckbox = new System.Windows.Forms.CheckBox();
@@ -37,13 +37,15 @@
             this.generalSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
+            this.updatesGroupBox = new System.Windows.Forms.GroupBox();
             this.generalSettingsGroupBox.SuspendLayout();
+            this.updatesGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // applySettingsButton
             // 
             this.applySettingsButton.Enabled = false;
-            this.applySettingsButton.Location = new System.Drawing.Point(289, 368);
+            this.applySettingsButton.Location = new System.Drawing.Point(289, 248);
             this.applySettingsButton.Name = "applySettingsButton";
             this.applySettingsButton.Size = new System.Drawing.Size(79, 23);
             this.applySettingsButton.TabIndex = 18;
@@ -110,7 +112,7 @@
             "On Startup Daily",
             "On Startup Weekly",
             "On Startup Monthly"});
-            this.updateComboBox.Location = new System.Drawing.Point(124, 163);
+            this.updateComboBox.Location = new System.Drawing.Point(120, 64);
             this.updateComboBox.Name = "updateComboBox";
             this.updateComboBox.Size = new System.Drawing.Size(117, 21);
             this.updateComboBox.TabIndex = 20;
@@ -119,7 +121,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 166);
+            this.label1.Location = new System.Drawing.Point(6, 67);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 13);
             this.label1.TabIndex = 21;
@@ -128,12 +130,14 @@
             // treeView1
             // 
             this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeView1.Indent = 19;
+            this.treeView1.ItemHeight = 20;
             this.treeView1.Location = new System.Drawing.Point(12, 34);
             this.treeView1.Name = "treeView1";
             treeNode1.Name = "generalNode";
             treeNode1.Text = "General";
-            treeNode2.Name = "hideNode";
-            treeNode2.Text = "Hide";
+            treeNode2.Name = "updatesNode";
+            treeNode2.Text = "Updates";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2});
@@ -147,9 +151,7 @@
             // 
             this.generalSettingsGroupBox.Controls.Add(this.startupConnectCheckBox);
             this.generalSettingsGroupBox.Controls.Add(this.closeToTrayCheckbox);
-            this.generalSettingsGroupBox.Controls.Add(this.label1);
             this.generalSettingsGroupBox.Controls.Add(this.windowsCheckbox);
-            this.generalSettingsGroupBox.Controls.Add(this.updateComboBox);
             this.generalSettingsGroupBox.Controls.Add(this.startMinCheckbox);
             this.generalSettingsGroupBox.Location = new System.Drawing.Point(111, 34);
             this.generalSettingsGroupBox.Name = "generalSettingsGroupBox";
@@ -161,7 +163,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(204, 368);
+            this.cancelButton.Location = new System.Drawing.Point(204, 248);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(79, 23);
             this.cancelButton.TabIndex = 24;
@@ -172,7 +174,7 @@
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(119, 368);
+            this.okButton.Location = new System.Drawing.Point(119, 248);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(79, 23);
             this.okButton.TabIndex = 25;
@@ -181,21 +183,38 @@
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
+            // updatesGroupBox
+            // 
+            this.updatesGroupBox.Controls.Add(this.updateComboBox);
+            this.updatesGroupBox.Controls.Add(this.label1);
+            this.updatesGroupBox.Location = new System.Drawing.Point(374, 34);
+            this.updatesGroupBox.Name = "updatesGroupBox";
+            this.updatesGroupBox.Size = new System.Drawing.Size(257, 208);
+            this.updatesGroupBox.TabIndex = 22;
+            this.updatesGroupBox.TabStop = false;
+            this.updatesGroupBox.Text = "Updates Settings";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 396);
+            this.ClientSize = new System.Drawing.Size(666, 281);
+            this.Controls.Add(this.updatesGroupBox);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.generalSettingsGroupBox);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.applySettingsButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SettingsForm";
             this.Text = "SettingsForm";
             this.generalSettingsGroupBox.ResumeLayout(false);
             this.generalSettingsGroupBox.PerformLayout();
+            this.updatesGroupBox.ResumeLayout(false);
+            this.updatesGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -213,5 +232,6 @@
         private System.Windows.Forms.GroupBox generalSettingsGroupBox;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.GroupBox updatesGroupBox;
     }
 }
