@@ -53,14 +53,14 @@
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportBugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.githubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.donateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rainbowButton = new System.Windows.Forms.Button();
             this.delayValue = new System.Windows.Forms.NumericUpDown();
             this.delayLabel = new System.Windows.Forms.Label();
             this.connectedStatusLabel = new System.Windows.Forms.Label();
-            this.reportBugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.redValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueValue)).BeginInit();
@@ -143,7 +143,7 @@
             // 
             this.spectrumTrayItem.ContextMenuStrip = this.contextMenuStrip1;
             this.spectrumTrayItem.Icon = ((System.Drawing.Icon)(resources.GetObject("spectrumTrayItem.Icon")));
-            this.spectrumTrayItem.Text = "Spectrum";
+            this.spectrumTrayItem.Text = "Spectrum: Disconnected";
             this.spectrumTrayItem.Visible = true;
             this.spectrumTrayItem.DoubleClick += new System.EventHandler(this.spectrumTrayItem_DoubleClick);
             // 
@@ -309,12 +309,12 @@
             this.documentationToolStripMenuItem.Text = "Documentation";
             this.documentationToolStripMenuItem.Click += new System.EventHandler(this.documentationToolStripMenuItem_Click);
             // 
-            // resetSettingsToolStripMenuItem
+            // reportBugToolStripMenuItem
             // 
-            this.resetSettingsToolStripMenuItem.Name = "resetSettingsToolStripMenuItem";
-            this.resetSettingsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.resetSettingsToolStripMenuItem.Text = "Reset Settings";
-            this.resetSettingsToolStripMenuItem.Click += new System.EventHandler(this.resetSettingsToolStripMenuItem_Click);
+            this.reportBugToolStripMenuItem.Name = "reportBugToolStripMenuItem";
+            this.reportBugToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.reportBugToolStripMenuItem.Text = "Report Bug";
+            this.reportBugToolStripMenuItem.Click += new System.EventHandler(this.reportBugToolStripMenuItem_Click);
             // 
             // githubToolStripMenuItem
             // 
@@ -322,6 +322,13 @@
             this.githubToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.githubToolStripMenuItem.Text = "Github";
             this.githubToolStripMenuItem.Click += new System.EventHandler(this.githubToolStripMenuItem_Click);
+            // 
+            // resetSettingsToolStripMenuItem
+            // 
+            this.resetSettingsToolStripMenuItem.Name = "resetSettingsToolStripMenuItem";
+            this.resetSettingsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.resetSettingsToolStripMenuItem.Text = "Reset Settings";
+            this.resetSettingsToolStripMenuItem.Click += new System.EventHandler(this.resetSettingsToolStripMenuItem_Click);
             // 
             // donateToolStripMenuItem
             // 
@@ -384,13 +391,6 @@
             this.connectedStatusLabel.TabIndex = 11;
             this.connectedStatusLabel.Text = "Not Connected";
             this.connectedStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // reportBugToolStripMenuItem
-            // 
-            this.reportBugToolStripMenuItem.Name = "reportBugToolStripMenuItem";
-            this.reportBugToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.reportBugToolStripMenuItem.Text = "Report Bug";
-            this.reportBugToolStripMenuItem.Click += new System.EventHandler(this.reportBugToolStripMenuItem_Click);
             // 
             // spectrumFormMain
             // 

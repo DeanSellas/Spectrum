@@ -14,5 +14,7 @@ Alpha v0.1
 + ADDED: Ability To Control Arduino Board
 + ADDED: Custom Variables For Functions
 + ADDED: Settings Menu
++ ADDED: Update Form
++ ADDED: Ability to choose when updates are checked
 
 # CHANGED: Nothing. This is the first Release

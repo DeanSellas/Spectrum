@@ -123,6 +123,11 @@ namespace Spectrum {
                 e.Cancel = true;
                 Hide();
                 settingsForm.Close();
+
+                spectrumTrayItem.BalloonTipTitle = "Spectrum";
+                spectrumTrayItem.BalloonTipText = "Spectrum Has Been Minimized to Tray";
+                spectrumTrayItem.BalloonTipIcon = ToolTipIcon.Info;
+                spectrumTrayItem.ShowBalloonTip(3000);
             }
         }
 
@@ -202,6 +207,7 @@ namespace Spectrum {
                 Console.WriteLine("Connected to port: " + serialPort1.PortName);
                 //MessageBox.Show("Connected to: " + port, "Connected", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 connectedStatusLabel.Text = "Connected";
+                spectrumTrayItem.Text = "Spectrum: Connected"; 
                 connectedStatusLabel.BackColor = Color.Green;
                 portConnectButton.Text = "Disconnect";
                 Settings.Default.isConnected = true;
@@ -209,7 +215,8 @@ namespace Spectrum {
                 Settings.Default.port = port;
             } else {
                 serialPort1.Close();
-                connectedStatusLabel.Text = "Not Connected";
+                connectedStatusLabel.Text = "Disconnected";
+                spectrumTrayItem.Text = "Spectrum: Disconnected";
                 connectedStatusLabel.BackColor = Color.Red;
                 portConnectButton.Text = "Connect";
                 Settings.Default.isConnected = false;
@@ -264,7 +271,8 @@ namespace Spectrum {
                     userExit = true;
                     Close();
                 }
-            } else Close();
+            }
+            else Close();
         }
 
         // Link to Documentation

@@ -80,20 +80,6 @@ namespace Spectrum {
 
         }
 
-        // Postpone Update
-        private void postponeButton_Click(object sender, EventArgs e) {
-            if (postponeCombobox.SelectedIndex == 0) Settings.Default.postponeUpdateDate = DateTime.Today.AddDays(1);
-            if (postponeCombobox.SelectedIndex == 1) Settings.Default.postponeUpdateDate = DateTime.Today.AddDays(2);
-            if (postponeCombobox.SelectedIndex == 2) Settings.Default.postponeUpdateDate = DateTime.Today.AddDays(3);
-            if (postponeCombobox.SelectedIndex == 3) Settings.Default.postponeUpdateDate = DateTime.Today.AddDays(4);
-            if (postponeCombobox.SelectedIndex == 4) Settings.Default.postponeUpdateDate = DateTime.Today.AddDays(7);
-            if (postponeCombobox.SelectedIndex == 5) Settings.Default.postponeUpdateDate = DateTime.Today.AddDays(14);
-            Settings.Default.postponeUpdateBool = true;
-            Settings.Default.Save();
-            Console.WriteLine(Settings.Default.postponeUpdateDate - DateTime.Today);
-            Close();
-        }
-
         // Updates Progress Bar
         void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
             double bytesIn = double.Parse(e.BytesReceived.ToString());
@@ -115,6 +101,19 @@ namespace Spectrum {
             downloadButton.Text = "Download Complete";
         }
 
+        // Postpone Update
+        private void postponeButton_Click(object sender, EventArgs e) {
+            if (postponeCombobox.SelectedIndex == 0) Settings.Default.postponeUpdateDate = DateTime.Today.AddDays(1);
+            if (postponeCombobox.SelectedIndex == 1) Settings.Default.postponeUpdateDate = DateTime.Today.AddDays(2);
+            if (postponeCombobox.SelectedIndex == 2) Settings.Default.postponeUpdateDate = DateTime.Today.AddDays(3);
+            if (postponeCombobox.SelectedIndex == 3) Settings.Default.postponeUpdateDate = DateTime.Today.AddDays(4);
+            if (postponeCombobox.SelectedIndex == 4) Settings.Default.postponeUpdateDate = DateTime.Today.AddDays(7);
+            if (postponeCombobox.SelectedIndex == 5) Settings.Default.postponeUpdateDate = DateTime.Today.AddDays(14);
+            Settings.Default.postponeUpdateBool = true;
+            Settings.Default.Save();
+            Console.WriteLine(Settings.Default.postponeUpdateDate - DateTime.Today);
+            Close();
+        }
 
     }
 }

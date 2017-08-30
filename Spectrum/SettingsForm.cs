@@ -97,5 +97,25 @@ namespace Spectrum {
             else if (!checkChanged) applySettingsButton.Enabled = false;
             
         }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e) {
+            if (treeView1.SelectedNode.Name == "generalNode") generalSettingsGroupBox.Visible = true;
+            else generalSettingsGroupBox.Visible = false;
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e) {
+
+            if (applySettingsButton.Enabled) {
+                DialogResult dialogResult = MessageBox.Show("You have unsaved settings are you sure you want to exit settings without saving?", "Exit Settings", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dialogResult == DialogResult.Yes) Close();
+            }
+            else Close();
+            
+        }
+
+        private void okButton_Click(object sender, EventArgs e) {
+            Settings.Default.Save();
+            Close();
+        }
     }
 }
