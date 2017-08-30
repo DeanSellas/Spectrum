@@ -15,9 +15,9 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Spectrum {
     public partial class UpdateForm : Form {
 
-        bool updateAvailable = false;
 
         UpdateForm updateForm;
+        spectrumFormMain spectrumMainForm;
 
         string installerName, downloadLocation, fileLoaction;
 
@@ -36,25 +36,7 @@ namespace Spectrum {
         }
 
         // Check For Product Updates
-        public void SpectrumUpdate(string currentVersion) {
-
-            // Reads Version.txt
-            
-            System.IO.Stream stream = webClient.OpenRead("https://raw.githubusercontent.com/DeanSellas/Spectrum/master/version.txt");
-            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream)) {
-                String onlineVersion = reader.ReadToEnd();
-                Console.WriteLine(onlineVersion);
-
-                // Sets Proper Variables
-                // Change != to == for testing purposes
-                if (currentVersion != onlineVersion) {
-                    updateAvailable = true;
-                    installerName = "spectrumv" + onlineVersion + "setup.exe";
-                    Console.WriteLine(installerName);
-                    downloadLocation = "https://github.com/DeanSellas/Spectrum/blob/master/Installer/" + installerName + "?raw=true";
-                }
-            }
-
+        public void SpectrumUpdate(bool updateAvailable, bool userCheck) {
 
             // Open Update Form
             if (updateAvailable) {
@@ -62,7 +44,7 @@ namespace Spectrum {
                 updateForm.ShowDialog();
                 
             }
-            else MessageBox.Show("You already have the latest version of Spectrum.", "No Updates Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else if(userCheck) MessageBox.Show("You already have the latest version of Spectrum.", "No Updates Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Starts Download

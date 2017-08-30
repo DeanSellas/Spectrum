@@ -8,12 +8,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-
-// I DONE GOOFED ON THE UPDATES I WILL FIX IT TOMORROW...
 
 
 
@@ -39,6 +37,9 @@ namespace Spectrum {
 
         // String
         string currentVersion = Application.ProductVersion;
+        string installerName, downloadLocation;
+
+        WebClient webClient = new WebClient();
 
 
         // In The Begining...
@@ -65,7 +66,7 @@ namespace Spectrum {
             spectrumForm.Text = "Spectrum " + currentVersion;
             Console.WriteLine("Current Version: " + currentVersion);
 
-            checkForUpdatesVoid(false);
+            checkForUpdatesVoid(false, false);
 
 
         }
@@ -204,7 +205,27 @@ namespace Spectrum {
             }
         }
 
-        private void checkForUpdatesVoid(bool userCheck) {
+        public void checkForUpdatesVoid(bool updateAvailable, bool userCheck) {
+
+            // Reads Version.txt
+
+            System.IO.Stream stream = webClient.OpenRead("https://raw.githubusercontent.com/DeanSellas/Spectrum/master/version.txt");
+            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream)) {
+                String onlineVersion = reader.ReadToEnd();
+                Console.WriteLine(onlineVersion);
+
+                // Sets Proper Variables
+                // Change != to == for testing purposes
+                if (currentVersion != onlineVersion) {
+                    updateAvailable = true;
+                    installerName = "spectrumv" + onlineVersion + "setup.exe";
+                    Console.WriteLine(installerName);
+                    downloadLocation = "https://github.com/DeanSellas/Spectrum/blob/master/Installer/" + installerName + "?raw=true";
+                }
+            }
+
+
+
             if (Settings.Default.postponeUpdateDate == DateTime.Today) Settings.Default.postponeUpdateBool = false;
 
             // If Postpone Update
@@ -227,20 +248,21 @@ namespace Spectrum {
 
 
                 // Check For Updates
-                if (checkForUpdate && !userCheck) {
+                if (checkForUpdate && updateAvailable) {
+                    if (!userCheck) {
+                        DialogResult dialogResult = MessageBox.Show("New Version Of Spectrum Is Avaliable Do You Want to Download it?", "Update Spectrum?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                    DialogResult dialogResult = MessageBox.Show("New Version Of Spectrum Is Avaliable Do You Want to Download it?", "Update Spectrum?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (dialogResult == DialogResult.Yes) {
-                        updateForm = new UpdateForm(null, null);
-                        updateForm.SpectrumUpdate(currentVersion);
+                        if (dialogResult == DialogResult.Yes) {
+                            updateForm = new UpdateForm(installerName, downloadLocation);
+                            updateForm.SpectrumUpdate(updateAvailable, false);
+                        }
+                        Settings.Default.lastUpdateCheck = DateTime.Now.Date;
                     }
-                    Settings.Default.lastUpdateCheck = DateTime.Now.Date;
-
+                    
                 }
-                else {
-                    updateForm = new UpdateForm(null, null);
-                    updateForm.SpectrumUpdate(currentVersion);
+                if(userCheck) {
+                    updateForm = new UpdateForm(installerName, downloadLocation);
+                    updateForm.SpectrumUpdate(updateAvailable, true);
                 }
 
                 Settings.Default.Save();
@@ -269,7 +291,7 @@ namespace Spectrum {
 
         // Check For Updates
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e) {
-            checkForUpdatesVoid(true);
+            checkForUpdatesVoid(false, true);
         }
 
         // Exit Spectrum

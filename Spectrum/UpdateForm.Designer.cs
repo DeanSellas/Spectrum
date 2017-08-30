@@ -111,9 +111,9 @@
         #endregion
 
         private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.Button downloadButton;
         private System.Windows.Forms.ProgressBar downloadProgressBar;
         private System.Windows.Forms.Button postponeButton;
         private System.Windows.Forms.ComboBox postponeCombobox;
+        public System.Windows.Forms.Button downloadButton;
     }
 }
