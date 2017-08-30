@@ -89,6 +89,10 @@ namespace Spectrum {
         private void updateComboBox_SelectedIndexChanged(object sender, EventArgs e) {
             Settings.Default.updateComboBoxInt = updateComboBox.SelectedIndex;
 
+            if (updateComboBox.SelectedIndex == 0) Settings.Default.startupUpdate = false;
+
+
+
             if(Settings.Default.updateComboBoxInt != originalComboBoxVal) applySettingsButton.Enabled = true;
             else if (!checkChanged) applySettingsButton.Enabled = false;
             

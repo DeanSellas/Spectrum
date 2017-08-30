@@ -66,7 +66,7 @@ namespace Spectrum {
         }
 
         // Starts Download
-        private void downloadButton_Click(object sender, EventArgs e) {
+        public void downloadButton_Click(object sender, EventArgs e) {
 
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
             webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);

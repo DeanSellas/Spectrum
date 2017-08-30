@@ -19,8 +19,12 @@ namespace Spectrum {
         // Variables
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        
+
         //Boolin
         public bool userExit = false;
+        bool checkForUpdate = false;
+
 
         // Date Time
         DateTime currentTime = DateTime.Now.Date;
@@ -39,15 +43,24 @@ namespace Spectrum {
         public spectrumFormMain() {
             InitializeComponent();
 
-            if (Settings.Default.FirstLaunch) {
+            // If Update At Startup is Applied
+            if (Settings.Default.startupUpdate) {
                 Settings.Default.lastUpdateCheck = DateTime.Now.Date;
                 Settings.Default.nextUpdateCheck = DateTime.Now.Date;
                 Console.WriteLine(Settings.Default.lastUpdateCheck);
-                Settings.Default.FirstLaunch = false;
                 Settings.Default.Save();
+                checkForUpdate = true;
             }
 
-            
+            // Else
+            if (Settings.Default.updateComboBoxInt != 1) Settings.Default.startupUpdate = false;
+
+            // Sets Update Times
+            if (Settings.Default.updateComboBoxInt == 2) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddDays(1);
+            if (Settings.Default.updateComboBoxInt == 3) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddDays(7); 
+            if (Settings.Default.updateComboBoxInt == 4) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddMonths(1);
+            Console.WriteLine(Settings.Default.nextUpdateCheck);
+            if (Settings.Default.nextUpdateCheck == DateTime.Today) checkForUpdate = true;
 
             listSerialPorts();
 
@@ -80,10 +93,18 @@ namespace Spectrum {
                 serialPort1.PortName = Settings.Default.port;
                 portConnect(true);
             }
-            // Check For Updates On Startup
-            if (Settings.Default.nextUpdateCheck.Date != Settings.Default.lastUpdateCheck.Date) {
+
+            // Check For Updates
+            if (checkForUpdate) {
+
+                DialogResult dialogResult = MessageBox.Show("New Version Of Spectrum Is Avaliable Do You Want to Download it?", "Update Spectrum?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if(dialogResult == DialogResult.Yes) {
+                    checkForUpdatesToolStripMenuItem_Click(sender, e);
+                }
                 Settings.Default.lastUpdateCheck = DateTime.Now.Date;
-                checkForUpdatesToolStripMenuItem_Click(sender, e);
+                Settings.Default.Save();
+
             }
 
             buttonEnable();

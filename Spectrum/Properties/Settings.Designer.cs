@@ -168,18 +168,18 @@ namespace Spectrum.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool FirstLaunch {
+        public bool startupUpdate {
             get {
-                return ((bool)(this["FirstLaunch"]));
+                return ((bool)(this["startupUpdate"]));
             }
             set {
-                this["FirstLaunch"] = value;
+                this["startupUpdate"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int updateComboBoxInt {
             get {
                 return ((int)(this["updateComboBoxInt"]));

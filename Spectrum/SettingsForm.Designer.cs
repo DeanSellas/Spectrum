@@ -98,6 +98,7 @@
             // 
             this.updateComboBox.FormattingEnabled = true;
             this.updateComboBox.Items.AddRange(new object[] {
+            "Never",
             "On Startup",
             "On Startup Daily",
             "On Startup Weekly",
