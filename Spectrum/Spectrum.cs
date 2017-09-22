@@ -226,10 +226,15 @@ namespace Spectrum {
                 solidColorButton.Enabled = true;
                 rainbowButton.Enabled = true;
                 offButton.Enabled = true;
+
+                serialComboBox.Enabled = false;
+                
             } else {
                 solidColorButton.Enabled = false;
                 rainbowButton.Enabled = false;
                 offButton.Enabled = false;
+
+                serialComboBox.Enabled = true;
             }
         }
 
