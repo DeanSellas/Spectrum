@@ -128,12 +128,6 @@ namespace Spectrum {
         // Button Settings
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private void color_ValueChanged(object sender, EventArgs e) {
-            var red = Convert.ToInt32(redValue.Value);
-            var green = Convert.ToInt32(greenValue.Value);
-            var blue = Convert.ToInt32(blueValue.Value);
-            colorPreview.BackColor = Color.FromArgb(red, green, blue);
-        }
 
         // Sets Solid Color
         private void solidColorButton_Click(object sender, EventArgs e) {
@@ -151,6 +145,14 @@ namespace Spectrum {
 
             serialPort1.WriteLine("SolidColor" + red + green + blue);
             Console.WriteLine("SolidColor" + red + green + blue);
+        }
+
+        // Color Preview
+        private void color_ValueChanged(object sender, EventArgs e) {
+            var red = Convert.ToInt32(redValue.Value);
+            var green = Convert.ToInt32(greenValue.Value);
+            var blue = Convert.ToInt32(blueValue.Value);
+            colorPreview.BackColor = Color.FromArgb(red, green, blue);
         }
 
         // Rainbow Animation Button

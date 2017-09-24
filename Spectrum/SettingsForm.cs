@@ -13,13 +13,19 @@ using System.Windows.Forms;
 namespace Spectrum {
     public partial class SettingsForm : Form {
 
+        // CODE REQUIRES CLEANUP
+
         int originalComboBoxVal = Settings.Default.updateComboBoxInt;
 
         bool checkChanged = false;
+
+        
+
         public SettingsForm() {
             InitializeComponent();
 
-
+            int defaultTop = generalSettingsGroupBox.Top;
+            int defaultLeft = generalSettingsGroupBox.Left;
             Size = new Size(391, 320);
 
             if (Settings.Default.isConnected) startupConnectCheckBox.Enabled = true;
@@ -29,28 +35,28 @@ namespace Spectrum {
             if (Settings.Default.startMinimizedBool) startMinCheckbox.Checked = true;
             if (Settings.Default.windowsStartupBool) windowsCheckbox.Checked = true;
 
+            // Update Group Box Settings
             updateComboBox.SelectedIndex = Settings.Default.updateComboBoxInt;
-
+            updatesGroupBox.Left = defaultLeft;
+            updatesGroupBox.Top = defaultTop;
 
             treeView1.TabIndex = 0;
         }
 
-
+        // Check Box Settings
         private void settingsCheckboxes_CheckedChanged(object sender, EventArgs e) {
-            if (Settings.Default.connectOnStartupBool != startupConnectCheckBox.Checked) {
-                checkChanged = true;
-            }
-            else if (Settings.Default.closeToTrayBool != closeToTrayCheckbox.Checked) {
-                checkChanged = true;
-            }
-            else if (Settings.Default.startMinimizedBool != startMinCheckbox.Checked) {
-                checkChanged = true;
-            }
-            else if (Settings.Default.windowsStartupBool != windowsCheckbox.Checked) {
-                checkChanged = true;
-            }
+            // Connect At Startup
+            if (Settings.Default.connectOnStartupBool != startupConnectCheckBox.Checked) checkChanged = true;
+            // Close To Tray
+            else if (Settings.Default.closeToTrayBool != closeToTrayCheckbox.Checked) checkChanged = true;
+            // Start Minimized
+            else if (Settings.Default.startMinimizedBool != startMinCheckbox.Checked) checkChanged = true;
+            // Start With Windows
+            else if (Settings.Default.windowsStartupBool != windowsCheckbox.Checked) checkChanged = true;
+            // Else
             else checkChanged = false;
 
+            // Apply Settings Enabled
             if (checkChanged || Settings.Default.updateComboBoxInt != originalComboBoxVal) applySettingsButton.Enabled = true;
             else applySettingsButton.Enabled = false;
         }
@@ -58,7 +64,6 @@ namespace Spectrum {
 
         // Apply Settings Button
         private void applySettingsButton_Click(object sender, EventArgs e) {
-
             setSettings();
 
             applySettingsButton.Enabled = false;
@@ -84,8 +89,6 @@ namespace Spectrum {
             }
             else if (treeView1.SelectedNode.Name == "updatesNode") {
                 generalSettingsGroupBox.Visible = false;
-                updatesGroupBox.Left = 111;
-                updatesGroupBox.Top = 34;
                 updatesGroupBox.Visible = true;
             }
         }
