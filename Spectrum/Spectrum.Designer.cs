@@ -63,6 +63,8 @@
             this.connectedStatusLabel = new System.Windows.Forms.Label();
             this.rainbowTypeComboBox = new System.Windows.Forms.ComboBox();
             this.offButton = new System.Windows.Forms.Button();
+            this.colorPreview = new System.Windows.Forms.FlowLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.redValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueValue)).BeginInit();
@@ -87,6 +89,7 @@
             this.redValue.Name = "redValue";
             this.redValue.Size = new System.Drawing.Size(60, 20);
             this.redValue.TabIndex = 1;
+            this.redValue.ValueChanged += new System.EventHandler(this.color_ValueChanged);
             // 
             // redLabel
             // 
@@ -118,6 +121,7 @@
             this.greenValue.Name = "greenValue";
             this.greenValue.Size = new System.Drawing.Size(60, 20);
             this.greenValue.TabIndex = 3;
+            this.greenValue.ValueChanged += new System.EventHandler(this.color_ValueChanged);
             // 
             // blueLabel
             // 
@@ -140,6 +144,7 @@
             this.blueValue.Name = "blueValue";
             this.blueValue.Size = new System.Drawing.Size(60, 20);
             this.blueValue.TabIndex = 5;
+            this.blueValue.ValueChanged += new System.EventHandler(this.color_ValueChanged);
             // 
             // spectrumTrayItem
             // 
@@ -342,7 +347,7 @@
             // 
             // rainbowButton
             // 
-            this.rainbowButton.Location = new System.Drawing.Point(68, 191);
+            this.rainbowButton.Location = new System.Drawing.Point(68, 275);
             this.rainbowButton.Name = "rainbowButton";
             this.rainbowButton.Size = new System.Drawing.Size(75, 23);
             this.rainbowButton.TabIndex = 10;
@@ -353,7 +358,7 @@
             // delayValue
             // 
             this.delayValue.InterceptArrowKeys = false;
-            this.delayValue.Location = new System.Drawing.Point(385, 194);
+            this.delayValue.Location = new System.Drawing.Point(385, 278);
             this.delayValue.Maximum = new decimal(new int[] {
             276447232,
             23283,
@@ -376,7 +381,7 @@
             // delayLabel
             // 
             this.delayLabel.AutoSize = true;
-            this.delayLabel.Location = new System.Drawing.Point(246, 196);
+            this.delayLabel.Location = new System.Drawing.Point(246, 280);
             this.delayLabel.Name = "delayLabel";
             this.delayLabel.Size = new System.Drawing.Size(133, 13);
             this.delayLabel.TabIndex = 2;
@@ -400,20 +405,37 @@
             this.rainbowTypeComboBox.Items.AddRange(new object[] {
             "Cycle",
             "Full Rainbow"});
-            this.rainbowTypeComboBox.Location = new System.Drawing.Point(149, 191);
+            this.rainbowTypeComboBox.Location = new System.Drawing.Point(149, 275);
             this.rainbowTypeComboBox.Name = "rainbowTypeComboBox";
             this.rainbowTypeComboBox.Size = new System.Drawing.Size(91, 21);
             this.rainbowTypeComboBox.TabIndex = 12;
             // 
             // offButton
             // 
-            this.offButton.Location = new System.Drawing.Point(236, 250);
+            this.offButton.Location = new System.Drawing.Point(236, 322);
             this.offButton.Name = "offButton";
             this.offButton.Size = new System.Drawing.Size(75, 38);
             this.offButton.TabIndex = 13;
             this.offButton.Text = "Off";
             this.offButton.UseVisualStyleBackColor = true;
             this.offButton.Click += new System.EventHandler(this.offButton_Click);
+            // 
+            // colorPreview
+            // 
+            this.colorPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.colorPreview.Location = new System.Drawing.Point(237, 164);
+            this.colorPreview.Name = "colorPreview";
+            this.colorPreview.Size = new System.Drawing.Size(113, 78);
+            this.colorPreview.TabIndex = 14;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(258, 245);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(72, 13);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Color Preview";
             // 
             // spectrumFormMain
             // 
@@ -422,6 +444,8 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(559, 372);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.colorPreview);
             this.Controls.Add(this.offButton);
             this.Controls.Add(this.rainbowTypeComboBox);
             this.Controls.Add(this.connectedStatusLabel);
@@ -499,6 +523,8 @@
         private System.Windows.Forms.ToolStripMenuItem reportBugToolStripMenuItem;
         private System.Windows.Forms.ComboBox rainbowTypeComboBox;
         private System.Windows.Forms.Button offButton;
+        private System.Windows.Forms.FlowLayoutPanel colorPreview;
+        private System.Windows.Forms.Label label2;
     }
 }
 

@@ -128,7 +128,12 @@ namespace Spectrum {
         // Button Settings
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+        private void color_ValueChanged(object sender, EventArgs e) {
+            var red = Convert.ToInt32(redValue.Value);
+            var green = Convert.ToInt32(greenValue.Value);
+            var blue = Convert.ToInt32(blueValue.Value);
+            colorPreview.BackColor = Color.FromArgb(red, green, blue);
+        }
 
         // Sets Solid Color
         private void solidColorButton_Click(object sender, EventArgs e) {
@@ -412,6 +417,8 @@ namespace Spectrum {
             settingsForm = new SettingsForm();
             settingsForm.Show();
         }
+
+        
 
         // Context Menu Exit
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
