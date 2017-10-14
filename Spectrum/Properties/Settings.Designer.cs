@@ -211,5 +211,17 @@ namespace Spectrum.Properties {
                 this["postponeUpdateBool"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool turnOffOnClose {
+            get {
+                return ((bool)(this["turnOffOnClose"]));
+            }
+            set {
+                this["turnOffOnClose"] = value;
+            }
+        }
     }
 }

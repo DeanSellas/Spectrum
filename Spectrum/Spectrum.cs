@@ -105,6 +105,10 @@ namespace Spectrum {
                 spectrumTrayItem.BalloonTipIcon = ToolTipIcon.Info;
                 spectrumTrayItem.ShowBalloonTip(3000);
             }
+
+            if (Settings.Default.isConnected && Settings.Default.turnOffOnClose) serialPort1.WriteLine("turnOff");
+
+
         }
 
         // Open From Tray

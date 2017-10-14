@@ -38,6 +38,7 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.updatesGroupBox = new System.Windows.Forms.GroupBox();
+            this.offOnClose = new System.Windows.Forms.CheckBox();
             this.generalSettingsGroupBox.SuspendLayout();
             this.updatesGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -148,6 +149,7 @@
             // 
             // generalSettingsGroupBox
             // 
+            this.generalSettingsGroupBox.Controls.Add(this.offOnClose);
             this.generalSettingsGroupBox.Controls.Add(this.startupConnectCheckBox);
             this.generalSettingsGroupBox.Controls.Add(this.closeToTrayCheckbox);
             this.generalSettingsGroupBox.Controls.Add(this.windowsCheckbox);
@@ -193,6 +195,17 @@
             this.updatesGroupBox.TabStop = false;
             this.updatesGroupBox.Text = "Updates Settings";
             // 
+            // offOnClose
+            // 
+            this.offOnClose.AutoSize = true;
+            this.offOnClose.Location = new System.Drawing.Point(80, 123);
+            this.offOnClose.Name = "offOnClose";
+            this.offOnClose.Size = new System.Drawing.Size(111, 17);
+            this.offOnClose.TabIndex = 20;
+            this.offOnClose.Text = "Turn Off On Close";
+            this.offOnClose.UseVisualStyleBackColor = true;
+            this.offOnClose.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -232,5 +245,6 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.GroupBox updatesGroupBox;
+        private System.Windows.Forms.CheckBox offOnClose;
     }
 }

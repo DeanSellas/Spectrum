@@ -28,12 +28,14 @@ namespace Spectrum {
             int defaultLeft = generalSettingsGroupBox.Left;
             Size = new Size(391, 320);
 
-            if (Settings.Default.isConnected) startupConnectCheckBox.Enabled = true;
+
             // Sets Check Box
+            if (Settings.Default.isConnected) startupConnectCheckBox.Enabled = true;
             if (Settings.Default.closeToTrayBool) closeToTrayCheckbox.Checked = true;
             if (Settings.Default.connectOnStartupBool) startupConnectCheckBox.Checked = true;
             if (Settings.Default.startMinimizedBool) startMinCheckbox.Checked = true;
             if (Settings.Default.windowsStartupBool) windowsCheckbox.Checked = true;
+            if (Settings.Default.turnOffOnClose) offOnClose.Checked = true;
 
             // Update Group Box Settings
             updateComboBox.SelectedIndex = Settings.Default.updateComboBoxInt;
@@ -53,6 +55,8 @@ namespace Spectrum {
             else if (Settings.Default.startMinimizedBool != startMinCheckbox.Checked) checkChanged = true;
             // Start With Windows
             else if (Settings.Default.windowsStartupBool != windowsCheckbox.Checked) checkChanged = true;
+            // Turn Off On Close
+            else if (Settings.Default.turnOffOnClose != offOnClose.Checked) checkChanged = true;
             // Else
             else checkChanged = false;
 
@@ -120,6 +124,10 @@ namespace Spectrum {
             // Start Minimized
             if (startMinCheckbox.Checked) Settings.Default.startMinimizedBool = true;
             else Settings.Default.startMinimizedBool = false;
+
+            // Turn Off On Close
+            if (offOnClose.Checked) Settings.Default.turnOffOnClose = true;
+            else Settings.Default.turnOffOnClose = false;
 
             // Start With Windows
             if (windowsCheckbox.Checked) {
