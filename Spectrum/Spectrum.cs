@@ -106,6 +106,7 @@ namespace Spectrum {
                 spectrumTrayItem.ShowBalloonTip(3000);
             }
 
+            // Turn Off On Close
             if (Settings.Default.isConnected && Settings.Default.turnOffOnClose) serialPort1.WriteLine("turnOff");
 
 
@@ -404,7 +405,7 @@ namespace Spectrum {
         
         // Defines Context Menu Options
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e) {
-            if (Settings.Default.isConnected) connectToolStripMenuItem.Text = "Disconnect"; else connectToolStripMenuItem.Text = "Connect";
+            if (Settings.Default.isConnected) connectToolStripMenuItem.Text = "Disconnect"; else connectToolStripMenuItem.Text = "Connect to " + serialComboBox.SelectedItem;
             if (spectrumForm.Visible) showToolStripMenuItem.Text = "Hide"; else showToolStripMenuItem.Text = "Show";
         }
 
