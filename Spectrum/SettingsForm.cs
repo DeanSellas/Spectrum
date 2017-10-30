@@ -22,12 +22,14 @@ namespace Spectrum {
         
 
         public SettingsForm() {
+
             InitializeComponent();
 
             int defaultTop = generalSettingsGroupBox.Top;
             int defaultLeft = generalSettingsGroupBox.Left;
             Size = new Size(391, 320);
 
+            
 
             // Sets Check Box
             if (Settings.Default.isConnected) startupConnectCheckBox.Enabled = true;
@@ -41,6 +43,9 @@ namespace Spectrum {
             updateComboBox.SelectedIndex = Settings.Default.updateComboBoxInt;
             updatesGroupBox.Left = defaultLeft;
             updatesGroupBox.Top = defaultTop;
+
+            // Update Settings
+            fileExplorerTextBox.Text = Settings.Default.fileLocation;
 
             treeView1.TabIndex = 0;
         }
@@ -66,14 +71,9 @@ namespace Spectrum {
         }
 
 
-        // Apply Settings Button
-        private void applySettingsButton_Click(object sender, EventArgs e) {
-            setSettings();
+        
 
-            applySettingsButton.Enabled = false;
-        }
-
-
+        // Update ComboBox
         private void updateComboBox_SelectedIndexChanged(object sender, EventArgs e) {
             Settings.Default.updateComboBoxInt = updateComboBox.SelectedIndex;
 
@@ -81,11 +81,12 @@ namespace Spectrum {
 
 
 
-            if(Settings.Default.updateComboBoxInt != originalComboBoxVal) applySettingsButton.Enabled = true;
-            else if (!checkChanged) applySettingsButton.Enabled = false;
+            if(Settings.Default.updateComboBoxInt != originalComboBoxVal || checkChanged) applySettingsButton.Enabled = true;
+            else applySettingsButton.Enabled = false;
             
         }
 
+        // Tree View
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e) {
             if (treeView1.SelectedNode.Name == "generalNode") {
                 updatesGroupBox.Visible = false;
@@ -97,6 +98,7 @@ namespace Spectrum {
             }
         }
 
+        // Cancel Button
         private void cancelButton_Click(object sender, EventArgs e) {
 
             if (applySettingsButton.Enabled) {
@@ -107,11 +109,19 @@ namespace Spectrum {
             
         }
 
+        // Apply Settings Button
+        private void applySettingsButton_Click(object sender, EventArgs e) {
+            setSettings();
+
+            applySettingsButton.Enabled = false;
+        }
+
         private void okButton_Click(object sender, EventArgs e) {
             setSettings();
             Close();
         }
 
+        // Save Settings
         void setSettings() {
             // Connect at Startup Settings
             if (startupConnectCheckBox.Checked) Settings.Default.connectOnStartupBool = true;
@@ -142,8 +152,27 @@ namespace Spectrum {
                     Settings.Default.windowsStartupBool = false;
                 }
             }
+            Settings.Default.fileLocation = fileExplorerTextBox.Text;
+
             Settings.Default.Save();
         }
 
+        // File Explorer Button
+        private void fileExplorerButton_Click(object sender, EventArgs e) {
+            folderBrowserDialog1.ShowDialog();
+            fileExplorerTextBox.Text = folderBrowserDialog1.SelectedPath.ToString()+ '\\' ;
+        }
+
+        // File Location Text Box
+        private void fileExplorerTextBox_TextChanged(object sender, EventArgs e) {
+            if (fileExplorerTextBox.Text != Settings.Default.fileLocation || Settings.Default.updateComboBoxInt != originalComboBoxVal || checkChanged) {
+                applySettingsButton.Enabled = true;
+            }
+            else applySettingsButton.Enabled = false;
+        }
+
+        private void defaultLocationButton_Click(object sender, EventArgs e) {
+            fileExplorerTextBox.Text = AppDomain.CurrentDomain.BaseDirectory;
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace Spectrum {
         public UpdateForm(string installer, string download) {
             InitializeComponent();
 
-            fileLoaction = AppDomain.CurrentDomain.BaseDirectory;
+            fileLoaction = Settings.Default.fileLocation;
 
             installerName = installer;
             downloadLocation = download;

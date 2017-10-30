@@ -35,10 +35,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.generalSettingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.offOnClose = new System.Windows.Forms.CheckBox();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.updatesGroupBox = new System.Windows.Forms.GroupBox();
-            this.offOnClose = new System.Windows.Forms.CheckBox();
+            this.fileExplorerButton = new System.Windows.Forms.Button();
+            this.fileExplorerTextBox = new System.Windows.Forms.TextBox();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.defaultLocationButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.generalSettingsGroupBox.SuspendLayout();
             this.updatesGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -162,6 +168,17 @@
             this.generalSettingsGroupBox.Text = "General Settings";
             this.generalSettingsGroupBox.Visible = false;
             // 
+            // offOnClose
+            // 
+            this.offOnClose.AutoSize = true;
+            this.offOnClose.Location = new System.Drawing.Point(80, 123);
+            this.offOnClose.Name = "offOnClose";
+            this.offOnClose.Size = new System.Drawing.Size(111, 17);
+            this.offOnClose.TabIndex = 20;
+            this.offOnClose.Text = "Turn Off On Close";
+            this.offOnClose.UseVisualStyleBackColor = true;
+            this.offOnClose.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
+            // 
             // cancelButton
             // 
             this.cancelButton.Location = new System.Drawing.Point(204, 248);
@@ -186,6 +203,10 @@
             // 
             // updatesGroupBox
             // 
+            this.updatesGroupBox.Controls.Add(this.label2);
+            this.updatesGroupBox.Controls.Add(this.defaultLocationButton);
+            this.updatesGroupBox.Controls.Add(this.fileExplorerButton);
+            this.updatesGroupBox.Controls.Add(this.fileExplorerTextBox);
             this.updatesGroupBox.Controls.Add(this.updateComboBox);
             this.updatesGroupBox.Controls.Add(this.label1);
             this.updatesGroupBox.Location = new System.Drawing.Point(381, 34);
@@ -195,16 +216,46 @@
             this.updatesGroupBox.TabStop = false;
             this.updatesGroupBox.Text = "Updates Settings";
             // 
-            // offOnClose
+            // fileExplorerButton
             // 
-            this.offOnClose.AutoSize = true;
-            this.offOnClose.Location = new System.Drawing.Point(80, 123);
-            this.offOnClose.Name = "offOnClose";
-            this.offOnClose.Size = new System.Drawing.Size(111, 17);
-            this.offOnClose.TabIndex = 20;
-            this.offOnClose.Text = "Turn Off On Close";
-            this.offOnClose.UseVisualStyleBackColor = true;
-            this.offOnClose.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
+            this.fileExplorerButton.Location = new System.Drawing.Point(215, 121);
+            this.fileExplorerButton.Name = "fileExplorerButton";
+            this.fileExplorerButton.Size = new System.Drawing.Size(42, 23);
+            this.fileExplorerButton.TabIndex = 23;
+            this.fileExplorerButton.Text = "...";
+            this.fileExplorerButton.UseVisualStyleBackColor = true;
+            this.fileExplorerButton.Click += new System.EventHandler(this.fileExplorerButton_Click);
+            // 
+            // fileExplorerTextBox
+            // 
+            this.fileExplorerTextBox.Location = new System.Drawing.Point(9, 123);
+            this.fileExplorerTextBox.Name = "fileExplorerTextBox";
+            this.fileExplorerTextBox.Size = new System.Drawing.Size(200, 20);
+            this.fileExplorerTextBox.TabIndex = 22;
+            this.fileExplorerTextBox.TextChanged += new System.EventHandler(this.fileExplorerTextBox_TextChanged);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // defaultLocationButton
+            // 
+            this.defaultLocationButton.Location = new System.Drawing.Point(58, 149);
+            this.defaultLocationButton.Name = "defaultLocationButton";
+            this.defaultLocationButton.Size = new System.Drawing.Size(108, 23);
+            this.defaultLocationButton.TabIndex = 24;
+            this.defaultLocationButton.Text = "Default Location";
+            this.defaultLocationButton.UseVisualStyleBackColor = true;
+            this.defaultLocationButton.Click += new System.EventHandler(this.defaultLocationButton_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 99);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(89, 13);
+            this.label2.TabIndex = 25;
+            this.label2.Text = "Update Location:";
             // 
             // SettingsForm
             // 
@@ -246,5 +297,11 @@
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.GroupBox updatesGroupBox;
         private System.Windows.Forms.CheckBox offOnClose;
+        private System.Windows.Forms.Button fileExplorerButton;
+        private System.Windows.Forms.TextBox fileExplorerTextBox;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button defaultLocationButton;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -58,6 +58,11 @@ namespace Spectrum {
 
             listSerialPorts();
 
+            if (Settings.Default.FirstLaunch) {
+                Settings.Default.FirstLaunch = false;
+                Settings.Default.fileLocation = AppDomain.CurrentDomain.BaseDirectory;
+            }
+
             // Sets Current Form | Used for Context Menu
             spectrumForm = this;
             settingsForm = new SettingsForm();
@@ -376,7 +381,7 @@ namespace Spectrum {
                     
                 }
                 // Reset Settings
-                finally { Settings.Default.Reset(); }
+                finally { Settings.Default.Reset(); Close(); }
 
             }
         }
