@@ -19,17 +19,16 @@ namespace Spectrum {
 
         bool checkChanged = false;
 
-        
+        string currentLocation = AppDomain.CurrentDomain.BaseDirectory;
 
         public SettingsForm() {
 
             InitializeComponent();
 
+            // Sets Window Properties
             int defaultTop = generalSettingsGroupBox.Top;
             int defaultLeft = generalSettingsGroupBox.Left;
             Size = new Size(391, 320);
-
-            
 
             // Sets Check Box
             if (Settings.Default.isConnected) startupConnectCheckBox.Enabled = true;
@@ -43,10 +42,14 @@ namespace Spectrum {
             updateComboBox.SelectedIndex = Settings.Default.updateComboBoxInt;
             updatesGroupBox.Left = defaultLeft;
             updatesGroupBox.Top = defaultTop;
-
+            
             // Update Settings
             fileExplorerTextBox.Text = Settings.Default.fileLocation;
+            if (Settings.Default.fileLocation == "") {
+                Settings.Default.fileLocation = currentLocation;
+            }
 
+            // Treeview Settings
             treeView1.TabIndex = 0;
         }
 
@@ -109,20 +112,21 @@ namespace Spectrum {
             
         }
 
-        // Apply Settings Button
+        // Apply Button
         private void applySettingsButton_Click(object sender, EventArgs e) {
-            setSettings();
+            saveSettings();
 
             applySettingsButton.Enabled = false;
         }
-
+        
+        // Ok Button
         private void okButton_Click(object sender, EventArgs e) {
-            setSettings();
+            saveSettings();
             Close();
         }
 
         // Save Settings
-        void setSettings() {
+        void saveSettings() {
             // Connect at Startup Settings
             if (startupConnectCheckBox.Checked) Settings.Default.connectOnStartupBool = true;
             else Settings.Default.connectOnStartupBool = false;
@@ -170,9 +174,10 @@ namespace Spectrum {
             }
             else applySettingsButton.Enabled = false;
         }
-
+        
+        // File Explorer Default Location
         private void defaultLocationButton_Click(object sender, EventArgs e) {
-            fileExplorerTextBox.Text = AppDomain.CurrentDomain.BaseDirectory;
+            fileExplorerTextBox.Text = currentLocation;
         }
     }
 }

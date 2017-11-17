@@ -65,6 +65,7 @@
             this.offButton = new System.Windows.Forms.Button();
             this.colorPreview = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.redValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueValue)).BeginInit();
@@ -89,7 +90,7 @@
             this.redValue.Name = "redValue";
             this.redValue.Size = new System.Drawing.Size(60, 20);
             this.redValue.TabIndex = 1;
-            this.redValue.ValueChanged += new System.EventHandler(this.color_ValueChanged);
+            this.redValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.color_ValueChanged);
             // 
             // redLabel
             // 
@@ -121,7 +122,7 @@
             this.greenValue.Name = "greenValue";
             this.greenValue.Size = new System.Drawing.Size(60, 20);
             this.greenValue.TabIndex = 3;
-            this.greenValue.ValueChanged += new System.EventHandler(this.color_ValueChanged);
+            this.greenValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.color_ValueChanged);
             // 
             // blueLabel
             // 
@@ -144,7 +145,7 @@
             this.blueValue.Name = "blueValue";
             this.blueValue.Size = new System.Drawing.Size(60, 20);
             this.blueValue.TabIndex = 5;
-            this.blueValue.ValueChanged += new System.EventHandler(this.color_ValueChanged);
+            this.blueValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.color_ValueChanged);
             // 
             // spectrumTrayItem
             // 
@@ -423,10 +424,13 @@
             // colorPreview
             // 
             this.colorPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.colorPreview.Cursor = System.Windows.Forms.Cursors.Help;
             this.colorPreview.Location = new System.Drawing.Point(237, 164);
             this.colorPreview.Name = "colorPreview";
             this.colorPreview.Size = new System.Drawing.Size(113, 78);
             this.colorPreview.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.colorPreview, "This is a preview of the color that the strip will display.\r\nNote that color accu" +
+        "racy is different on every strip so this will not be 100% accurate.");
             // 
             // label2
             // 
@@ -436,6 +440,10 @@
             this.label2.Size = new System.Drawing.Size(72, 13);
             this.label2.TabIndex = 15;
             this.label2.Text = "Color Preview";
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.ToolTipTitle = "Color Preview";
             // 
             // spectrumFormMain
             // 
@@ -525,6 +533,7 @@
         private System.Windows.Forms.Button offButton;
         private System.Windows.Forms.FlowLayoutPanel colorPreview;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

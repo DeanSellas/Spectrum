@@ -16,5 +16,8 @@ Alpha v0.1
 + ADDED: Settings Menu
 + ADDED: Update Form
 + ADDED: Ability to choose when to check for updates
++ ADDED: Choose Download Location
++ ADDED: Color Preview
++ ADDED: Misc Settings
 
 # CHANGED: Nothing. This is the first Release

@@ -39,12 +39,12 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.updatesGroupBox = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.defaultLocationButton = new System.Windows.Forms.Button();
             this.fileExplorerButton = new System.Windows.Forms.Button();
             this.fileExplorerTextBox = new System.Windows.Forms.TextBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.defaultLocationButton = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.generalSettingsGroupBox.SuspendLayout();
             this.updatesGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -216,6 +216,25 @@
             this.updatesGroupBox.TabStop = false;
             this.updatesGroupBox.Text = "Updates Settings";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 99);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(102, 13);
+            this.label2.TabIndex = 25;
+            this.label2.Text = "Download Location:";
+            // 
+            // defaultLocationButton
+            // 
+            this.defaultLocationButton.Location = new System.Drawing.Point(58, 149);
+            this.defaultLocationButton.Name = "defaultLocationButton";
+            this.defaultLocationButton.Size = new System.Drawing.Size(108, 23);
+            this.defaultLocationButton.TabIndex = 24;
+            this.defaultLocationButton.Text = "Default Location";
+            this.defaultLocationButton.UseVisualStyleBackColor = true;
+            this.defaultLocationButton.Click += new System.EventHandler(this.defaultLocationButton_Click);
+            // 
             // fileExplorerButton
             // 
             this.fileExplorerButton.Location = new System.Drawing.Point(215, 121);
@@ -237,25 +256,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // defaultLocationButton
-            // 
-            this.defaultLocationButton.Location = new System.Drawing.Point(58, 149);
-            this.defaultLocationButton.Name = "defaultLocationButton";
-            this.defaultLocationButton.Size = new System.Drawing.Size(108, 23);
-            this.defaultLocationButton.TabIndex = 24;
-            this.defaultLocationButton.Text = "Default Location";
-            this.defaultLocationButton.UseVisualStyleBackColor = true;
-            this.defaultLocationButton.Click += new System.EventHandler(this.defaultLocationButton_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 99);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 13);
-            this.label2.TabIndex = 25;
-            this.label2.Text = "Update Location:";
             // 
             // SettingsForm
             // 

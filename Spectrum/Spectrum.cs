@@ -58,11 +58,6 @@ namespace Spectrum {
 
             listSerialPorts();
 
-            if (Settings.Default.FirstLaunch) {
-                Settings.Default.FirstLaunch = false;
-                Settings.Default.fileLocation = AppDomain.CurrentDomain.BaseDirectory;
-            }
-
             // Sets Current Form | Used for Context Menu
             spectrumForm = this;
             settingsForm = new SettingsForm();
@@ -158,7 +153,7 @@ namespace Spectrum {
         }
 
         // Color Preview
-        private void color_ValueChanged(object sender, EventArgs e) {
+        private void color_ValueChanged(object sender, KeyEventArgs e) {
             var red = Convert.ToInt32(redValue.Value);
             var green = Convert.ToInt32(greenValue.Value);
             var blue = Convert.ToInt32(blueValue.Value);
@@ -430,7 +425,6 @@ namespace Spectrum {
             settingsForm.Show();
         }
 
-        
 
         // Context Menu Exit
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
