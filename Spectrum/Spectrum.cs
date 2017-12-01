@@ -113,7 +113,7 @@ namespace Spectrum {
 
         // On Form Close
         private void spectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
-            portConnect(false);
+            
             // Close App To Tray
             if (Settings.Default.closeToTrayBool && !userExit) {
                 e.Cancel = true;
@@ -128,7 +128,7 @@ namespace Spectrum {
 
             // Turn Off On Close
             if (Settings.Default.isConnected && Settings.Default.turnOffOnClose) serialPort1.WriteLine("turnOff");
-            
+            portConnect(false);
 
         }
 
@@ -223,13 +223,19 @@ namespace Spectrum {
             if (portsVal != 0) serialComboBox.SelectedIndex = 0;
             else MessageBox.Show("No serial ports found please make sure your arduino is plugged in. If the problem presits please submit a support ticket", "No Serial Ports Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+            if (Settings.Default.isConnected) {
+                int index = serialComboBox.Items.IndexOf(Settings.Default.port);
+                serialComboBox.SelectedIndex = index;
+            }
+
         }
 
         // Port Connect/Disconnect
         private void portConnect(bool open) {
             string selectedPort = serialComboBox.SelectedItem.ToString();
             if (open) {
-                serialPort1.PortName = selectedPort;
+                if (Settings.Default.connectOnStartupBool) serialPort1.PortName = Settings.Default.port;
+                else serialPort1.PortName = selectedPort;
                 serialPort1.Open();
                 Console.WriteLine("Connected to port: " + serialPort1.PortName);
                 //MessageBox.Show("Connected to: " + port, "Connected", MessageBoxButtons.OK, MessageBoxIcon.Information);
