@@ -37,10 +37,13 @@ namespace Spectrum {
         spectrumFormMain spectrumForm;
         SettingsForm settingsForm;
         UpdateForm updateForm;
+        SetUpForm setUpForm;
 
         // String
+        public string[] ports;
         string currentVersion = Application.ProductVersion;
         string installerName, downloadLocation;
+        
 
         WebClient webClient = new WebClient();
 
@@ -53,6 +56,7 @@ namespace Spectrum {
         public spectrumFormMain() {
 
             AppDomain.CurrentDomain.SetData("Spectrum.exe.config", Application.StartupPath+"/common");
+            
 
             InitializeComponent();
 
@@ -72,13 +76,28 @@ namespace Spectrum {
             blueValue.Value = Settings.Default.blueColor;
 
             // Sets Title
-            spectrumForm.Text = "Spectrum " + currentVersion;
+            spectrumForm.Text = "Spectrum " + currentVersion.Substring(0, 3);
             Console.WriteLine("Current Version: " + currentVersion);
 
             checkForUpdatesVoid(false, false);
 
             rainbowTypeComboBox.SelectedIndex = 0;
+
+            firstLaunch();
+
         }
+
+
+        public void firstLaunch() {
+            /*if (Settings.Default.FirstLaunch) {
+                WindowState = FormWindowState.Minimized;
+                ShowInTaskbar = false;
+
+                setUpForm = new SetUpForm();
+                setUpForm.Show();
+            }*/
+        }
+
 
         // On Form Load
         private void spectrumFormMain_Shown(object sender, EventArgs e) {
@@ -94,6 +113,7 @@ namespace Spectrum {
 
         // On Form Close
         private void spectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
+            portConnect(false);
             // Close App To Tray
             if (Settings.Default.closeToTrayBool && !userExit) {
                 e.Cancel = true;
@@ -108,7 +128,7 @@ namespace Spectrum {
 
             // Turn Off On Close
             if (Settings.Default.isConnected && Settings.Default.turnOffOnClose) serialPort1.WriteLine("turnOff");
-
+            
 
         }
 
@@ -185,9 +205,9 @@ namespace Spectrum {
         
         
         // Lists Serial Ports for Combobox and Debugging
-        private void listSerialPorts() {
+        public void listSerialPorts() {
             // Get a list of serial port names.
-            string[] ports = SerialPort.GetPortNames();
+            ports = SerialPort.GetPortNames();
             int portsVal = 0;
             Console.WriteLine("The following serial ports were found:");
 
@@ -207,9 +227,9 @@ namespace Spectrum {
 
         // Port Connect/Disconnect
         private void portConnect(bool open) {
-            string port = serialComboBox.SelectedItem.ToString();
+            string selectedPort = serialComboBox.SelectedItem.ToString();
             if (open) {
-                serialPort1.PortName = port;
+                serialPort1.PortName = selectedPort;
                 serialPort1.Open();
                 Console.WriteLine("Connected to port: " + serialPort1.PortName);
                 //MessageBox.Show("Connected to: " + port, "Connected", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -219,7 +239,7 @@ namespace Spectrum {
                 portConnectButton.Text = "Disconnect";
                 Settings.Default.isConnected = true;
                 settingsForm.startupConnectCheckBox.Enabled = true;
-                Settings.Default.port = port;
+                Settings.Default.port = selectedPort;
             } else {
                 serialPort1.Close();
                 connectedStatusLabel.Text = "Disconnected";

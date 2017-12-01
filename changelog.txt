@@ -8,6 +8,9 @@ ROADMAP: https://github.com/DeanSellas/Spectrum/projects
 SUPPORT: https://github.com/DeanSellas/Spectrum/issues or https://github.com/DeanSellas/Spectrum/wiki
 TWITTER: https://twitter.com/DeanSellas
 
+Alpha v0.1.0.1
+---------------------------------------------
+# FIXED: Bug that did not allow the program to close
 
 Alpha v0.1
 ---------------------------------------------
