@@ -66,6 +66,7 @@
             this.colorPreview = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.responsiveLightingCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.redValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueValue)).BeginInit();
@@ -90,6 +91,7 @@
             this.redValue.Name = "redValue";
             this.redValue.Size = new System.Drawing.Size(60, 20);
             this.redValue.TabIndex = 1;
+            this.redValue.ValueChanged += new System.EventHandler(this.color_ValueChanged_event);
             this.redValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.color_ValueChanged);
             // 
             // redLabel
@@ -113,7 +115,7 @@
             // greenValue
             // 
             this.greenValue.InterceptArrowKeys = false;
-            this.greenValue.Location = new System.Drawing.Point(356, 140);
+            this.greenValue.Location = new System.Drawing.Point(356, 138);
             this.greenValue.Maximum = new decimal(new int[] {
             255,
             0,
@@ -122,12 +124,13 @@
             this.greenValue.Name = "greenValue";
             this.greenValue.Size = new System.Drawing.Size(60, 20);
             this.greenValue.TabIndex = 3;
+            this.greenValue.ValueChanged += new System.EventHandler(this.color_ValueChanged_event);
             this.greenValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.color_ValueChanged);
             // 
             // blueLabel
             // 
             this.blueLabel.AutoSize = true;
-            this.blueLabel.Location = new System.Drawing.Point(422, 142);
+            this.blueLabel.Location = new System.Drawing.Point(422, 140);
             this.blueLabel.Name = "blueLabel";
             this.blueLabel.Size = new System.Drawing.Size(61, 13);
             this.blueLabel.TabIndex = 6;
@@ -136,7 +139,7 @@
             // blueValue
             // 
             this.blueValue.InterceptArrowKeys = false;
-            this.blueValue.Location = new System.Drawing.Point(488, 140);
+            this.blueValue.Location = new System.Drawing.Point(489, 138);
             this.blueValue.Maximum = new decimal(new int[] {
             255,
             0,
@@ -145,6 +148,7 @@
             this.blueValue.Name = "blueValue";
             this.blueValue.Size = new System.Drawing.Size(60, 20);
             this.blueValue.TabIndex = 5;
+            this.blueValue.ValueChanged += new System.EventHandler(this.color_ValueChanged_event);
             this.blueValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.color_ValueChanged);
             // 
             // spectrumTrayItem
@@ -204,7 +208,7 @@
             // 
             this.solidColorButton.Location = new System.Drawing.Point(68, 135);
             this.solidColorButton.Name = "solidColorButton";
-            this.solidColorButton.Size = new System.Drawing.Size(75, 23);
+            this.solidColorButton.Size = new System.Drawing.Size(75, 25);
             this.solidColorButton.TabIndex = 8;
             this.solidColorButton.Text = "Solid Color";
             this.solidColorButton.UseVisualStyleBackColor = true;
@@ -425,7 +429,7 @@
             // 
             this.colorPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.colorPreview.Cursor = System.Windows.Forms.Cursors.Help;
-            this.colorPreview.Location = new System.Drawing.Point(237, 164);
+            this.colorPreview.Location = new System.Drawing.Point(215, 164);
             this.colorPreview.Name = "colorPreview";
             this.colorPreview.Size = new System.Drawing.Size(113, 78);
             this.colorPreview.TabIndex = 14;
@@ -435,7 +439,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(258, 245);
+            this.label2.Location = new System.Drawing.Point(239, 245);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 13);
             this.label2.TabIndex = 15;
@@ -445,6 +449,17 @@
             // 
             this.toolTip1.ToolTipTitle = "Color Preview";
             // 
+            // responsiveLightingCheckbox
+            // 
+            this.responsiveLightingCheckbox.AutoSize = true;
+            this.responsiveLightingCheckbox.Location = new System.Drawing.Point(68, 166);
+            this.responsiveLightingCheckbox.Name = "responsiveLightingCheckbox";
+            this.responsiveLightingCheckbox.Size = new System.Drawing.Size(122, 17);
+            this.responsiveLightingCheckbox.TabIndex = 16;
+            this.responsiveLightingCheckbox.Text = "Responsive Lighting";
+            this.responsiveLightingCheckbox.UseVisualStyleBackColor = true;
+            this.responsiveLightingCheckbox.CheckedChanged += new System.EventHandler(this.responsiveLightingCheckbox_CheckedChanged);
+            // 
             // spectrumFormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -452,6 +467,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(559, 372);
+            this.Controls.Add(this.responsiveLightingCheckbox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.colorPreview);
             this.Controls.Add(this.offButton);
@@ -492,8 +508,6 @@
         }
 
         #endregion
-
-        private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.NumericUpDown redValue;
         private System.Windows.Forms.Label redLabel;
         private System.Windows.Forms.Label greenLabel;
@@ -534,6 +548,8 @@
         private System.Windows.Forms.FlowLayoutPanel colorPreview;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolTip toolTip1;
+        public System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.CheckBox responsiveLightingCheckbox;
     }
 }
 

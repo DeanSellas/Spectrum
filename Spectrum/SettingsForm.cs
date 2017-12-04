@@ -17,41 +17,47 @@ namespace Spectrum {
 
         int originalComboBoxVal = Settings.Default.updateComboBoxInt;
 
-        bool checkChanged = false;
+        bool checkChanged = false, comboChanged = false;
 
         string currentLocation = AppDomain.CurrentDomain.BaseDirectory;
 
-        public SettingsForm() {
+
+        spectrumFormMain spectrumForm;
+
+        public SettingsForm(spectrumFormMain openForm) {
 
             InitializeComponent();
+
+            spectrumForm = openForm;
 
             // Sets Window Properties
             int defaultTop = generalSettingsGroupBox.Top;
             int defaultLeft = generalSettingsGroupBox.Left;
+
             Size = new Size(391, 320);
 
-            // Sets Check Box
-            if (Settings.Default.isConnected) startupConnectCheckBox.Enabled = true;
-            if (Settings.Default.closeToTrayBool) closeToTrayCheckbox.Checked = true;
-            if (Settings.Default.connectOnStartupBool) startupConnectCheckBox.Checked = true;
-            if (Settings.Default.startMinimizedBool) startMinCheckbox.Checked = true;
-            if (Settings.Default.windowsStartupBool) windowsCheckbox.Checked = true;
-            if (Settings.Default.turnOffOnClose) offOnClose.Checked = true;
+            okButton.Location = new Point(119, 248);
+            cancelButton.Location = new Point(204, 248);
+            applySettingsButton.Location = new Point(289, 248);
 
-            // Update Group Box Settings
-            updateComboBox.SelectedIndex = Settings.Default.updateComboBoxInt;
+
             updatesGroupBox.Left = defaultLeft;
             updatesGroupBox.Top = defaultTop;
-            
-            // Update Settings
-            fileExplorerTextBox.Text = Settings.Default.fileLocation;
-            if (Settings.Default.fileLocation == "") {
-                Settings.Default.fileLocation = currentLocation;
-            }
 
-            // Treeview Settings
-            treeView1.TabIndex = 0;
+            arduinoSettingsGroupBox.Left = defaultLeft;
+            arduinoSettingsGroupBox.Top = defaultTop;
+
+            advancedSettingsGroupBox.Top = defaultTop;
+            advancedSettingsGroupBox.Left = defaultLeft;
+
         }
+
+
+        private void SettingsForm_Shown(object sender, EventArgs e) {
+            arduinoSettings();
+            defaultSettings(false);
+        }
+
 
         // Check Box Settings
         private void settingsCheckboxes_CheckedChanged(object sender, EventArgs e) {
@@ -65,65 +71,96 @@ namespace Spectrum {
             else if (Settings.Default.windowsStartupBool != windowsCheckbox.Checked) checkChanged = true;
             // Turn Off On Close
             else if (Settings.Default.turnOffOnClose != offOnClose.Checked) checkChanged = true;
+            // Remember Lighting
+            else if (Settings.Default.rememberLightProfile != rememberLightCheckbox.Checked) checkChanged = true;
             // Else
             else checkChanged = false;
 
             // Apply Settings Enabled
-            if (checkChanged || Settings.Default.updateComboBoxInt != originalComboBoxVal) applySettingsButton.Enabled = true;
+            if (checkChanged || comboChanged) applySettingsButton.Enabled = true;
             else applySettingsButton.Enabled = false;
         }
 
-
-        
-
-        // Update ComboBox
-        private void updateComboBox_SelectedIndexChanged(object sender, EventArgs e) {
-            Settings.Default.updateComboBoxInt = updateComboBox.SelectedIndex;
-
-            if (updateComboBox.SelectedIndex == 0) Settings.Default.startupUpdateDate = false;
-
-
-
-            if(Settings.Default.updateComboBoxInt != originalComboBoxVal || checkChanged) applySettingsButton.Enabled = true;
-            else applySettingsButton.Enabled = false;
+        // Combo Box Settings
+        private void comboBox_SelectedIndexChanged(object sender, EventArgs e) {
             
+            if (Settings.Default.updateComboBoxInt != updateComboBox.SelectedIndex) comboChanged = true;
+            else if (Settings.Default.port != defaultPortComboBox.Text) comboChanged = true;
+            else comboChanged = false;
+
+            // Apply Settings Enabled
+            if (checkChanged || comboChanged) applySettingsButton.Enabled = true;
+            else applySettingsButton.Enabled = false;
+        }
+
+        private void arduinoSettings() {
+            
+            // Display each port name to the console.
+            foreach (string port in spectrumForm.ports) {
+                Console.WriteLine(port);
+                defaultPortComboBox.Items.Add(port);
+            }
+
+            stripLengthUpDown.Value = Settings.Default.stripLength;
+
+            int index = defaultPortComboBox.Items.IndexOf(Settings.Default.port);
+            defaultPortComboBox.SelectedIndex = index;
+        }
+
+        private void stripLengthUpDown_ValueChanged(object sender, EventArgs e) {
+            stripLengthUpDown_KeyDown(sender, null);
+        }
+
+        private void stripLengthUpDown_KeyDown(object sender, KeyEventArgs e) {
+            if (stripLengthUpDown.Value != Settings.Default.stripLength || checkChanged) applySettingsButton.Enabled = true;
+            else applySettingsButton.Enabled = false;
         }
 
         // Tree View
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e) {
             if (treeView1.SelectedNode.Name == "generalNode") {
-                updatesGroupBox.Visible = false;
                 generalSettingsGroupBox.Visible = true;
+
+                updatesGroupBox.Visible = false;
+                arduinoSettingsGroupBox.Visible = false;
+                advancedSettingsGroupBox.Visible = false;
+            }
+            else if (treeView1.SelectedNode.Name == "arduinoNode") {
+                arduinoSettingsGroupBox.Visible = true;
+
+                updatesGroupBox.Visible = false;
+                generalSettingsGroupBox.Visible = false;
+                advancedSettingsGroupBox.Visible = false;
             }
             else if (treeView1.SelectedNode.Name == "updatesNode") {
-                generalSettingsGroupBox.Visible = false;
                 updatesGroupBox.Visible = true;
+
+                generalSettingsGroupBox.Visible = false;
+                arduinoSettingsGroupBox.Visible = false;
+                advancedSettingsGroupBox.Visible = false;
+            }
+            else if (treeView1.SelectedNode.Name == "advancedNode") {
+                advancedSettingsGroupBox.Visible = true;
+
+                generalSettingsGroupBox.Visible = false;
+                arduinoSettingsGroupBox.Visible = false;
+                updatesGroupBox.Visible = false;
             }
         }
 
         // Cancel Button
-        private void cancelButton_Click(object sender, EventArgs e) {
-
-            if (applySettingsButton.Enabled) {
-                DialogResult dialogResult = MessageBox.Show("You have unsaved settings are you sure you want to exit settings without saving?", "Exit Settings", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (dialogResult == DialogResult.Yes) Close();
-            }
-            else Close();
-            
-        }
+        private void cancelButton_Click(object sender, EventArgs e) { Close(); }
 
         // Apply Button
-        private void applySettingsButton_Click(object sender, EventArgs e) {
-            saveSettings();
-
-            applySettingsButton.Enabled = false;
-        }
+        private void applySettingsButton_Click(object sender, EventArgs e) { saveSettings(); }
         
         // Ok Button
         private void okButton_Click(object sender, EventArgs e) {
             saveSettings();
             Close();
         }
+
+        private void defaultSettingsButton_Click(object sender, EventArgs e) { defaultSettings(true); }
 
         // Save Settings
         void saveSettings() {
@@ -138,6 +175,10 @@ namespace Spectrum {
             // Start Minimized
             if (startMinCheckbox.Checked) Settings.Default.startMinimizedBool = true;
             else Settings.Default.startMinimizedBool = false;
+
+            // Remember Lighting Profile
+            if (rememberLightCheckbox.Checked) Settings.Default.rememberLightProfile = true;
+            else Settings.Default.rememberLightProfile = false;
 
             // Turn Off On Close
             if (offOnClose.Checked) Settings.Default.turnOffOnClose = true;
@@ -156,15 +197,25 @@ namespace Spectrum {
                     Settings.Default.windowsStartupBool = false;
                 }
             }
+
+            Settings.Default.updateComboBoxInt = updateComboBox.SelectedIndex;
             Settings.Default.fileLocation = fileExplorerTextBox.Text;
 
+            Settings.Default.port = defaultPortComboBox.Text;
+            Settings.Default.stripLength = Convert.ToInt32(stripLengthUpDown.Value);
+
             Settings.Default.Save();
+
+            applySettingsButton.Enabled = false;
         }
 
         // File Explorer Button
         private void fileExplorerButton_Click(object sender, EventArgs e) {
-            folderBrowserDialog1.ShowDialog();
-            fileExplorerTextBox.Text = folderBrowserDialog1.SelectedPath.ToString()+ '\\' ;
+
+            DialogResult ok = new DialogResult();
+
+            ok = folderBrowserDialog1.ShowDialog();
+            if(ok == DialogResult.OK) fileExplorerTextBox.Text = folderBrowserDialog1.SelectedPath.ToString()+ '\\' ;
         }
 
         // File Location Text Box
@@ -179,5 +230,70 @@ namespace Spectrum {
         private void defaultLocationButton_Click(object sender, EventArgs e) {
             fileExplorerTextBox.Text = currentLocation;
         }
+
+        
+
+        // Prevents Form from closing by hiding it || Used to fix bug
+        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e) {
+
+            e.Cancel = true;
+
+            if (applySettingsButton.Enabled) {
+                DialogResult dialogResult = MessageBox.Show("You have unsaved settings are you sure you want to exit?", "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dialogResult != DialogResult.Yes) return;
+            }
+
+            
+            Hide();
+            defaultSettings(false);
+        }
+
+        
+
+        private void defaultSettings(bool user) {
+
+            // Treeview Settings
+            treeView1.SelectedNode = treeView1.Nodes[0];
+            treeView1.Focus();
+
+            if (user) {
+
+                // Checkboxes
+                startupConnectCheckBox.Checked = false;
+                closeToTrayCheckbox.Checked = false;
+                startMinCheckbox.Checked = false;
+                windowsCheckbox.Checked = false;
+                offOnClose.Checked = true;
+                rememberLightCheckbox.Checked = false;
+
+                // Comboboxes
+                updateComboBox.SelectedIndex = 1;
+
+                defaultLocationButton_Click(null, null);
+
+                return;
+            }
+
+            // Sets Check Box
+            startupConnectCheckBox.Checked = Settings.Default.connectOnStartupBool;
+            closeToTrayCheckbox.Checked = Settings.Default.closeToTrayBool;
+            startMinCheckbox.Checked = Settings.Default.startMinimizedBool;
+            windowsCheckbox.Checked = Settings.Default.windowsStartupBool;
+            offOnClose.Checked = Settings.Default.turnOffOnClose;
+            rememberLightCheckbox.Checked = Settings.Default.rememberLightProfile;
+
+            // Update Group Box Settings
+            updateComboBox.SelectedIndex = Settings.Default.updateComboBoxInt;
+
+            // Update Settings
+            fileExplorerTextBox.Text = Settings.Default.fileLocation;
+            if (Settings.Default.fileLocation == "") {
+                defaultLocationButton_Click(null, null);
+                applySettingsButton.Enabled = false;
+            }
+
+        }
+
+
     }
 }

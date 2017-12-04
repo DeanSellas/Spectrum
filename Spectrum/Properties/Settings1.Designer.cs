@@ -259,5 +259,29 @@ namespace Spectrum.Properties {
                 this["stripLength"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string lastCommand {
+            get {
+                return ((string)(this["lastCommand"]));
+            }
+            set {
+                this["lastCommand"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool rememberLightProfile {
+            get {
+                return ((bool)(this["rememberLightProfile"]));
+            }
+            set {
+                this["rememberLightProfile"] = value;
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Spectrum {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new spectrumFormMain());
+            try { Application.Run(new spectrumFormMain()); } catch { }
         }
     }
 }
