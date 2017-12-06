@@ -283,5 +283,29 @@ namespace Spectrum.Properties {
                 this["rememberLightProfile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool responsiveLighting {
+            get {
+                return ((bool)(this["responsiveLighting"]));
+            }
+            set {
+                this["responsiveLighting"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool advancedLighting {
+            get {
+                return ((bool)(this["advancedLighting"]));
+            }
+            set {
+                this["advancedLighting"] = value;
+            }
+        }
     }
 }

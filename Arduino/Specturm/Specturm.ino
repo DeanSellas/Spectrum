@@ -29,10 +29,12 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(100, PIN, NEO_GRB + NEO_KHZ800);
 int stripLength = strip.numPixels();
 int currentPixel = 0;
 int state;
-bool test = true;
 int blue = 0;
 int green = 0;
 int red = 255;
+
+int startPixel = 0;
+int endPixel = 0;
 
 int i = 0, j = 0;
 int wait = 100;
@@ -41,18 +43,17 @@ int wait = 100;
 bool rainbowCycleBool = false;
 bool rainbowFullBool = false;
 bool sentCommand = false;
+bool boardReady = true;
 
 void setup() {
   Serial.begin(9600);
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
-  Serial.print("Ready");
 }
 
 void loop() {
-
-    String data = Serial.readString();
-
+  String data = Serial.readString();
+  
     // Changes the Length Of The Strip
     if(data.substring(0,17) == "ChangeStripLength"){
        stripLength = data.substring(17).toInt();
@@ -96,8 +97,11 @@ void loop() {
       
       rainbowFull(wait);
     }
-    
+    //String test = "SolidColor000000000-5-10;
+    //Serial.println(test.lastIndexOf("-"));
     if(data.substring(0,10) == "SolidColor"){
+      String between = "";
+      
       if(rainbowCycleBool) rainbowCycleBool = false;
       if(rainbowFullBool) rainbowFullBool = false;
 
@@ -105,7 +109,31 @@ void loop() {
       String redString = data.substring(10,13);
       String greenString = data.substring(13,16);
       String blueString = data.substring(16,19);
-      solidColor(strip.Color(redString.toInt(),greenString.toInt(),blueString.toInt()));
+
+      // Allows User to 
+      if(data.substring(19,20) == "-"){
+        data = data.substring(20);
+        int i = data.lastIndexOf("-");
+        startPixel = data.substring(0, i).toInt();
+        endPixel = data.substring(i+1).toInt();
+
+        // Corrects for First Pixel being 0
+        startPixel --;
+        endPixel --;
+        
+        /*
+         * Serial.println(data);
+         * Serial.println(startPixel);
+         * Serial.println(endPixel);
+         * Serial.println(i);
+         */
+      }
+      else{
+        startPixel = 0;
+        endPixel = stripLength;
+      }
+      
+      solidColor(strip.Color(redString.toInt(),greenString.toInt(),blueString.toInt()), startPixel, endPixel);
     }
 
     // Turns Lights Off
@@ -169,9 +197,10 @@ void colorWipe(int wait, float color) {
 }
 
 // SOLID COLOR
-void solidColor(float color){
-  currentPixel = 0;
-  while(currentPixel <= stripLength){
+void solidColor(float color, int firstPixel, int lastPixel){
+
+  currentPixel = firstPixel;
+  while(currentPixel <= lastPixel){
       strip.setPixelColor(currentPixel, color);
       strip.show();
       currentPixel ++;

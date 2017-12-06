@@ -64,15 +64,22 @@
             this.rainbowTypeComboBox = new System.Windows.Forms.ComboBox();
             this.offButton = new System.Windows.Forms.Button();
             this.colorPreview = new System.Windows.Forms.FlowLayoutPanel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.colorPreviewLabel = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.responsiveLightingCheckbox = new System.Windows.Forms.CheckBox();
+            this.firstPixelLabel = new System.Windows.Forms.Label();
+            this.firstNeoPixelUpDown = new System.Windows.Forms.NumericUpDown();
+            this.lastPixelLabel = new System.Windows.Forms.Label();
+            this.lastNeoPixelUpDown = new System.Windows.Forms.NumericUpDown();
+            this.advancedLightingPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.redValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueValue)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.delayValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.firstNeoPixelUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lastNeoPixelUpDown)).BeginInit();
+            this.advancedLightingPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -91,8 +98,8 @@
             this.redValue.Name = "redValue";
             this.redValue.Size = new System.Drawing.Size(60, 20);
             this.redValue.TabIndex = 1;
-            this.redValue.ValueChanged += new System.EventHandler(this.color_ValueChanged_event);
-            this.redValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.color_ValueChanged);
+            this.redValue.ValueChanged += new System.EventHandler(this.color_ValueChanged);
+            this.redValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.color_KeyDown);
             // 
             // redLabel
             // 
@@ -124,8 +131,8 @@
             this.greenValue.Name = "greenValue";
             this.greenValue.Size = new System.Drawing.Size(60, 20);
             this.greenValue.TabIndex = 3;
-            this.greenValue.ValueChanged += new System.EventHandler(this.color_ValueChanged_event);
-            this.greenValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.color_ValueChanged);
+            this.greenValue.ValueChanged += new System.EventHandler(this.color_ValueChanged);
+            this.greenValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.color_KeyDown);
             // 
             // blueLabel
             // 
@@ -148,8 +155,8 @@
             this.blueValue.Name = "blueValue";
             this.blueValue.Size = new System.Drawing.Size(60, 20);
             this.blueValue.TabIndex = 5;
-            this.blueValue.ValueChanged += new System.EventHandler(this.color_ValueChanged_event);
-            this.blueValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.color_ValueChanged);
+            this.blueValue.ValueChanged += new System.EventHandler(this.color_ValueChanged);
+            this.blueValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.color_KeyDown);
             // 
             // spectrumTrayItem
             // 
@@ -352,7 +359,7 @@
             // 
             // rainbowButton
             // 
-            this.rainbowButton.Location = new System.Drawing.Point(68, 275);
+            this.rainbowButton.Location = new System.Drawing.Point(68, 325);
             this.rainbowButton.Name = "rainbowButton";
             this.rainbowButton.Size = new System.Drawing.Size(75, 23);
             this.rainbowButton.TabIndex = 10;
@@ -363,7 +370,7 @@
             // delayValue
             // 
             this.delayValue.InterceptArrowKeys = false;
-            this.delayValue.Location = new System.Drawing.Point(385, 278);
+            this.delayValue.Location = new System.Drawing.Point(385, 328);
             this.delayValue.Maximum = new decimal(new int[] {
             276447232,
             23283,
@@ -386,7 +393,7 @@
             // delayLabel
             // 
             this.delayLabel.AutoSize = true;
-            this.delayLabel.Location = new System.Drawing.Point(246, 280);
+            this.delayLabel.Location = new System.Drawing.Point(246, 330);
             this.delayLabel.Name = "delayLabel";
             this.delayLabel.Size = new System.Drawing.Size(133, 13);
             this.delayLabel.TabIndex = 2;
@@ -397,7 +404,7 @@
             this.connectedStatusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.connectedStatusLabel.BackColor = System.Drawing.Color.Red;
             this.connectedStatusLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.connectedStatusLabel.Location = new System.Drawing.Point(466, 350);
+            this.connectedStatusLabel.Location = new System.Drawing.Point(466, 405);
             this.connectedStatusLabel.Name = "connectedStatusLabel";
             this.connectedStatusLabel.Size = new System.Drawing.Size(90, 20);
             this.connectedStatusLabel.TabIndex = 11;
@@ -410,14 +417,14 @@
             this.rainbowTypeComboBox.Items.AddRange(new object[] {
             "Cycle",
             "Full Rainbow"});
-            this.rainbowTypeComboBox.Location = new System.Drawing.Point(149, 275);
+            this.rainbowTypeComboBox.Location = new System.Drawing.Point(149, 325);
             this.rainbowTypeComboBox.Name = "rainbowTypeComboBox";
             this.rainbowTypeComboBox.Size = new System.Drawing.Size(91, 21);
             this.rainbowTypeComboBox.TabIndex = 12;
             // 
             // offButton
             // 
-            this.offButton.Location = new System.Drawing.Point(236, 322);
+            this.offButton.Location = new System.Drawing.Point(236, 372);
             this.offButton.Name = "offButton";
             this.offButton.Size = new System.Drawing.Size(75, 38);
             this.offButton.TabIndex = 13;
@@ -429,36 +436,103 @@
             // 
             this.colorPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.colorPreview.Cursor = System.Windows.Forms.Cursors.Help;
-            this.colorPreview.Location = new System.Drawing.Point(215, 164);
+            this.colorPreview.Location = new System.Drawing.Point(215, 207);
             this.colorPreview.Name = "colorPreview";
             this.colorPreview.Size = new System.Drawing.Size(113, 78);
             this.colorPreview.TabIndex = 14;
             this.toolTip1.SetToolTip(this.colorPreview, "This is a preview of the color that the strip will display.\r\nNote that color accu" +
         "racy is different on every strip so this will not be 100% accurate.");
             // 
-            // label2
+            // colorPreviewLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(239, 245);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 13);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Color Preview";
+            this.colorPreviewLabel.AutoSize = true;
+            this.colorPreviewLabel.Location = new System.Drawing.Point(239, 288);
+            this.colorPreviewLabel.Name = "colorPreviewLabel";
+            this.colorPreviewLabel.Size = new System.Drawing.Size(72, 13);
+            this.colorPreviewLabel.TabIndex = 15;
+            this.colorPreviewLabel.Text = "Color Preview";
             // 
             // toolTip1
             // 
             this.toolTip1.ToolTipTitle = "Color Preview";
             // 
-            // responsiveLightingCheckbox
+            // firstPixelLabel
             // 
-            this.responsiveLightingCheckbox.AutoSize = true;
-            this.responsiveLightingCheckbox.Location = new System.Drawing.Point(68, 166);
-            this.responsiveLightingCheckbox.Name = "responsiveLightingCheckbox";
-            this.responsiveLightingCheckbox.Size = new System.Drawing.Size(122, 17);
-            this.responsiveLightingCheckbox.TabIndex = 16;
-            this.responsiveLightingCheckbox.Text = "Responsive Lighting";
-            this.responsiveLightingCheckbox.UseVisualStyleBackColor = true;
-            this.responsiveLightingCheckbox.CheckedChanged += new System.EventHandler(this.responsiveLightingCheckbox_CheckedChanged);
+            this.firstPixelLabel.AutoSize = true;
+            this.firstPixelLabel.Location = new System.Drawing.Point(3, 18);
+            this.firstPixelLabel.Name = "firstPixelLabel";
+            this.firstPixelLabel.Size = new System.Drawing.Size(74, 13);
+            this.firstPixelLabel.TabIndex = 18;
+            this.firstPixelLabel.Text = "First NeoPixel:";
+            // 
+            // firstNeoPixelUpDown
+            // 
+            this.firstNeoPixelUpDown.InterceptArrowKeys = false;
+            this.firstNeoPixelUpDown.Location = new System.Drawing.Point(83, 16);
+            this.firstNeoPixelUpDown.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.firstNeoPixelUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.firstNeoPixelUpDown.Name = "firstNeoPixelUpDown";
+            this.firstNeoPixelUpDown.Size = new System.Drawing.Size(60, 20);
+            this.firstNeoPixelUpDown.TabIndex = 17;
+            this.firstNeoPixelUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.firstNeoPixelUpDown.ValueChanged += new System.EventHandler(this.neoPixelUpDown_ValueChanged);
+            // 
+            // lastPixelLabel
+            // 
+            this.lastPixelLabel.AutoSize = true;
+            this.lastPixelLabel.Location = new System.Drawing.Point(146, 20);
+            this.lastPixelLabel.Name = "lastPixelLabel";
+            this.lastPixelLabel.Size = new System.Drawing.Size(75, 13);
+            this.lastPixelLabel.TabIndex = 20;
+            this.lastPixelLabel.Text = "Last NeoPixel:";
+            // 
+            // lastNeoPixelUpDown
+            // 
+            this.lastNeoPixelUpDown.InterceptArrowKeys = false;
+            this.lastNeoPixelUpDown.Location = new System.Drawing.Point(226, 18);
+            this.lastNeoPixelUpDown.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.lastNeoPixelUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.lastNeoPixelUpDown.Name = "lastNeoPixelUpDown";
+            this.lastNeoPixelUpDown.Size = new System.Drawing.Size(60, 20);
+            this.lastNeoPixelUpDown.TabIndex = 19;
+            this.lastNeoPixelUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.lastNeoPixelUpDown.ValueChanged += new System.EventHandler(this.neoPixelUpDown_ValueChanged);
+            // 
+            // advancedLightingPanel
+            // 
+            this.advancedLightingPanel.BackColor = System.Drawing.Color.Transparent;
+            this.advancedLightingPanel.Controls.Add(this.firstPixelLabel);
+            this.advancedLightingPanel.Controls.Add(this.firstNeoPixelUpDown);
+            this.advancedLightingPanel.Controls.Add(this.lastNeoPixelUpDown);
+            this.advancedLightingPanel.Controls.Add(this.lastPixelLabel);
+            this.advancedLightingPanel.Location = new System.Drawing.Point(133, 159);
+            this.advancedLightingPanel.Name = "advancedLightingPanel";
+            this.advancedLightingPanel.Size = new System.Drawing.Size(310, 42);
+            this.advancedLightingPanel.TabIndex = 0;
             // 
             // spectrumFormMain
             // 
@@ -466,9 +540,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(559, 372);
-            this.Controls.Add(this.responsiveLightingCheckbox);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(559, 427);
+            this.Controls.Add(this.advancedLightingPanel);
+            this.Controls.Add(this.colorPreviewLabel);
             this.Controls.Add(this.colorPreview);
             this.Controls.Add(this.offButton);
             this.Controls.Add(this.rainbowTypeComboBox);
@@ -502,6 +576,10 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.delayValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.firstNeoPixelUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lastNeoPixelUpDown)).EndInit();
+            this.advancedLightingPanel.ResumeLayout(false);
+            this.advancedLightingPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -515,7 +593,6 @@
         private System.Windows.Forms.Label blueLabel;
         private System.Windows.Forms.NumericUpDown blueValue;
         private System.Windows.Forms.NotifyIcon spectrumTrayItem;
-        private System.Windows.Forms.Button solidColorButton;
         private System.Windows.Forms.Button portConnectButton;
         private System.Windows.Forms.ComboBox serialComboBox;
         private System.Windows.Forms.Label label1;
@@ -523,13 +600,11 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Button rainbowButton;
         private System.Windows.Forms.NumericUpDown delayValue;
         private System.Windows.Forms.Label delayLabel;
         private System.Windows.Forms.Label connectedStatusLabel;
         private System.Windows.Forms.ToolStripMenuItem documentationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resetSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem githubToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem donateToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
@@ -545,11 +620,18 @@
         private System.Windows.Forms.ToolStripMenuItem reportBugToolStripMenuItem;
         private System.Windows.Forms.ComboBox rainbowTypeComboBox;
         private System.Windows.Forms.Button offButton;
-        private System.Windows.Forms.FlowLayoutPanel colorPreview;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolTip toolTip1;
         public System.IO.Ports.SerialPort serialPort1;
-        private System.Windows.Forms.CheckBox responsiveLightingCheckbox;
+        public System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem resetSettingsToolStripMenuItem;
+        public System.Windows.Forms.Button solidColorButton;
+        public System.Windows.Forms.NumericUpDown firstNeoPixelUpDown;
+        public System.Windows.Forms.NumericUpDown lastNeoPixelUpDown;
+        public System.Windows.Forms.Label firstPixelLabel;
+        public System.Windows.Forms.Label lastPixelLabel;
+        public System.Windows.Forms.Panel advancedLightingPanel;
+        public System.Windows.Forms.FlowLayoutPanel colorPreview;
+        public System.Windows.Forms.Label colorPreviewLabel;
     }
 }
 

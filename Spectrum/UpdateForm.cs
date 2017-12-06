@@ -17,20 +17,21 @@ namespace Spectrum {
 
         UpdateForm updateForm;
 
-        string installerName, downloadLocation, fileLoaction;
+        string installerName, downloadLocation, fileLoaction, onlineVersion;
 
         WebClient webClient = new WebClient();
 
-        public UpdateForm(string installer, string download) {
+        public UpdateForm(string installer, string download, string version) {
             InitializeComponent();
 
             fileLoaction = Settings.Default.fileLocation;
 
             installerName = installer;
             downloadLocation = download;
-
+            onlineVersion = version; 
             postponeCombobox.SelectedIndex = 0;
 
+            Text = "Update To " + onlineVersion;
         }
 
         // Check For Product Updates
@@ -38,7 +39,7 @@ namespace Spectrum {
 
             // Open Update Form
             if (updateAvailable) {
-                updateForm = new UpdateForm(installerName, downloadLocation);
+                updateForm = new UpdateForm(installerName, downloadLocation, onlineVersion);
                 updateForm.ShowDialog();
                 
             }

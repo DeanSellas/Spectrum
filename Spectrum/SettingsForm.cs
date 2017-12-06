@@ -21,6 +21,7 @@ namespace Spectrum {
 
         string currentLocation = AppDomain.CurrentDomain.BaseDirectory;
 
+        Point defaultLocation = new Point(82, 34);
 
         spectrumFormMain spectrumForm;
 
@@ -30,10 +31,6 @@ namespace Spectrum {
 
             spectrumForm = openForm;
 
-            // Sets Window Properties
-            int defaultTop = generalSettingsGroupBox.Top;
-            int defaultLeft = generalSettingsGroupBox.Left;
-
             Size = new Size(391, 320);
 
             okButton.Location = new Point(119, 248);
@@ -41,14 +38,11 @@ namespace Spectrum {
             applySettingsButton.Location = new Point(289, 248);
 
 
-            updatesGroupBox.Left = defaultLeft;
-            updatesGroupBox.Top = defaultTop;
+            updatesGroupBox.Location = defaultLocation;
 
-            arduinoSettingsGroupBox.Left = defaultLeft;
-            arduinoSettingsGroupBox.Top = defaultTop;
+            arduinoSettingsGroupBox.Location = defaultLocation;
 
-            advancedSettingsGroupBox.Top = defaultTop;
-            advancedSettingsGroupBox.Left = defaultLeft;
+            advancedSettingsGroupBox.Location = defaultLocation;
 
         }
 
@@ -71,8 +65,12 @@ namespace Spectrum {
             else if (Settings.Default.windowsStartupBool != windowsCheckbox.Checked) checkChanged = true;
             // Turn Off On Close
             else if (Settings.Default.turnOffOnClose != offOnClose.Checked) checkChanged = true;
+            // Responsive Lighting
+            else if (Settings.Default.responsiveLighting != responsiveLightingCheckbox.Checked) checkChanged = true;
             // Remember Lighting
             else if (Settings.Default.rememberLightProfile != rememberLightCheckbox.Checked) checkChanged = true;
+            // Advanced Lighting
+            else if (Settings.Default.advancedLighting != advancedLightingCheckbox.Checked) checkChanged = true;
             // Else
             else checkChanged = false;
 
@@ -108,10 +106,10 @@ namespace Spectrum {
         }
 
         private void stripLengthUpDown_ValueChanged(object sender, EventArgs e) {
-            stripLengthUpDown_KeyDown(sender, null);
+            stripLengthUpDown_KeyUp(sender, null);
         }
 
-        private void stripLengthUpDown_KeyDown(object sender, KeyEventArgs e) {
+        private void stripLengthUpDown_KeyUp(object sender, KeyEventArgs e) {
             if (stripLengthUpDown.Value != Settings.Default.stripLength || checkChanged) applySettingsButton.Enabled = true;
             else applySettingsButton.Enabled = false;
         }
@@ -180,9 +178,35 @@ namespace Spectrum {
             if (rememberLightCheckbox.Checked) Settings.Default.rememberLightProfile = true;
             else Settings.Default.rememberLightProfile = false;
 
+            
+
             // Turn Off On Close
             if (offOnClose.Checked) Settings.Default.turnOffOnClose = true;
             else Settings.Default.turnOffOnClose = false;
+
+            // Responsive Lighting
+            if (responsiveLightingCheckbox.Checked) {
+                Settings.Default.responsiveLighting = true;
+                if(Settings.Default.isConnected) spectrumForm.solidColorButton.Enabled = false;
+            }
+            else {
+                Settings.Default.responsiveLighting = false;
+                if (Settings.Default.isConnected) spectrumForm.solidColorButton.Enabled = true;
+            }
+
+            // Advanced Lighting
+            if (advancedLightingCheckbox.Checked) {
+                Settings.Default.advancedLighting = true;
+                spectrumForm.advancedLightingPanel.Visible = true;
+                spectrumForm.colorPreview.Location = new Point(215, 207);
+                spectrumForm.colorPreviewLabel.Location = new Point(239, 288);
+            }
+            else {
+                Settings.Default.advancedLighting = false;
+                spectrumForm.advancedLightingPanel.Visible = false;
+                spectrumForm.colorPreview.Location = new Point(215, 177);
+                spectrumForm.colorPreviewLabel.Location = new Point(239, 258);
+            }
 
             // Start With Windows
             if (windowsCheckbox.Checked) {
@@ -248,7 +272,7 @@ namespace Spectrum {
             defaultSettings(false);
         }
 
-        
+        private void resetSettingsButton_Click(object sender, EventArgs e) { spectrumForm.resetSettingsToolStripMenuItem.PerformClick(); }
 
         private void defaultSettings(bool user) {
 
@@ -264,7 +288,10 @@ namespace Spectrum {
                 startMinCheckbox.Checked = false;
                 windowsCheckbox.Checked = false;
                 offOnClose.Checked = true;
+                responsiveLightingCheckbox.Checked = false;
                 rememberLightCheckbox.Checked = false;
+
+                advancedLightingCheckbox.Checked = false;
 
                 // Comboboxes
                 updateComboBox.SelectedIndex = 1;
@@ -280,7 +307,10 @@ namespace Spectrum {
             startMinCheckbox.Checked = Settings.Default.startMinimizedBool;
             windowsCheckbox.Checked = Settings.Default.windowsStartupBool;
             offOnClose.Checked = Settings.Default.turnOffOnClose;
+            responsiveLightingCheckbox.Checked = Settings.Default.responsiveLighting;
             rememberLightCheckbox.Checked = Settings.Default.rememberLightProfile;
+
+            advancedLightingCheckbox.Checked = Settings.Default.advancedLighting;
 
             // Update Group Box Settings
             updateComboBox.SelectedIndex = Settings.Default.updateComboBoxInt;

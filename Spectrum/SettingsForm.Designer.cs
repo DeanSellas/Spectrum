@@ -49,15 +49,18 @@
             this.fileExplorerTextBox = new System.Windows.Forms.TextBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.arduinoSettingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.responsiveLightingCheckbox = new System.Windows.Forms.CheckBox();
             this.rememberLightCheckbox = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.stripLengthUpDown = new System.Windows.Forms.NumericUpDown();
             this.defaultPortComboBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.advancedSettingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.advancedLightingCheckbox = new System.Windows.Forms.CheckBox();
+            this.resetSettingsButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.devBuildsCheckbox = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label5 = new System.Windows.Forms.Label();
             this.generalSettingsGroupBox.SuspendLayout();
             this.updatesGroupBox.SuspendLayout();
             this.arduinoSettingsGroupBox.SuspendLayout();
@@ -155,7 +158,7 @@
             this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeView1.Indent = 10;
             this.treeView1.ItemHeight = 20;
-            this.treeView1.Location = new System.Drawing.Point(1, 42);
+            this.treeView1.Location = new System.Drawing.Point(8, 44);
             this.treeView1.Name = "treeView1";
             treeNode1.Name = "generalNode";
             treeNode1.Text = "General";
@@ -171,7 +174,7 @@
             treeNode3,
             treeNode4});
             this.treeView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.treeView1.Size = new System.Drawing.Size(75, 198);
+            this.treeView1.Size = new System.Drawing.Size(66, 198);
             this.treeView1.TabIndex = 22;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
@@ -203,7 +206,7 @@
             // offOnClose
             // 
             this.offOnClose.AutoSize = true;
-            this.offOnClose.Location = new System.Drawing.Point(80, 134);
+            this.offOnClose.Location = new System.Drawing.Point(78, 111);
             this.offOnClose.Name = "offOnClose";
             this.offOnClose.Size = new System.Drawing.Size(111, 17);
             this.offOnClose.TabIndex = 20;
@@ -292,6 +295,7 @@
             // 
             // arduinoSettingsGroupBox
             // 
+            this.arduinoSettingsGroupBox.Controls.Add(this.responsiveLightingCheckbox);
             this.arduinoSettingsGroupBox.Controls.Add(this.rememberLightCheckbox);
             this.arduinoSettingsGroupBox.Controls.Add(this.label4);
             this.arduinoSettingsGroupBox.Controls.Add(this.stripLengthUpDown);
@@ -306,10 +310,21 @@
             this.arduinoSettingsGroupBox.Text = "Arduino Settings";
             this.arduinoSettingsGroupBox.Visible = false;
             // 
+            // responsiveLightingCheckbox
+            // 
+            this.responsiveLightingCheckbox.AutoSize = true;
+            this.responsiveLightingCheckbox.Location = new System.Drawing.Point(78, 134);
+            this.responsiveLightingCheckbox.Name = "responsiveLightingCheckbox";
+            this.responsiveLightingCheckbox.Size = new System.Drawing.Size(122, 17);
+            this.responsiveLightingCheckbox.TabIndex = 27;
+            this.responsiveLightingCheckbox.Text = "Responsive Lighting";
+            this.responsiveLightingCheckbox.UseVisualStyleBackColor = true;
+            this.responsiveLightingCheckbox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
+            // 
             // rememberLightCheckbox
             // 
             this.rememberLightCheckbox.AutoSize = true;
-            this.rememberLightCheckbox.Location = new System.Drawing.Point(80, 157);
+            this.rememberLightCheckbox.Location = new System.Drawing.Point(78, 156);
             this.rememberLightCheckbox.Name = "rememberLightCheckbox";
             this.rememberLightCheckbox.Size = new System.Drawing.Size(149, 17);
             this.rememberLightCheckbox.TabIndex = 26;
@@ -321,7 +336,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 97);
+            this.label4.Location = new System.Drawing.Point(22, 74);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(112, 13);
             this.label4.TabIndex = 25;
@@ -329,7 +344,7 @@
             // 
             // stripLengthUpDown
             // 
-            this.stripLengthUpDown.Location = new System.Drawing.Point(138, 95);
+            this.stripLengthUpDown.Location = new System.Drawing.Point(140, 72);
             this.stripLengthUpDown.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -345,7 +360,7 @@
             0,
             0});
             this.stripLengthUpDown.ValueChanged += new System.EventHandler(this.stripLengthUpDown_ValueChanged);
-            this.stripLengthUpDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.stripLengthUpDown_KeyDown);
+            this.stripLengthUpDown.KeyUp += new System.Windows.Forms.KeyEventHandler(this.stripLengthUpDown_KeyUp);
             // 
             // defaultPortComboBox
             // 
@@ -368,6 +383,8 @@
             // 
             // advancedSettingsGroupBox
             // 
+            this.advancedSettingsGroupBox.Controls.Add(this.advancedLightingCheckbox);
+            this.advancedSettingsGroupBox.Controls.Add(this.resetSettingsButton);
             this.advancedSettingsGroupBox.Controls.Add(this.label5);
             this.advancedSettingsGroupBox.Controls.Add(this.devBuildsCheckbox);
             this.advancedSettingsGroupBox.Controls.Add(this.defaultSettingsButton);
@@ -379,26 +396,47 @@
             this.advancedSettingsGroupBox.Text = "Advanced Settings";
             this.advancedSettingsGroupBox.Visible = false;
             // 
+            // advancedLightingCheckbox
+            // 
+            this.advancedLightingCheckbox.AutoSize = true;
+            this.advancedLightingCheckbox.Location = new System.Drawing.Point(83, 75);
+            this.advancedLightingCheckbox.Name = "advancedLightingCheckbox";
+            this.advancedLightingCheckbox.Size = new System.Drawing.Size(115, 17);
+            this.advancedLightingCheckbox.TabIndex = 24;
+            this.advancedLightingCheckbox.Text = "Advanced Lighting";
+            this.advancedLightingCheckbox.UseVisualStyleBackColor = true;
+            this.advancedLightingCheckbox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
+            // 
+            // resetSettingsButton
+            // 
+            this.resetSettingsButton.Location = new System.Drawing.Point(83, 179);
+            this.resetSettingsButton.Name = "resetSettingsButton";
+            this.resetSettingsButton.Size = new System.Drawing.Size(97, 23);
+            this.resetSettingsButton.TabIndex = 23;
+            this.resetSettingsButton.Text = "Reset Settings";
+            this.resetSettingsButton.UseVisualStyleBackColor = true;
+            this.resetSettingsButton.Click += new System.EventHandler(this.resetSettingsButton_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(55, 131);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(173, 13);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "This feature is currently not avalible";
+            // 
             // devBuildsCheckbox
             // 
             this.devBuildsCheckbox.AutoSize = true;
             this.devBuildsCheckbox.Enabled = false;
-            this.devBuildsCheckbox.Location = new System.Drawing.Point(83, 92);
+            this.devBuildsCheckbox.Location = new System.Drawing.Point(83, 111);
             this.devBuildsCheckbox.Name = "devBuildsCheckbox";
             this.devBuildsCheckbox.Size = new System.Drawing.Size(113, 17);
             this.devBuildsCheckbox.TabIndex = 21;
             this.devBuildsCheckbox.Text = "Enable Dev Builds";
             this.toolTip1.SetToolTip(this.devBuildsCheckbox, "Feature Currently Not Avalible");
             this.devBuildsCheckbox.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(55, 112);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(173, 13);
-            this.label5.TabIndex = 22;
-            this.label5.Text = "This feature is currently not avalible";
             // 
             // SettingsForm
             // 
@@ -465,5 +503,8 @@
         private System.Windows.Forms.CheckBox devBuildsCheckbox;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button resetSettingsButton;
+        private System.Windows.Forms.CheckBox responsiveLightingCheckbox;
+        private System.Windows.Forms.CheckBox advancedLightingCheckbox;
     }
 }

@@ -32,6 +32,8 @@ namespace Spectrum {
 
         bool waitFor = true;
 
+        int firstPixel, lastPixel;
+
         // Date Time
         DateTime currentTime = DateTime.Now.Date;
 
@@ -43,7 +45,7 @@ namespace Spectrum {
         // String
         public string[] ports;
         string currentVersion = Application.ProductVersion;
-        string installerName, downloadLocation;
+        string installerName, downloadLocation, firstLast;
 
 
         WebClient webClient = new WebClient();
@@ -71,10 +73,10 @@ namespace Spectrum {
             //if (!Settings.Default.isConnected) startupConnectCheckBox.Enabled = false;
 
 
-
             redValue.Value = Settings.Default.redColor;
             greenValue.Value = Settings.Default.greenColor;
             blueValue.Value = Settings.Default.blueColor;
+
 
             // Sets Title
             if(currentVersion.Substring(5) == "0") Text = "Spectrum " + currentVersion.Substring(0, 3);
@@ -107,9 +109,20 @@ namespace Spectrum {
 
             buttonEnableAsync();
 
-            color_ValueChanged_event(sender, e);
+            color_ValueChanged(sender, e);
 
             checkForUpdatesVoid(false, false);
+
+            lastNeoPixelUpDown.Value = Settings.Default.stripLength;
+
+
+            advancedLightingPanel.Visible = Settings.Default.advancedLighting;
+
+            if (!Settings.Default.advancedLighting) {
+                colorPreview.Location = new Point(215, 177);
+                colorPreviewLabel.Location = new Point(239, 258);
+            }
+
         }
 
         // On Form Close
@@ -154,8 +167,6 @@ namespace Spectrum {
         // Sets Solid Color
         private void solidColorButton_Click(object sender, EventArgs e) {
 
-            
-
             var red = redValue.Value.ToString();
             var green = greenValue.Value.ToString();
             var blue = blueValue.Value.ToString();
@@ -167,15 +178,15 @@ namespace Spectrum {
             // Blue Value Hotfix
             if (blueValue.Value < 10) blue = "00" + blue; if (blueValue.Value >= 10 && blueValue.Value < 100) blue = "0" + blue;
 
-            serialPort1.WriteLine("SolidColor" + red + green + blue);
-            Console.WriteLine("SolidColor" + red + green + blue);
-            Settings.Default.lastCommand = "SolidColor" + red + green + blue;
+            serialPort1.WriteLine("SolidColor" + red + green + blue + firstLast);
+            Console.WriteLine("SolidColor" + red + green + blue + firstLast);
+            Settings.Default.lastCommand = "SolidColor" + red + green + blue + firstLast;
 
             if (!waitFor) waitFor = true;
         }
 
         // Color Preview
-        private void color_ValueChanged(object sender, KeyEventArgs e) {
+        private void color_KeyDown(object sender, KeyEventArgs e) {
 
             if (redValue.Text == "") redValue.Text = "0";
             if (greenValue.Text == "") greenValue.Text = "0";
@@ -187,18 +198,31 @@ namespace Spectrum {
             colorPreview.BackColor = Color.FromArgb(red, green, blue);
             if (red == 0 && green == 0 && blue == 0) colorPreview.BackColor = Color.Transparent;
 
-            if (Settings.Default.isConnected && responsiveLightingCheckbox.Checked && waitFor) wait(1250);
+            if (Settings.Default.isConnected && Settings.Default.responsiveLighting && waitFor) wait(1250);
 
         }
 
-        private void color_ValueChanged_event(object sender, EventArgs e) {
-            color_ValueChanged(sender, null);
-        }
+        private void color_ValueChanged(object sender, EventArgs e) { color_KeyDown(sender, null); }
 
         private async void wait(int time) {
             waitFor = false;
             await Task.Delay(time);
             solidColorButton_Click(this, null);
+        }
+
+
+        // Used for more in depth solid color lighting
+        private void neoPixelUpDown_ValueChanged(object sender, EventArgs e) {
+            //neoPixelUpDown_KeyDown(sender, null);
+            firstNeoPixelUpDown.Maximum = Settings.Default.stripLength;
+            lastNeoPixelUpDown.Maximum = Settings.Default.stripLength;
+
+            lastNeoPixelUpDown.Minimum = firstNeoPixelUpDown.Value;
+
+            firstPixel = Convert.ToInt32(firstNeoPixelUpDown.Value);
+            lastPixel = Convert.ToInt32(lastNeoPixelUpDown.Value);
+
+            firstLast = "-" + firstPixel + "-" + lastPixel;
         }
 
         // Rainbow Animation Button
@@ -269,15 +293,17 @@ namespace Spectrum {
 
                 serialPort1.Open();
                 Console.WriteLine("Connected to port: " + serialPort1.PortName);
-                
-                
-                
-                Settings.Default.isConnected = true;
+
+                connectedStatusLabel.Text = "Connecting...";
+                portConnectButton.Text = "Connecting...";
+                portConnectButton.Enabled = false;
+
                 settingsForm.startupConnectCheckBox.Enabled = true;
                 settingsForm.defaultPortComboBox.Enabled = false;
                 settingsForm.stripLengthUpDown.Enabled = false;
-
+                
                 serialPort1.WriteLine("ChangeStripLength" + Settings.Default.stripLength);
+                Settings.Default.isConnected = true;
             }
 
             // Closes Serial Port
@@ -302,11 +328,13 @@ namespace Spectrum {
         private async void buttonEnableAsync() {
             if (Settings.Default.isConnected) {
 
-                if(!responsiveLightingCheckbox.Checked) solidColorButton.Enabled = true;
+                await Task.Delay(1100);
+
+                if (!Settings.Default.responsiveLighting) solidColorButton.Enabled = true;
                 rainbowButton.Enabled = true;
                 offButton.Enabled = true;
-                responsiveLightingCheckbox.Enabled = true;
                 portConnectButton.Text = "Disconnect";
+                portConnectButton.Enabled = true;
 
                 serialComboBox.Enabled = false;
 
@@ -316,21 +344,15 @@ namespace Spectrum {
                 spectrumTrayItem.Text = "Spectrum: Connected";
 
                 if (Settings.Default.rememberLightProfile) {
-                    await Task.Delay(1250);
-
                     Console.WriteLine(Settings.Default.lastCommand);
                     serialPort1.WriteLine(Settings.Default.lastCommand);
                 }
-
-                
-
 
             }
             else {
                 solidColorButton.Enabled = false;
                 rainbowButton.Enabled = false;
                 offButton.Enabled = false;
-                responsiveLightingCheckbox.Enabled = false;
                 portConnectButton.Text = "Connect";
 
                 serialComboBox.Enabled = true;
@@ -344,19 +366,19 @@ namespace Spectrum {
 
         // Updates Void
         public void checkForUpdatesVoid(bool updateAvailable, bool userCheck) {
-
+            string onlineVersion;
             // Reads Version.txt
 
             System.IO.Stream stream = webClient.OpenRead("https://raw.githubusercontent.com/DeanSellas/Spectrum/master/version.txt");
             using (System.IO.StreamReader reader = new System.IO.StreamReader(stream)) {
-                String onlineVersion = reader.ReadToEnd();
-                Console.WriteLine(onlineVersion);
-
+                String version = reader.ReadToEnd();
+                Console.WriteLine(version);
+                onlineVersion = version;
                 // Sets Proper Variables
                 // Change != to == for testing purposes
-                if (currentVersion != onlineVersion) {
+                if (currentVersion != version) {
                     updateAvailable = true;
-                    installerName = "spectrumv" + onlineVersion + "setup.exe";
+                    installerName = "spectrumv" + version + "setup.exe";
                     Console.WriteLine(installerName);
                     downloadLocation = "https://github.com/DeanSellas/Spectrum/blob/master/Installer/" + installerName + "?raw=true";
                 }
@@ -386,10 +408,10 @@ namespace Spectrum {
                 // Check For Updates
                 if (checkForUpdate && updateAvailable) {
                     if (!userCheck) {
-                        DialogResult dialogResult = MessageBox.Show("New Version Of Spectrum Is Avaliable Do You Want to Download it?", "Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        DialogResult dialogResult = MessageBox.Show("New Version Of Spectrum Is Avaliable Do You Want to Download it?", "Update to "+ onlineVersion, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (dialogResult == DialogResult.Yes) {
-                            updateForm = new UpdateForm(installerName, downloadLocation);
+                            updateForm = new UpdateForm(installerName, downloadLocation, onlineVersion);
                             updateForm.SpectrumUpdate(updateAvailable, false);
                         }
                         Settings.Default.lastUpdateCheck = DateTime.Now.Date;
@@ -397,7 +419,7 @@ namespace Spectrum {
                     
                 }
                 if(userCheck) {
-                    updateForm = new UpdateForm(installerName, downloadLocation);
+                    updateForm = new UpdateForm(installerName, downloadLocation, onlineVersion);
                     updateForm.SpectrumUpdate(updateAvailable, true);
                 }
 
@@ -518,16 +540,13 @@ namespace Spectrum {
             settingsForm.Show();
         }
 
+
+
         private void redValue_ValueChanged(object sender, EventArgs e) {
             var red = Convert.ToInt32(redValue.Value);
             var green = Convert.ToInt32(greenValue.Value);
             var blue = Convert.ToInt32(blueValue.Value);
             colorPreview.BackColor = Color.FromArgb(red, green, blue);
-        }
-
-        private void responsiveLightingCheckbox_CheckedChanged(object sender, EventArgs e) {
-            if (responsiveLightingCheckbox.Checked) solidColorButton.Enabled = false;
-            else solidColorButton.Enabled = true;
         }
 
         // Context Menu Exit
