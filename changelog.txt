@@ -8,19 +8,20 @@ ROADMAP: https://github.com/DeanSellas/Spectrum/projects
 SUPPORT: https://github.com/DeanSellas/Spectrum/issues or https://github.com/DeanSellas/Spectrum/wiki
 TWITTER: https://twitter.com/DeanSellas
 
-UNRELEASED || Alpha v0.1.2
+Alpha v0.1.2
 ---------------------------------------------
 + ADDED: Set Up Menu
 + ADDED: Ability to change amount of NeoPixels on strip
 + ADDED: Ablility to remember lighting
 + ADDED: Advanced Settings
 + ADDED: Responsive Lighting
++ ADDED: Arduino Remembers Strip Length
 
 # CHANGED: Redid Settings Menu
 # CHANGED: Small redesigns
 # CHANGED: Cleaned code
 
-# FIXED: Lots of bugs.
+- FIXED: Lots of bugs.
 
 Alpha v0.1.0.1
 ---------------------------------------------
@@ -37,4 +38,4 @@ Alpha v0.1
 + ADDED: Color Preview
 + ADDED: Misc Settings
 
-# CHANGED: Nothing. This is the first Release
+* CHANGED: Nothing. This is the first Release

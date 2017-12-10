@@ -272,7 +272,24 @@ namespace Spectrum {
             defaultSettings(false);
         }
 
-        private void resetSettingsButton_Click(object sender, EventArgs e) { spectrumForm.resetSettingsToolStripMenuItem.PerformClick(); }
+        // Reset Settings
+        private void resetSettingsButton_Click(object sender, EventArgs e) {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to reset all your settings? This setting is meant for debugging, and it will completely wipe the program.", "RESET SETTINGS", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            // If Yes
+            if (dialogResult == DialogResult.Yes) {
+
+                // Delete Startup Reg Key
+                try {
+                    Settings.Default.Reset();
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
+                        key.DeleteValue("Spectrum", false);
+                    }
+
+                }
+                // Reset Settings
+                finally { spectrumForm.Close(); }
+            }
+        }
 
         private void defaultSettings(bool user) {
 

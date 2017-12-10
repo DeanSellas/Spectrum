@@ -55,7 +55,6 @@
             this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportBugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.githubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.donateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rainbowButton = new System.Windows.Forms.Button();
             this.delayValue = new System.Windows.Forms.NumericUpDown();
@@ -315,8 +314,7 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.documentationToolStripMenuItem,
             this.reportBugToolStripMenuItem,
-            this.githubToolStripMenuItem,
-            this.resetSettingsToolStripMenuItem});
+            this.githubToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -341,13 +339,6 @@
             this.githubToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.githubToolStripMenuItem.Text = "Github";
             this.githubToolStripMenuItem.Click += new System.EventHandler(this.githubToolStripMenuItem_Click);
-            // 
-            // resetSettingsToolStripMenuItem
-            // 
-            this.resetSettingsToolStripMenuItem.Name = "resetSettingsToolStripMenuItem";
-            this.resetSettingsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.resetSettingsToolStripMenuItem.Text = "Reset Settings";
-            this.resetSettingsToolStripMenuItem.Click += new System.EventHandler(this.resetSettingsToolStripMenuItem_Click);
             // 
             // donateToolStripMenuItem
             // 
@@ -623,7 +614,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         public System.IO.Ports.SerialPort serialPort1;
         public System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        public System.Windows.Forms.ToolStripMenuItem resetSettingsToolStripMenuItem;
         public System.Windows.Forms.Button solidColorButton;
         public System.Windows.Forms.NumericUpDown firstNeoPixelUpDown;
         public System.Windows.Forms.NumericUpDown lastNeoPixelUpDown;

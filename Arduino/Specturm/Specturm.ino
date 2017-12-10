@@ -1,3 +1,5 @@
+#include <EEPROM.h>
+
 
 long previousMillis = 0;
 
@@ -45,6 +47,8 @@ bool rainbowFullBool = false;
 bool sentCommand = false;
 bool boardReady = true;
 
+int EEPROMlength = 130;
+
 void setup() {
   Serial.begin(9600);
   strip.begin();
@@ -53,10 +57,15 @@ void setup() {
 
 void loop() {
   String data = Serial.readString();
-  
+
+    if(EEPROM.read(EEPROMlength) != stripLength){
+      stripLength = EEPROM.read(EEPROMlength);
+    }
+    
     // Changes the Length Of The Strip
     if(data.substring(0,17) == "ChangeStripLength"){
        stripLength = data.substring(17).toInt();
+       EEPROM.write(EEPROMlength, stripLength);
     }
     //Serial.println(stripLength);
     

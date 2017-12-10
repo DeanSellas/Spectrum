@@ -61,6 +61,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.devBuildsCheckbox = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label6 = new System.Windows.Forms.Label();
             this.generalSettingsGroupBox.SuspendLayout();
             this.updatesGroupBox.SuspendLayout();
             this.arduinoSettingsGroupBox.SuspendLayout();
@@ -383,6 +384,7 @@
             // 
             // advancedSettingsGroupBox
             // 
+            this.advancedSettingsGroupBox.Controls.Add(this.label6);
             this.advancedSettingsGroupBox.Controls.Add(this.advancedLightingCheckbox);
             this.advancedSettingsGroupBox.Controls.Add(this.resetSettingsButton);
             this.advancedSettingsGroupBox.Controls.Add(this.label5);
@@ -404,6 +406,7 @@
             this.advancedLightingCheckbox.Size = new System.Drawing.Size(115, 17);
             this.advancedLightingCheckbox.TabIndex = 24;
             this.advancedLightingCheckbox.Text = "Advanced Lighting";
+            this.toolTip1.SetToolTip(this.advancedLightingCheckbox, "Allows the user to select what each individule NeoPixel displays");
             this.advancedLightingCheckbox.UseVisualStyleBackColor = true;
             this.advancedLightingCheckbox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
             // 
@@ -420,7 +423,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(55, 131);
+            this.label5.Location = new System.Drawing.Point(55, 118);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(173, 13);
             this.label5.TabIndex = 22;
@@ -430,13 +433,24 @@
             // 
             this.devBuildsCheckbox.AutoSize = true;
             this.devBuildsCheckbox.Enabled = false;
-            this.devBuildsCheckbox.Location = new System.Drawing.Point(83, 111);
+            this.devBuildsCheckbox.Location = new System.Drawing.Point(83, 98);
             this.devBuildsCheckbox.Name = "devBuildsCheckbox";
             this.devBuildsCheckbox.Size = new System.Drawing.Size(113, 17);
             this.devBuildsCheckbox.TabIndex = 21;
             this.devBuildsCheckbox.Text = "Enable Dev Builds";
             this.toolTip1.SetToolTip(this.devBuildsCheckbox, "Feature Currently Not Avalible");
             this.devBuildsCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(9, 141);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(236, 32);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "Do Not Click Unless \r\nYou Want to Completely Reset Spectrum";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SettingsForm
             // 
@@ -506,5 +520,6 @@
         private System.Windows.Forms.Button resetSettingsButton;
         private System.Windows.Forms.CheckBox responsiveLightingCheckbox;
         private System.Windows.Forms.CheckBox advancedLightingCheckbox;
+        private System.Windows.Forms.Label label6;
     }
 }

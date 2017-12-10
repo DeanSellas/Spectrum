@@ -107,14 +107,7 @@ namespace Spectrum {
                 portConnect(true);
             }
 
-            buttonEnableAsync();
-
-            color_ValueChanged(sender, e);
-
-            checkForUpdatesVoid(false, false);
-
             lastNeoPixelUpDown.Value = Settings.Default.stripLength;
-
 
             advancedLightingPanel.Visible = Settings.Default.advancedLighting;
 
@@ -122,6 +115,12 @@ namespace Spectrum {
                 colorPreview.Location = new Point(215, 177);
                 colorPreviewLabel.Location = new Point(239, 258);
             }
+
+            buttonEnableAsync();
+
+            color_ValueChanged(sender, e);
+
+            checkForUpdatesVoid(false, false);
 
         }
 
@@ -180,7 +179,7 @@ namespace Spectrum {
 
             serialPort1.WriteLine("SolidColor" + red + green + blue + firstLast);
             Console.WriteLine("SolidColor" + red + green + blue + firstLast);
-            Settings.Default.lastCommand = "SolidColor" + red + green + blue + firstLast;
+            if(Settings.Default.rememberLightProfile) Settings.Default.lastCommand = "SolidColor" + red + green + blue + firstLast;
 
             if (!waitFor) waitFor = true;
         }
@@ -237,8 +236,8 @@ namespace Spectrum {
 
             var delay = delayValue.Value.ToString();
             serialPort1.WriteLine(rainbowType + delay);
-            
-            Settings.Default.lastCommand = rainbowType + delay;
+
+            if (Settings.Default.rememberLightProfile) Settings.Default.lastCommand = rainbowType + delay;
             Console.WriteLine(Settings.Default.lastCommand);
         }
 
@@ -301,8 +300,11 @@ namespace Spectrum {
                 settingsForm.startupConnectCheckBox.Enabled = true;
                 settingsForm.defaultPortComboBox.Enabled = false;
                 settingsForm.stripLengthUpDown.Enabled = false;
-                
-                serialPort1.WriteLine("ChangeStripLength" + Settings.Default.stripLength);
+
+                if (Settings.Default.defaultStripLength != Settings.Default.stripLength) {
+                    serialPort1.WriteLine("ChangeStripLength" + Settings.Default.stripLength);
+                    Settings.Default.defaultStripLength = Settings.Default.stripLength;
+                }
                 Settings.Default.isConnected = true;
             }
 
@@ -390,7 +392,7 @@ namespace Spectrum {
             if (!Settings.Default.postponeUpdateBool) {
 
                 // If Update At Startup Not Applied
-                if (Settings.Default.updateComboBoxInt != 1);
+                if (Settings.Default.updateComboBoxInt != 1) Console.Write("");
                 else {
                     Settings.Default.lastUpdateCheck = DateTime.Now.Date;
                     Settings.Default.nextUpdateCheck = DateTime.Now.Date;
@@ -472,28 +474,6 @@ namespace Spectrum {
         // Link to Documentation
         private void documentationToolStripMenuItem_Click(object sender, EventArgs e) {
             Process.Start("https://github.com/DeanSellas/Spectrum/wiki");
-        }
-
-        // Reset Settings
-        private void resetSettingsToolStripMenuItem_Click(object sender, EventArgs e) {
-
-
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to reset all your settings?", "RESET SETTINGS", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            // If Yes
-            if (dialogResult == DialogResult.Yes) {
-
-                // Delete Startup Reg Key
-                try {
-                    Settings.Default.Reset();
-                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)) {
-                        key.DeleteValue("Spectrum", false);
-                    }
-                    
-                }
-                // Reset Settings
-                finally {  Close(); }
-
-            }
         }
 
         // Link to Github

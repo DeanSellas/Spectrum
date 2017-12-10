@@ -307,5 +307,17 @@ namespace Spectrum.Properties {
                 this["advancedLighting"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int defaultStripLength {
+            get {
+                return ((int)(this["defaultStripLength"]));
+            }
+            set {
+                this["defaultStripLength"] = value;
+            }
+        }
     }
 }
