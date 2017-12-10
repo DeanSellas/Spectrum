@@ -375,12 +375,20 @@ namespace Spectrum {
             using (System.IO.StreamReader reader = new System.IO.StreamReader(stream)) {
                 String version = reader.ReadToEnd();
                 Console.WriteLine(version);
-                onlineVersion = version;
+
+                if (version.Substring(3, 4) == "0") {
+                    onlineVersion = version.Substring(0, 3);
+                }
+                else {
+                    onlineVersion = version.Substring(0, 5);
+                }
+
                 // Sets Proper Variables
                 // Change != to == for testing purposes
-                if (currentVersion != version) {
+                if (currentVersion == onlineVersion) {
+
                     updateAvailable = true;
-                    installerName = "spectrumv" + version + "setup.exe";
+                    installerName = "spectrumv" + onlineVersion + "setup.exe";
                     Console.WriteLine(installerName);
                     downloadLocation = "https://github.com/DeanSellas/Spectrum/blob/master/Installer/" + installerName + "?raw=true";
                 }
