@@ -104,7 +104,7 @@ namespace Spectrum {
 
             if (Settings.Default.connectOnStartupBool && Settings.Default.port != "") {
                 serialPort1.PortName = Settings.Default.port;
-                portConnect(true);
+                portConnectAsync(true);
             }
 
             lastNeoPixelUpDown.Value = Settings.Default.stripLength;
@@ -140,7 +140,7 @@ namespace Spectrum {
             }
 
             // Turn Off On Close
-            portConnect(false);
+            portConnectAsync(false);
         }
 
         // Open From Tray
@@ -150,8 +150,8 @@ namespace Spectrum {
         private void portConnectButton_Click(object sender, EventArgs e) {
             try {
                 //if (serialPort1.IsOpen) portConnect(false);
-                if (!serialPort1.IsOpen) portConnect(true);
-                else portConnect(false);
+                if (!serialPort1.IsOpen) portConnectAsync(true);
+                else portConnectAsync(false);
             } catch {
                 MessageBox.Show("Could not connect please make sure the arduino is plugged in and that you have selected the correct port", "Could Not Connect", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -280,7 +280,7 @@ namespace Spectrum {
         }
 
         // Port Connect/Disconnect
-        private void portConnect(bool open) {
+        private async Task portConnectAsync(bool open) {
             string selectedPort = serialComboBox.SelectedItem.ToString();
             
             // Opens Serial Port
@@ -313,6 +313,8 @@ namespace Spectrum {
 
                 // Turns off Strip on Disconnect
                 if (serialPort1.IsOpen && Settings.Default.turnOffOnClose) serialPort1.WriteLine("turnOff");
+
+                await Task.Delay(500);
 
                 serialPort1.Close();
                 
@@ -514,7 +516,7 @@ namespace Spectrum {
 
         // Context Menu Connect/Disconnect
         private void connectToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (Settings.Default.isConnected) portConnect(false); else portConnect(true);
+            if (Settings.Default.isConnected) portConnectAsync(false); else portConnectAsync(true);
         }
 
         // Context Menu Show/Hide

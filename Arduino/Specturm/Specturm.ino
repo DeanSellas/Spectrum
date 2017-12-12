@@ -81,7 +81,7 @@ void loop() {
         sentCommand = true;
       }
       
-      Serial.println(wait);
+      //Serial.println(wait);
       
       rainbowCycleBool = true;
       
@@ -100,7 +100,7 @@ void loop() {
         sentCommand = true;
       }
       
-      Serial.println(wait);
+      //Serial.println(wait);
       
       rainbowFullBool = true;
       
