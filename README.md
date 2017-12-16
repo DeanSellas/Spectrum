@@ -10,19 +10,12 @@ Documentation is comming very soon, so you can start customizing the app to your
 ***
 
 ### Current Version
-Alpha 0.1.2
-+ ADDED: Set Up Menu
-+ ADDED: Ability to change amount of NeoPixels on strip
-+ ADDED: Ablility to remember lighting
-+ ADDED: Advanced Settings
-+ ADDED: Responsive Lighting
-+ ADDED: Arduino Remembers Strip Length
+Alpha 0.1.3
++ ADDED: About Page
 
-* CHANGED: Redid Settings Menu
-* CHANGED: Small redesigns
-* CHANGED: Cleaned code
-
-- FIXED: Lots of bugs.
+- FIXED: Bug On Slower Arduino Boards
+- FIXED: Updater Bug
+- FIXED: Other Small Bugs
 
 ### Next Steps
 + Write Documentation

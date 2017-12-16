@@ -55,8 +55,9 @@
             this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportBugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.githubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.donateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rainbowButton = new System.Windows.Forms.Button();
+            this.animationButton = new System.Windows.Forms.Button();
             this.delayValue = new System.Windows.Forms.NumericUpDown();
             this.delayLabel = new System.Windows.Forms.Label();
             this.connectedStatusLabel = new System.Windows.Forms.Label();
@@ -314,7 +315,8 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.documentationToolStripMenuItem,
             this.reportBugToolStripMenuItem,
-            this.githubToolStripMenuItem});
+            this.githubToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -340,6 +342,13 @@
             this.githubToolStripMenuItem.Text = "Github";
             this.githubToolStripMenuItem.Click += new System.EventHandler(this.githubToolStripMenuItem_Click);
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
             // donateToolStripMenuItem
             // 
             this.donateToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -348,15 +357,15 @@
             this.donateToolStripMenuItem.Text = "Donate";
             this.donateToolStripMenuItem.Click += new System.EventHandler(this.donateToolStripMenuItem_Click);
             // 
-            // rainbowButton
+            // animationButton
             // 
-            this.rainbowButton.Location = new System.Drawing.Point(68, 325);
-            this.rainbowButton.Name = "rainbowButton";
-            this.rainbowButton.Size = new System.Drawing.Size(75, 23);
-            this.rainbowButton.TabIndex = 10;
-            this.rainbowButton.Text = "Rainbow";
-            this.rainbowButton.UseVisualStyleBackColor = true;
-            this.rainbowButton.Click += new System.EventHandler(this.rainbowButton_Click);
+            this.animationButton.Location = new System.Drawing.Point(68, 325);
+            this.animationButton.Name = "animationButton";
+            this.animationButton.Size = new System.Drawing.Size(75, 23);
+            this.animationButton.TabIndex = 10;
+            this.animationButton.Text = "Animation";
+            this.animationButton.UseVisualStyleBackColor = true;
+            this.animationButton.Click += new System.EventHandler(this.animationButton_Click);
             // 
             // delayValue
             // 
@@ -368,7 +377,7 @@
             0,
             0});
             this.delayValue.Minimum = new decimal(new int[] {
-            10,
+            1,
             0,
             0,
             0});
@@ -538,7 +547,7 @@
             this.Controls.Add(this.offButton);
             this.Controls.Add(this.rainbowTypeComboBox);
             this.Controls.Add(this.connectedStatusLabel);
-            this.Controls.Add(this.rainbowButton);
+            this.Controls.Add(this.animationButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.serialComboBox);
             this.Controls.Add(this.portConnectButton);
@@ -591,7 +600,7 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.Button rainbowButton;
+        private System.Windows.Forms.Button animationButton;
         private System.Windows.Forms.NumericUpDown delayValue;
         private System.Windows.Forms.Label delayLabel;
         private System.Windows.Forms.Label connectedStatusLabel;
@@ -622,6 +631,7 @@
         public System.Windows.Forms.Panel advancedLightingPanel;
         public System.Windows.Forms.FlowLayoutPanel colorPreview;
         public System.Windows.Forms.Label colorPreviewLabel;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 

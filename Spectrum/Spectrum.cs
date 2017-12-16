@@ -24,14 +24,12 @@ namespace Spectrum {
         // Variables
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
         //Boolin
         public bool userExit = false;
         bool checkForUpdate = false;
-
         bool waitFor = true;
 
+        // Int
         int firstPixel, lastPixel;
 
         // Date Time
@@ -41,6 +39,7 @@ namespace Spectrum {
         SettingsForm settingsForm;
         UpdateForm updateForm;
         SetUpForm setUpForm;
+        AboutForm aboutForm;
 
         // String
         public string[] ports;
@@ -104,7 +103,7 @@ namespace Spectrum {
 
             if (Settings.Default.connectOnStartupBool && Settings.Default.port != "") {
                 serialPort1.PortName = Settings.Default.port;
-                portConnectAsync(true);
+                portConnect(true);
             }
 
             lastNeoPixelUpDown.Value = Settings.Default.stripLength;
@@ -116,6 +115,10 @@ namespace Spectrum {
                 colorPreviewLabel.Location = new Point(239, 258);
             }
 
+            if (serialComboBox.FindString(Settings.Default.port) != -1) {
+                serialComboBox.Text = Settings.Default.port;
+            }
+
             buttonEnableAsync();
 
             color_ValueChanged(sender, e);
@@ -125,11 +128,11 @@ namespace Spectrum {
         }
 
         // On Form Close
-        private void spectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
+        private async void spectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
+            if(!userExit) e.Cancel = true;
 
             // Close App To Tray
             if (Settings.Default.closeToTrayBool && !userExit) {
-                e.Cancel = true;
                 Hide();
                 settingsForm.Hide();
 
@@ -137,10 +140,15 @@ namespace Spectrum {
                 spectrumTrayItem.BalloonTipText = "Spectrum Has Been Minimized to Tray";
                 spectrumTrayItem.BalloonTipIcon = ToolTipIcon.Info;
                 spectrumTrayItem.ShowBalloonTip(3000);
+                return;
             }
 
             // Turn Off On Close
-            portConnectAsync(false);
+            portConnect(false);
+            Hide();
+            await Task.Delay(250);
+            userExit = true;
+            Close();
         }
 
         // Open From Tray
@@ -150,8 +158,8 @@ namespace Spectrum {
         private void portConnectButton_Click(object sender, EventArgs e) {
             try {
                 //if (serialPort1.IsOpen) portConnect(false);
-                if (!serialPort1.IsOpen) portConnectAsync(true);
-                else portConnectAsync(false);
+                if (!serialPort1.IsOpen) portConnect(true);
+                else portConnect(false);
             } catch {
                 MessageBox.Show("Could not connect please make sure the arduino is plugged in and that you have selected the correct port", "Could Not Connect", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -181,11 +189,12 @@ namespace Spectrum {
             Console.WriteLine("SolidColor" + red + green + blue + firstLast);
             if(Settings.Default.rememberLightProfile) Settings.Default.lastCommand = "SolidColor" + red + green + blue + firstLast;
 
+            // resets responsive lighting wait
             if (!waitFor) waitFor = true;
         }
 
         // Color Preview
-        private void color_KeyDown(object sender, KeyEventArgs e) {
+        private async void color_KeyDown(object sender, KeyEventArgs e) {
 
             if (redValue.Text == "") redValue.Text = "0";
             if (greenValue.Text == "") greenValue.Text = "0";
@@ -197,17 +206,15 @@ namespace Spectrum {
             colorPreview.BackColor = Color.FromArgb(red, green, blue);
             if (red == 0 && green == 0 && blue == 0) colorPreview.BackColor = Color.Transparent;
 
-            if (Settings.Default.isConnected && Settings.Default.responsiveLighting && waitFor) wait(1250);
+            if (Settings.Default.isConnected && Settings.Default.responsiveLighting && waitFor) {
+                waitFor = false;
+                await Task.Delay(1250);
+                solidColorButton_Click(this, null);
+            }
 
         }
 
         private void color_ValueChanged(object sender, EventArgs e) { color_KeyDown(sender, null); }
-
-        private async void wait(int time) {
-            waitFor = false;
-            await Task.Delay(time);
-            solidColorButton_Click(this, null);
-        }
 
 
         // Used for more in depth solid color lighting
@@ -225,7 +232,7 @@ namespace Spectrum {
         }
 
         // Rainbow Animation Button
-        private void rainbowButton_Click(object sender, EventArgs e) {
+        private void animationButton_Click(object sender, EventArgs e) {
             string rainbowType = "";
             if (rainbowTypeComboBox.SelectedIndex == 0) {
                 rainbowType = "RainbowCycle";
@@ -280,7 +287,7 @@ namespace Spectrum {
         }
 
         // Port Connect/Disconnect
-        private async Task portConnectAsync(bool open) {
+        private async void portConnect(bool open) {
             string selectedPort = serialComboBox.SelectedItem.ToString();
             
             // Opens Serial Port
@@ -312,7 +319,7 @@ namespace Spectrum {
             else {
 
                 // Turns off Strip on Disconnect
-                if (serialPort1.IsOpen && Settings.Default.turnOffOnClose) serialPort1.WriteLine("turnOff");
+                if (serialPort1.IsOpen && Settings.Default.turnOffOnClose) offButton_Click(null, null);
 
                 await Task.Delay(500);
 
@@ -335,7 +342,7 @@ namespace Spectrum {
                 await Task.Delay(1100);
 
                 if (!Settings.Default.responsiveLighting) solidColorButton.Enabled = true;
-                rainbowButton.Enabled = true;
+                animationButton.Enabled = true;
                 offButton.Enabled = true;
                 portConnectButton.Text = "Disconnect";
                 portConnectButton.Enabled = true;
@@ -355,7 +362,7 @@ namespace Spectrum {
             }
             else {
                 solidColorButton.Enabled = false;
-                rainbowButton.Enabled = false;
+                animationButton.Enabled = false;
                 offButton.Enabled = false;
                 portConnectButton.Text = "Connect";
 
@@ -381,13 +388,11 @@ namespace Spectrum {
                 if (version.Substring(3, 4) == "0") {
                     onlineVersion = version.Substring(0, 3);
                 }
-                else {
-                    onlineVersion = version.Substring(0, 5);
-                }
+                else onlineVersion = version.Substring(0, 5);
 
                 // Sets Proper Variables
                 // Change != to == for testing purposes
-                if (currentVersion == onlineVersion) {
+                if (currentVersion != version) {
 
                     updateAvailable = true;
                     installerName = "spectrumv" + onlineVersion + "setup.exe";
@@ -516,12 +521,17 @@ namespace Spectrum {
 
         // Context Menu Connect/Disconnect
         private void connectToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (Settings.Default.isConnected) portConnectAsync(false); else portConnectAsync(true);
+            if (Settings.Default.isConnected) portConnect(false); else portConnect(true);
         }
 
         // Context Menu Show/Hide
         private void showToolStripMenuItem_Click(object sender, EventArgs e) {
             if (Visible) Hide(); else Show();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
+            aboutForm = new AboutForm();
+            aboutForm.Show();
         }
 
         // Context Menu Settings

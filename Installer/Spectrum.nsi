@@ -41,7 +41,7 @@ FunctionEnd
 
   ;Name and file
   Name "Spectrum"
-  OutFile "spectrumv0.1.2setup.exe"
+  OutFile "spectrumv0.1.3setup.exe"
   
   !define MUI_PRODUCT "Spectrum"
   !define MUI_FILE "Spectrum"
