@@ -71,6 +71,7 @@
             this.lastPixelLabel = new System.Windows.Forms.Label();
             this.lastNeoPixelUpDown = new System.Windows.Forms.NumericUpDown();
             this.advancedLightingPanel = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.redValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.greenValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueValue)).BeginInit();
@@ -534,6 +535,12 @@
             this.advancedLightingPanel.Size = new System.Drawing.Size(310, 42);
             this.advancedLightingPanel.TabIndex = 0;
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1250;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // spectrumFormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -632,6 +639,7 @@
         public System.Windows.Forms.FlowLayoutPanel colorPreview;
         public System.Windows.Forms.Label colorPreviewLabel;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

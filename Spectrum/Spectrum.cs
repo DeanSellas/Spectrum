@@ -44,10 +44,12 @@ namespace Spectrum {
         // String
         public string[] ports;
         string currentVersion = Application.ProductVersion;
-        string installerName, downloadLocation, firstLast;
+        string installerName, downloadLocation, firstLast, message;
 
 
         WebClient webClient = new WebClient();
+
+        List<string> messageQueue = new List<string>();
 
 
         // In The Begining...
@@ -129,7 +131,9 @@ namespace Spectrum {
 
         // On Form Close
         private async void spectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
-            if(!userExit) e.Cancel = true;
+            if (!userExit) {
+                e.Cancel = true;
+            }
 
             // Close App To Tray
             if (Settings.Default.closeToTrayBool && !userExit) {
@@ -149,6 +153,7 @@ namespace Spectrum {
             await Task.Delay(250);
             userExit = true;
             Close();
+            
         }
 
         // Open From Tray
@@ -185,12 +190,18 @@ namespace Spectrum {
             // Blue Value Hotfix
             if (blueValue.Value < 10) blue = "00" + blue; if (blueValue.Value >= 10 && blueValue.Value < 100) blue = "0" + blue;
 
-            serialPort1.WriteLine("SolidColor" + red + green + blue + firstLast);
-            Console.WriteLine("SolidColor" + red + green + blue + firstLast);
-            if(Settings.Default.rememberLightProfile) Settings.Default.lastCommand = "SolidColor" + red + green + blue + firstLast;
+            message = "SolidColor" + red + green + blue + firstLast;
+
+            // serialPort1.WriteLine(message);
+            // Console.WriteLine(message);
+            if(Settings.Default.rememberLightProfile) Settings.Default.lastCommand = message;
 
             // resets responsive lighting wait
             if (!waitFor) waitFor = true;
+
+            messageQueue.Add(message);
+            //messageQueue.ForEach(Console.Write);
+
         }
 
         // Color Preview
@@ -233,6 +244,9 @@ namespace Spectrum {
 
         // Rainbow Animation Button
         private void animationButton_Click(object sender, EventArgs e) {
+
+            //messageQueue.RemoveAt(messageQueue.Count - 1);
+
             string rainbowType = "";
             if (rainbowTypeComboBox.SelectedIndex == 0) {
                 rainbowType = "RainbowCycle";
@@ -248,7 +262,22 @@ namespace Spectrum {
             Console.WriteLine(Settings.Default.lastCommand);
         }
 
-        private void offButton_Click(object sender, EventArgs e) { serialPort1.WriteLine("turnOff"); }
+        private void offButton_Click(object sender, EventArgs e) { messageQueue.Add("turnOff"); }
+
+
+
+        private void timer1_Tick(object sender, EventArgs e) {
+            if (messageQueue.Count > 0) {
+                message = messageQueue[0];
+
+                Console.WriteLine("Message Queue Length: " + messageQueue.Count);
+                Console.WriteLine("Message: " + message);
+                
+                serialPort1.WriteLine(message);
+
+                messageQueue.Remove(message);
+            }
+        }
 
 
 
@@ -319,10 +348,9 @@ namespace Spectrum {
             else {
 
                 // Turns off Strip on Disconnect
-                if (serialPort1.IsOpen && Settings.Default.turnOffOnClose) offButton_Click(null, null);
+                if (serialPort1.IsOpen && Settings.Default.turnOffOnClose) serialPort1.WriteLine("turnOff");
 
                 await Task.Delay(500);
-
                 serialPort1.Close();
                 
                 Settings.Default.isConnected = false;
@@ -528,6 +556,8 @@ namespace Spectrum {
         private void showToolStripMenuItem_Click(object sender, EventArgs e) {
             if (Visible) Hide(); else Show();
         }
+
+        
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
             aboutForm = new AboutForm();
