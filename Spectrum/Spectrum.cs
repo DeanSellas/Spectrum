@@ -80,14 +80,14 @@ namespace Spectrum {
 
 
             // Sets Title
-            if(currentVersion.Substring(5) == "0") Text = "Spectrum " + currentVersion.Substring(0, 3);
+            if (currentVersion.Substring(5) == "0") Text = "Spectrum " + currentVersion.Substring(0, 3);
             else Text = "Spectrum " + currentVersion.Substring(0, 5);
             Console.WriteLine("Current Version: " + currentVersion);
 
             listSerialPorts();
 
             rainbowTypeComboBox.SelectedIndex = 0;
-            
+
             if (Settings.Default.FirstLaunch) {
                 setUpForm = new SetUpForm(this);
                 setUpForm.ShowDialog();
@@ -113,7 +113,7 @@ namespace Spectrum {
             advancedLightingPanel.Visible = Settings.Default.advancedLighting;
 
             if (!Settings.Default.advancedLighting) {
-                colorPreview.Location = new Point(215, 177);
+                colorPreviewBox.Location = new Point(215, 177);
                 colorPreviewLabel.Location = new Point(239, 258);
             }
 
@@ -137,23 +137,32 @@ namespace Spectrum {
 
             // Close App To Tray
             if (Settings.Default.closeToTrayBool && !userExit) {
-                Hide();
-                settingsForm.Hide();
 
+                // Hides all Open Forms
+                foreach (Form frm in Application.OpenForms) {
+                    frm.Hide();
+                }
+
+                // Creates Balloon Tip
                 spectrumTrayItem.BalloonTipTitle = "Spectrum";
                 spectrumTrayItem.BalloonTipText = "Spectrum Has Been Minimized to Tray";
-                spectrumTrayItem.BalloonTipIcon = ToolTipIcon.Info;
-                spectrumTrayItem.ShowBalloonTip(3000);
+                spectrumTrayItem.ShowBalloonTip(1000);
                 return;
             }
 
-            // Turn Off On Close
+            // Clears Message Queue
+            messageQueue.Clear();
+
+            // Closes the Port and Turns off Lights
             portConnect(false);
             Hide();
+
+            // Needed so the program doesnt crash. unsure what causes this?
             await Task.Delay(250);
+
             userExit = true;
             Close();
-            
+
         }
 
         // Open From Tray
@@ -165,7 +174,8 @@ namespace Spectrum {
                 //if (serialPort1.IsOpen) portConnect(false);
                 if (!serialPort1.IsOpen) portConnect(true);
                 else portConnect(false);
-            } catch {
+            }
+            catch {
                 MessageBox.Show("Could not connect please make sure the arduino is plugged in and that you have selected the correct port", "Could Not Connect", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -175,14 +185,14 @@ namespace Spectrum {
         // Button Settings
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        
+
         // Sets Solid Color
         private void solidColorButton_Click(object sender, EventArgs e) {
 
             var red = redValue.Value.ToString();
             var green = greenValue.Value.ToString();
             var blue = blueValue.Value.ToString();
-            
+
             // Red Value Hotfix
             if (redValue.Value < 10) red = "00" + red; if (redValue.Value >= 10 && redValue.Value < 100) red = "0" + red;
             // Green Value Hotfix
@@ -192,21 +202,20 @@ namespace Spectrum {
 
             message = "SolidColor" + red + green + blue + firstLast;
 
-            // serialPort1.WriteLine(message);
-            // Console.WriteLine(message);
-            if(Settings.Default.rememberLightProfile) Settings.Default.lastCommand = message;
+            if (Settings.Default.rememberLightProfile) Settings.Default.lastCommand = message;
 
-            // resets responsive lighting wait
+            // Resets Responsive Lighting Wait
             if (!waitFor) waitFor = true;
 
+            // Adds Message to Message Queue
             messageQueue.Add(message);
-            //messageQueue.ForEach(Console.Write);
 
         }
 
         // Color Preview
         private async void color_KeyDown(object sender, KeyEventArgs e) {
 
+            // Color Preview
             if (redValue.Text == "") redValue.Text = "0";
             if (greenValue.Text == "") greenValue.Text = "0";
             if (blueValue.Text == "") blueValue.Text = "0";
@@ -214,9 +223,10 @@ namespace Spectrum {
             var red = Convert.ToInt32(redValue.Value);
             var green = Convert.ToInt32(greenValue.Value);
             var blue = Convert.ToInt32(blueValue.Value);
-            colorPreview.BackColor = Color.FromArgb(red, green, blue);
-            if (red == 0 && green == 0 && blue == 0) colorPreview.BackColor = Color.Transparent;
+            colorPreviewBox.BackColor = Color.FromArgb(red, green, blue);
+            if (red == 0 && green == 0 && blue == 0) colorPreviewBox.BackColor = Color.Transparent;
 
+            // Responsive Lighting
             if (Settings.Default.isConnected && Settings.Default.responsiveLighting && waitFor) {
                 waitFor = false;
                 await Task.Delay(1250);
@@ -225,7 +235,7 @@ namespace Spectrum {
 
         }
 
-        private void color_ValueChanged(object sender, EventArgs e) { color_KeyDown(sender, null); }
+        private void color_ValueChanged(object sender, EventArgs e) { color_KeyDown(this, null); }
 
 
         // Used for more in depth solid color lighting
@@ -245,8 +255,6 @@ namespace Spectrum {
         // Rainbow Animation Button
         private void animationButton_Click(object sender, EventArgs e) {
 
-            //messageQueue.RemoveAt(messageQueue.Count - 1);
-
             string rainbowType = "";
             if (rainbowTypeComboBox.SelectedIndex == 0) {
                 rainbowType = "RainbowCycle";
@@ -256,26 +264,30 @@ namespace Spectrum {
             }
 
             var delay = delayValue.Value.ToString();
-            serialPort1.WriteLine(rainbowType + delay);
+            message = rainbowType + delay;
 
-            if (Settings.Default.rememberLightProfile) Settings.Default.lastCommand = rainbowType + delay;
-            Console.WriteLine(Settings.Default.lastCommand);
+            if (Settings.Default.rememberLightProfile) Settings.Default.lastCommand = message;
+            //Console.WriteLine(Settings.Default.lastCommand);
+            messageQueue.Add(message);
         }
 
         private void offButton_Click(object sender, EventArgs e) { messageQueue.Add("turnOff"); }
 
-
-
-        private void timer1_Tick(object sender, EventArgs e) {
+        // Sends Message To Arduino
+        private void sendMessage() {
             if (messageQueue.Count > 0) {
+                // Gets First Sent Message
                 message = messageQueue[0];
 
+                // Debugging Output
                 Console.WriteLine("Message Queue Length: " + messageQueue.Count);
                 Console.WriteLine("Message: " + message);
-                
+
+                // Sends Message To Arduino
                 serialPort1.WriteLine(message);
 
-                messageQueue.Remove(message);
+                // Removes Message From List
+                messageQueue.RemoveAt(0);
             }
         }
 
@@ -292,7 +304,7 @@ namespace Spectrum {
             int portsVal = 0;
             Console.WriteLine("The following serial ports were found:");
 
-            
+
 
             // Display each port name to the console.
             foreach (string port in ports) {
@@ -304,7 +316,7 @@ namespace Spectrum {
             // Sets Combo Box to First COM Port
             try {
                 int index = serialComboBox.Items.IndexOf(Settings.Default.port);
-                
+
                 if (index < 0) index = 0;
 
                 serialComboBox.SelectedIndex = index;
@@ -318,7 +330,7 @@ namespace Spectrum {
         // Port Connect/Disconnect
         private async void portConnect(bool open) {
             string selectedPort = serialComboBox.SelectedItem.ToString();
-            
+
             // Opens Serial Port
             if (open) {
 
@@ -345,14 +357,17 @@ namespace Spectrum {
             }
 
             // Closes Serial Port
-            else {
+            else if (serialPort1.IsOpen) {
 
                 // Turns off Strip on Disconnect
-                if (serialPort1.IsOpen && Settings.Default.turnOffOnClose) serialPort1.WriteLine("turnOff");
+                if (Settings.Default.turnOffOnClose) {
+                    messageQueue.Add("turnOff");
+                    sendMessage();
+                }
 
                 await Task.Delay(500);
                 serialPort1.Close();
-                
+
                 Settings.Default.isConnected = false;
                 settingsForm.startupConnectCheckBox.Enabled = false;
                 settingsForm.defaultPortComboBox.Enabled = true;
@@ -453,7 +468,7 @@ namespace Spectrum {
                 // Check For Updates
                 if (checkForUpdate && updateAvailable) {
                     if (!userCheck) {
-                        DialogResult dialogResult = MessageBox.Show("New Version Of Spectrum Is Avaliable Do You Want to Download it?", "Update to "+ onlineVersion, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        DialogResult dialogResult = MessageBox.Show("New Version Of Spectrum Is Avaliable Do You Want to Download it?", "Update to " + onlineVersion, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (dialogResult == DialogResult.Yes) {
                             updateForm = new UpdateForm(installerName, downloadLocation, onlineVersion);
@@ -461,9 +476,9 @@ namespace Spectrum {
                         }
                         Settings.Default.lastUpdateCheck = DateTime.Now.Date;
                     }
-                    
+
                 }
-                if(userCheck) {
+                if (userCheck) {
                     updateForm = new UpdateForm(installerName, downloadLocation, onlineVersion);
                     updateForm.SpectrumUpdate(updateAvailable, true);
                 }
@@ -478,8 +493,8 @@ namespace Spectrum {
         // MENU BAR SETTINGS
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        
-        
+
+
         // Save Settings
         private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
 
@@ -539,8 +554,8 @@ namespace Spectrum {
         // CONTEXT MENU
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        
-        
+
+
         // Defines Context Menu Options
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e) {
             if (Settings.Default.isConnected) connectToolStripMenuItem.Text = "Disconnect"; else connectToolStripMenuItem.Text = "Connect to " + serialComboBox.SelectedItem;
@@ -557,7 +572,7 @@ namespace Spectrum {
             if (Visible) Hide(); else Show();
         }
 
-        
+
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
             aboutForm = new AboutForm();
@@ -576,7 +591,7 @@ namespace Spectrum {
             var red = Convert.ToInt32(redValue.Value);
             var green = Convert.ToInt32(greenValue.Value);
             var blue = Convert.ToInt32(blueValue.Value);
-            colorPreview.BackColor = Color.FromArgb(red, green, blue);
+            colorPreviewBox.BackColor = Color.FromArgb(red, green, blue);
         }
 
         // Context Menu Exit
@@ -590,10 +605,21 @@ namespace Spectrum {
                 }
             }
             else Close();
-        }   
+        }
+
+
+
+
+
+
+        // BACKGROUND TASKS
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void timer1_Tick(object sender, EventArgs e) { sendMessage(); }
+
+
+
+        // THE END
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
-
-
-    // THE END
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

@@ -8,6 +8,13 @@ ROADMAP: https://github.com/DeanSellas/Spectrum/projects
 SUPPORT: https://github.com/DeanSellas/Spectrum/issues or https://github.com/DeanSellas/Spectrum/wiki
 TWITTER: https://twitter.com/DeanSellas
 
+Alpha v0.2
+---------------------------------------------
+# CHANGED: How Spectrum Handles Commands Sent to the Arduino
+
+- FIXED: Minor Bugs
+
+
 Alpha v0.1.3
 ---------------------------------------------
 + ADDED: About Page

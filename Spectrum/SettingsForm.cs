@@ -198,13 +198,13 @@ namespace Spectrum {
             if (advancedLightingCheckbox.Checked) {
                 Settings.Default.advancedLighting = true;
                 spectrumForm.advancedLightingPanel.Visible = true;
-                spectrumForm.colorPreview.Location = new Point(215, 207);
+                spectrumForm.colorPreviewBox.Location = new Point(215, 207);
                 spectrumForm.colorPreviewLabel.Location = new Point(239, 288);
             }
             else {
                 Settings.Default.advancedLighting = false;
                 spectrumForm.advancedLightingPanel.Visible = false;
-                spectrumForm.colorPreview.Location = new Point(215, 177);
+                spectrumForm.colorPreviewBox.Location = new Point(215, 177);
                 spectrumForm.colorPreviewLabel.Location = new Point(239, 258);
             }
 

@@ -57,11 +57,6 @@
             // 
             this.stripLengthValue.InterceptArrowKeys = false;
             this.stripLengthValue.Location = new System.Drawing.Point(234, 181);
-            this.stripLengthValue.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
             this.stripLengthValue.Name = "stripLengthValue";
             this.stripLengthValue.Size = new System.Drawing.Size(60, 20);
             this.stripLengthValue.TabIndex = 2;

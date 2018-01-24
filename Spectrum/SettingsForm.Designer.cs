@@ -56,12 +56,12 @@
             this.defaultPortComboBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.advancedSettingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.advancedLightingCheckbox = new System.Windows.Forms.CheckBox();
             this.resetSettingsButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.devBuildsCheckbox = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label6 = new System.Windows.Forms.Label();
             this.generalSettingsGroupBox.SuspendLayout();
             this.updatesGroupBox.SuspendLayout();
             this.arduinoSettingsGroupBox.SuspendLayout();
@@ -346,11 +346,6 @@
             // stripLengthUpDown
             // 
             this.stripLengthUpDown.Location = new System.Drawing.Point(140, 72);
-            this.stripLengthUpDown.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
             this.stripLengthUpDown.Name = "stripLengthUpDown";
             this.stripLengthUpDown.Size = new System.Drawing.Size(76, 20);
             this.stripLengthUpDown.TabIndex = 24;
@@ -398,6 +393,17 @@
             this.advancedSettingsGroupBox.Text = "Advanced Settings";
             this.advancedSettingsGroupBox.Visible = false;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(9, 141);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(236, 32);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "Do Not Click Unless \r\nYou Want to Completely Reset Spectrum";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // advancedLightingCheckbox
             // 
             this.advancedLightingCheckbox.AutoSize = true;
@@ -440,17 +446,6 @@
             this.devBuildsCheckbox.Text = "Enable Dev Builds";
             this.toolTip1.SetToolTip(this.devBuildsCheckbox, "Feature Currently Not Avalible");
             this.devBuildsCheckbox.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(9, 141);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(236, 32);
-            this.label6.TabIndex = 25;
-            this.label6.Text = "Do Not Click Unless \r\nYou Want to Completely Reset Spectrum";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SettingsForm
             // 

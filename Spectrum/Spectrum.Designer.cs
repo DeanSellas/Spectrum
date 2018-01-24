@@ -63,7 +63,7 @@
             this.connectedStatusLabel = new System.Windows.Forms.Label();
             this.rainbowTypeComboBox = new System.Windows.Forms.ComboBox();
             this.offButton = new System.Windows.Forms.Button();
-            this.colorPreview = new System.Windows.Forms.FlowLayoutPanel();
+            this.colorPreviewBox = new System.Windows.Forms.FlowLayoutPanel();
             this.colorPreviewLabel = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firstPixelLabel = new System.Windows.Forms.Label();
@@ -433,15 +433,15 @@
             this.offButton.UseVisualStyleBackColor = true;
             this.offButton.Click += new System.EventHandler(this.offButton_Click);
             // 
-            // colorPreview
+            // colorPreviewBox
             // 
-            this.colorPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.colorPreview.Cursor = System.Windows.Forms.Cursors.Help;
-            this.colorPreview.Location = new System.Drawing.Point(215, 207);
-            this.colorPreview.Name = "colorPreview";
-            this.colorPreview.Size = new System.Drawing.Size(113, 78);
-            this.colorPreview.TabIndex = 14;
-            this.toolTip1.SetToolTip(this.colorPreview, "This is a preview of the color that the strip will display.\r\nNote that color accu" +
+            this.colorPreviewBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.colorPreviewBox.Cursor = System.Windows.Forms.Cursors.Help;
+            this.colorPreviewBox.Location = new System.Drawing.Point(215, 207);
+            this.colorPreviewBox.Name = "colorPreviewBox";
+            this.colorPreviewBox.Size = new System.Drawing.Size(113, 78);
+            this.colorPreviewBox.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.colorPreviewBox, "This is a preview of the color that the strip will display.\r\nNote that color accu" +
         "racy is different on every strip so this will not be 100% accurate.");
             // 
             // colorPreviewLabel
@@ -550,7 +550,7 @@
             this.ClientSize = new System.Drawing.Size(559, 427);
             this.Controls.Add(this.advancedLightingPanel);
             this.Controls.Add(this.colorPreviewLabel);
-            this.Controls.Add(this.colorPreview);
+            this.Controls.Add(this.colorPreviewBox);
             this.Controls.Add(this.offButton);
             this.Controls.Add(this.rainbowTypeComboBox);
             this.Controls.Add(this.connectedStatusLabel);
@@ -636,7 +636,7 @@
         public System.Windows.Forms.Label firstPixelLabel;
         public System.Windows.Forms.Label lastPixelLabel;
         public System.Windows.Forms.Panel advancedLightingPanel;
-        public System.Windows.Forms.FlowLayoutPanel colorPreview;
+        public System.Windows.Forms.FlowLayoutPanel colorPreviewBox;
         public System.Windows.Forms.Label colorPreviewLabel;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
