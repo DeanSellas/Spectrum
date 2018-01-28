@@ -44,6 +44,12 @@ namespace Spectrum {
 
             advancedSettingsGroupBox.Location = defaultLocation;
 
+
+            if (Settings.Default.enableAdvancedSettings) {
+                advancedSettingsButton.Enabled = false;
+                advancedSettingsPanel.Enabled = true;
+            }
+
         }
 
 
@@ -162,6 +168,17 @@ namespace Spectrum {
 
         // Save Settings
         void saveSettings() {
+
+
+            Settings.Default.stripLength = Convert.ToInt32(stripLengthUpDown.Value);
+
+            Settings.Default.updateComboBoxInt = updateComboBox.SelectedIndex;
+            Settings.Default.fileLocation = fileExplorerTextBox.Text;
+
+            Settings.Default.port = defaultPortComboBox.Text;
+            // Sets Proper Port if Value is Changed
+            if (spectrumForm.serialComboBox.Text != Settings.Default.port) spectrumForm.serialComboBox.SelectedItem = Settings.Default.port;
+
             // Connect at Startup Settings
             if (startupConnectCheckBox.Checked) Settings.Default.connectOnStartupBool = true;
             else Settings.Default.connectOnStartupBool = false;
@@ -200,6 +217,7 @@ namespace Spectrum {
                 spectrumForm.advancedLightingPanel.Visible = true;
                 spectrumForm.colorPreviewBox.Location = new Point(215, 207);
                 spectrumForm.colorPreviewLabel.Location = new Point(239, 288);
+                spectrumForm.firstNeoPixelUpDown.Maximum = Settings.Default.stripLength;
             }
             else {
                 Settings.Default.advancedLighting = false;
@@ -222,11 +240,9 @@ namespace Spectrum {
                 }
             }
 
-            Settings.Default.updateComboBoxInt = updateComboBox.SelectedIndex;
-            Settings.Default.fileLocation = fileExplorerTextBox.Text;
+            
 
-            Settings.Default.port = defaultPortComboBox.Text;
-            Settings.Default.stripLength = Convert.ToInt32(stripLengthUpDown.Value);
+            
 
             Settings.Default.Save();
 
@@ -291,12 +307,15 @@ namespace Spectrum {
             }
         }
 
+
+        // Resets Settings to Correct Values
         private void defaultSettings(bool user) {
 
             // Treeview Settings
             treeView1.SelectedNode = treeView1.Nodes[0];
             treeView1.Focus();
 
+            // Sets Settings To Default Without a Complete Reset
             if (user) {
 
                 // Checkboxes
@@ -314,6 +333,9 @@ namespace Spectrum {
                 updateComboBox.SelectedIndex = 1;
 
                 defaultLocationButton_Click(null, null);
+
+                advancedSettingsButton.Enabled = true;
+                advancedSettingsPanel.Enabled = false;
 
                 return;
             }
@@ -338,7 +360,18 @@ namespace Spectrum {
                 defaultLocationButton_Click(null, null);
                 applySettingsButton.Enabled = false;
             }
+            
+        }
 
+        // Enables Advanced Settings
+        private void advancedSettingsButton_Click(object sender, EventArgs e) {
+
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to enable advanced settings? These Settings are either not complete or meant for advanced users, so proceed at your own risk.", "Enable Advanced Settings?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if(dialogResult == DialogResult.Yes) {
+                Settings.Default.enableAdvancedSettings = true;
+                advancedSettingsButton.Enabled = false;
+                advancedSettingsPanel.Enabled = true;
+            }
         }
 
 

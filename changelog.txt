@@ -10,9 +10,14 @@ TWITTER: https://twitter.com/DeanSellas
 
 Alpha v0.2
 ---------------------------------------------
-# CHANGED: How Spectrum Handles Commands Sent to the Arduino
++ ADDED: Development Builds
 
+# CHANGED: How Spectrum Handles Commands Sent to the Arduino
+# CHANGED: Some Settings
+
+- FIXED: If Default Port is Changed, Port on Spectrum Main Page Is Also Changed
 - FIXED: Minor Bugs
+
 
 
 Alpha v0.1.3

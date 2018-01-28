@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.generalSettingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.advancedSettingsButton = new System.Windows.Forms.Button();
             this.defaultSettingsButton = new System.Windows.Forms.Button();
             this.offOnClose = new System.Windows.Forms.CheckBox();
             this.cancelButton = new System.Windows.Forms.Button();
@@ -62,11 +63,13 @@
             this.label5 = new System.Windows.Forms.Label();
             this.devBuildsCheckbox = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.advancedSettingsPanel = new System.Windows.Forms.Panel();
             this.generalSettingsGroupBox.SuspendLayout();
             this.updatesGroupBox.SuspendLayout();
             this.arduinoSettingsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stripLengthUpDown)).BeginInit();
             this.advancedSettingsGroupBox.SuspendLayout();
+            this.advancedSettingsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // applySettingsButton
@@ -84,12 +87,13 @@
             // windowsCheckbox
             // 
             this.windowsCheckbox.AutoSize = true;
-            this.windowsCheckbox.Location = new System.Drawing.Point(80, 99);
+            this.windowsCheckbox.Location = new System.Drawing.Point(80, 112);
             this.windowsCheckbox.Name = "windowsCheckbox";
             this.windowsCheckbox.Size = new System.Drawing.Size(120, 17);
             this.windowsCheckbox.TabIndex = 17;
             this.windowsCheckbox.Tag = "";
             this.windowsCheckbox.Text = "Start With Windows";
+            this.toolTip1.SetToolTip(this.windowsCheckbox, "Starts Spectrum With Windows");
             this.windowsCheckbox.UseVisualStyleBackColor = true;
             this.windowsCheckbox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
             // 
@@ -97,36 +101,39 @@
             // 
             this.startupConnectCheckBox.AutoSize = true;
             this.startupConnectCheckBox.Enabled = false;
-            this.startupConnectCheckBox.Location = new System.Drawing.Point(80, 33);
+            this.startupConnectCheckBox.Location = new System.Drawing.Point(80, 46);
             this.startupConnectCheckBox.Name = "startupConnectCheckBox";
             this.startupConnectCheckBox.Size = new System.Drawing.Size(120, 17);
             this.startupConnectCheckBox.TabIndex = 16;
             this.startupConnectCheckBox.Tag = "";
             this.startupConnectCheckBox.Text = "Connect On Startup";
+            this.toolTip1.SetToolTip(this.startupConnectCheckBox, "Connects to the Arduino Board On Startup");
             this.startupConnectCheckBox.UseVisualStyleBackColor = true;
             this.startupConnectCheckBox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
             // 
             // closeToTrayCheckbox
             // 
             this.closeToTrayCheckbox.AutoSize = true;
-            this.closeToTrayCheckbox.Location = new System.Drawing.Point(80, 56);
+            this.closeToTrayCheckbox.Location = new System.Drawing.Point(80, 89);
             this.closeToTrayCheckbox.Name = "closeToTrayCheckbox";
             this.closeToTrayCheckbox.Size = new System.Drawing.Size(92, 17);
             this.closeToTrayCheckbox.TabIndex = 15;
             this.closeToTrayCheckbox.Tag = "";
             this.closeToTrayCheckbox.Text = "Close To Tray";
+            this.toolTip1.SetToolTip(this.closeToTrayCheckbox, "Closes Spectrum To Tray");
             this.closeToTrayCheckbox.UseVisualStyleBackColor = true;
             this.closeToTrayCheckbox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
             // 
             // startMinCheckbox
             // 
             this.startMinCheckbox.AutoSize = true;
-            this.startMinCheckbox.Location = new System.Drawing.Point(80, 79);
+            this.startMinCheckbox.Location = new System.Drawing.Point(80, 69);
             this.startMinCheckbox.Name = "startMinCheckbox";
             this.startMinCheckbox.Size = new System.Drawing.Size(97, 17);
             this.startMinCheckbox.TabIndex = 19;
             this.startMinCheckbox.Tag = "";
             this.startMinCheckbox.Text = "Start Minimized";
+            this.toolTip1.SetToolTip(this.startMinCheckbox, "Start Spectrum Minimized");
             this.startMinCheckbox.UseVisualStyleBackColor = true;
             this.startMinCheckbox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
             // 
@@ -185,17 +192,29 @@
             this.generalSettingsGroupBox.Controls.Add(this.closeToTrayCheckbox);
             this.generalSettingsGroupBox.Controls.Add(this.windowsCheckbox);
             this.generalSettingsGroupBox.Controls.Add(this.startMinCheckbox);
+            this.generalSettingsGroupBox.Controls.Add(this.defaultSettingsButton);
             this.generalSettingsGroupBox.Location = new System.Drawing.Point(82, 34);
             this.generalSettingsGroupBox.Name = "generalSettingsGroupBox";
-            this.generalSettingsGroupBox.Size = new System.Drawing.Size(257, 208);
+            this.generalSettingsGroupBox.Size = new System.Drawing.Size(276, 208);
             this.generalSettingsGroupBox.TabIndex = 23;
             this.generalSettingsGroupBox.TabStop = false;
             this.generalSettingsGroupBox.Text = "General Settings";
             this.generalSettingsGroupBox.Visible = false;
             // 
+            // advancedSettingsButton
+            // 
+            this.advancedSettingsButton.Location = new System.Drawing.Point(59, 29);
+            this.advancedSettingsButton.Name = "advancedSettingsButton";
+            this.advancedSettingsButton.Size = new System.Drawing.Size(163, 23);
+            this.advancedSettingsButton.TabIndex = 21;
+            this.advancedSettingsButton.Text = "Enable Advanced Settings";
+            this.toolTip1.SetToolTip(this.advancedSettingsButton, "Reset Settings To Default");
+            this.advancedSettingsButton.UseVisualStyleBackColor = true;
+            this.advancedSettingsButton.Click += new System.EventHandler(this.advancedSettingsButton_Click);
+            // 
             // defaultSettingsButton
             // 
-            this.defaultSettingsButton.Location = new System.Drawing.Point(83, 38);
+            this.defaultSettingsButton.Location = new System.Drawing.Point(80, 170);
             this.defaultSettingsButton.Name = "defaultSettingsButton";
             this.defaultSettingsButton.Size = new System.Drawing.Size(97, 23);
             this.defaultSettingsButton.TabIndex = 20;
@@ -248,7 +267,7 @@
             this.updatesGroupBox.Controls.Add(this.label1);
             this.updatesGroupBox.Location = new System.Drawing.Point(381, 34);
             this.updatesGroupBox.Name = "updatesGroupBox";
-            this.updatesGroupBox.Size = new System.Drawing.Size(257, 208);
+            this.updatesGroupBox.Size = new System.Drawing.Size(276, 208);
             this.updatesGroupBox.TabIndex = 22;
             this.updatesGroupBox.TabStop = false;
             this.updatesGroupBox.Text = "Updates Settings";
@@ -264,7 +283,7 @@
             // 
             // defaultLocationButton
             // 
-            this.defaultLocationButton.Location = new System.Drawing.Point(58, 149);
+            this.defaultLocationButton.Location = new System.Drawing.Point(83, 149);
             this.defaultLocationButton.Name = "defaultLocationButton";
             this.defaultLocationButton.Size = new System.Drawing.Size(108, 23);
             this.defaultLocationButton.TabIndex = 24;
@@ -274,7 +293,7 @@
             // 
             // fileExplorerButton
             // 
-            this.fileExplorerButton.Location = new System.Drawing.Point(215, 121);
+            this.fileExplorerButton.Location = new System.Drawing.Point(228, 121);
             this.fileExplorerButton.Name = "fileExplorerButton";
             this.fileExplorerButton.Size = new System.Drawing.Size(42, 23);
             this.fileExplorerButton.TabIndex = 23;
@@ -286,7 +305,7 @@
             // 
             this.fileExplorerTextBox.Location = new System.Drawing.Point(9, 123);
             this.fileExplorerTextBox.Name = "fileExplorerTextBox";
-            this.fileExplorerTextBox.Size = new System.Drawing.Size(200, 20);
+            this.fileExplorerTextBox.Size = new System.Drawing.Size(213, 20);
             this.fileExplorerTextBox.TabIndex = 22;
             this.fileExplorerTextBox.TextChanged += new System.EventHandler(this.fileExplorerTextBox_TextChanged);
             // 
@@ -305,7 +324,7 @@
             this.arduinoSettingsGroupBox.Controls.Add(this.label3);
             this.arduinoSettingsGroupBox.Location = new System.Drawing.Point(82, 248);
             this.arduinoSettingsGroupBox.Name = "arduinoSettingsGroupBox";
-            this.arduinoSettingsGroupBox.Size = new System.Drawing.Size(257, 208);
+            this.arduinoSettingsGroupBox.Size = new System.Drawing.Size(276, 208);
             this.arduinoSettingsGroupBox.TabIndex = 24;
             this.arduinoSettingsGroupBox.TabStop = false;
             this.arduinoSettingsGroupBox.Text = "Arduino Settings";
@@ -319,18 +338,19 @@
             this.responsiveLightingCheckbox.Size = new System.Drawing.Size(122, 17);
             this.responsiveLightingCheckbox.TabIndex = 27;
             this.responsiveLightingCheckbox.Text = "Responsive Lighting";
+            this.toolTip1.SetToolTip(this.responsiveLightingCheckbox, "Allows for Responsive Lighting");
             this.responsiveLightingCheckbox.UseVisualStyleBackColor = true;
             this.responsiveLightingCheckbox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
             // 
             // rememberLightCheckbox
             // 
             this.rememberLightCheckbox.AutoSize = true;
-            this.rememberLightCheckbox.Location = new System.Drawing.Point(78, 156);
+            this.rememberLightCheckbox.Location = new System.Drawing.Point(78, 157);
             this.rememberLightCheckbox.Name = "rememberLightCheckbox";
-            this.rememberLightCheckbox.Size = new System.Drawing.Size(149, 17);
+            this.rememberLightCheckbox.Size = new System.Drawing.Size(165, 17);
             this.rememberLightCheckbox.TabIndex = 26;
-            this.rememberLightCheckbox.Text = "Remember Lighting Profile";
-            this.toolTip1.SetToolTip(this.rememberLightCheckbox, "Sends last known lighting profile to the Arduino when Spectrum startsup.");
+            this.rememberLightCheckbox.Text = "Turn On NeoPixels At Startup";
+            this.toolTip1.SetToolTip(this.rememberLightCheckbox, "Turns on Neopixels with last sent command");
             this.rememberLightCheckbox.UseVisualStyleBackColor = true;
             this.rememberLightCheckbox.CheckedChanged += new System.EventHandler(this.settingsCheckboxes_CheckedChanged);
             // 
@@ -365,7 +385,7 @@
             this.defaultPortComboBox.Name = "defaultPortComboBox";
             this.defaultPortComboBox.Size = new System.Drawing.Size(117, 21);
             this.defaultPortComboBox.TabIndex = 22;
-            this.toolTip1.SetToolTip(this.defaultPortComboBox, "COM Port Arduino is connected to");
+            this.toolTip1.SetToolTip(this.defaultPortComboBox, "Default COM Port Spectrum Connects to");
             this.defaultPortComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
             // label3
@@ -379,15 +399,11 @@
             // 
             // advancedSettingsGroupBox
             // 
-            this.advancedSettingsGroupBox.Controls.Add(this.label6);
-            this.advancedSettingsGroupBox.Controls.Add(this.advancedLightingCheckbox);
-            this.advancedSettingsGroupBox.Controls.Add(this.resetSettingsButton);
-            this.advancedSettingsGroupBox.Controls.Add(this.label5);
-            this.advancedSettingsGroupBox.Controls.Add(this.devBuildsCheckbox);
-            this.advancedSettingsGroupBox.Controls.Add(this.defaultSettingsButton);
+            this.advancedSettingsGroupBox.Controls.Add(this.advancedSettingsPanel);
+            this.advancedSettingsGroupBox.Controls.Add(this.advancedSettingsButton);
             this.advancedSettingsGroupBox.Location = new System.Drawing.Point(381, 248);
             this.advancedSettingsGroupBox.Name = "advancedSettingsGroupBox";
-            this.advancedSettingsGroupBox.Size = new System.Drawing.Size(257, 208);
+            this.advancedSettingsGroupBox.Size = new System.Drawing.Size(276, 208);
             this.advancedSettingsGroupBox.TabIndex = 27;
             this.advancedSettingsGroupBox.TabStop = false;
             this.advancedSettingsGroupBox.Text = "Advanced Settings";
@@ -397,7 +413,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(9, 141);
+            this.label6.Location = new System.Drawing.Point(5, 72);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(236, 32);
             this.label6.TabIndex = 25;
@@ -407,7 +423,7 @@
             // advancedLightingCheckbox
             // 
             this.advancedLightingCheckbox.AutoSize = true;
-            this.advancedLightingCheckbox.Location = new System.Drawing.Point(83, 75);
+            this.advancedLightingCheckbox.Location = new System.Drawing.Point(79, 6);
             this.advancedLightingCheckbox.Name = "advancedLightingCheckbox";
             this.advancedLightingCheckbox.Size = new System.Drawing.Size(115, 17);
             this.advancedLightingCheckbox.TabIndex = 24;
@@ -418,7 +434,7 @@
             // 
             // resetSettingsButton
             // 
-            this.resetSettingsButton.Location = new System.Drawing.Point(83, 179);
+            this.resetSettingsButton.Location = new System.Drawing.Point(79, 110);
             this.resetSettingsButton.Name = "resetSettingsButton";
             this.resetSettingsButton.Size = new System.Drawing.Size(97, 23);
             this.resetSettingsButton.TabIndex = 23;
@@ -429,7 +445,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(55, 118);
+            this.label5.Location = new System.Drawing.Point(51, 49);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(173, 13);
             this.label5.TabIndex = 22;
@@ -439,13 +455,26 @@
             // 
             this.devBuildsCheckbox.AutoSize = true;
             this.devBuildsCheckbox.Enabled = false;
-            this.devBuildsCheckbox.Location = new System.Drawing.Point(83, 98);
+            this.devBuildsCheckbox.Location = new System.Drawing.Point(79, 29);
             this.devBuildsCheckbox.Name = "devBuildsCheckbox";
             this.devBuildsCheckbox.Size = new System.Drawing.Size(113, 17);
             this.devBuildsCheckbox.TabIndex = 21;
             this.devBuildsCheckbox.Text = "Enable Dev Builds";
             this.toolTip1.SetToolTip(this.devBuildsCheckbox, "Feature Currently Not Avalible");
             this.devBuildsCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // advancedSettingsPanel
+            // 
+            this.advancedSettingsPanel.Controls.Add(this.devBuildsCheckbox);
+            this.advancedSettingsPanel.Controls.Add(this.label6);
+            this.advancedSettingsPanel.Controls.Add(this.label5);
+            this.advancedSettingsPanel.Controls.Add(this.advancedLightingCheckbox);
+            this.advancedSettingsPanel.Controls.Add(this.resetSettingsButton);
+            this.advancedSettingsPanel.Enabled = false;
+            this.advancedSettingsPanel.Location = new System.Drawing.Point(12, 58);
+            this.advancedSettingsPanel.Name = "advancedSettingsPanel";
+            this.advancedSettingsPanel.Size = new System.Drawing.Size(248, 140);
+            this.advancedSettingsPanel.TabIndex = 28;
             // 
             // SettingsForm
             // 
@@ -476,7 +505,8 @@
             this.arduinoSettingsGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stripLengthUpDown)).EndInit();
             this.advancedSettingsGroupBox.ResumeLayout(false);
-            this.advancedSettingsGroupBox.PerformLayout();
+            this.advancedSettingsPanel.ResumeLayout(false);
+            this.advancedSettingsPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -516,5 +546,7 @@
         private System.Windows.Forms.CheckBox responsiveLightingCheckbox;
         private System.Windows.Forms.CheckBox advancedLightingCheckbox;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button advancedSettingsButton;
+        private System.Windows.Forms.Panel advancedSettingsPanel;
     }
 }

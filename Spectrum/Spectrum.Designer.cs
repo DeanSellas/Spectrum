@@ -537,7 +537,6 @@
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
             this.timer1.Interval = 1250;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
@@ -601,7 +600,6 @@
         private System.Windows.Forms.NumericUpDown blueValue;
         private System.Windows.Forms.NotifyIcon spectrumTrayItem;
         private System.Windows.Forms.Button portConnectButton;
-        private System.Windows.Forms.ComboBox serialComboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -640,6 +638,7 @@
         public System.Windows.Forms.Label colorPreviewLabel;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.ComboBox serialComboBox;
     }
 }
 

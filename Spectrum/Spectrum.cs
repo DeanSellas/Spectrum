@@ -108,7 +108,9 @@ namespace Spectrum {
                 portConnect(true);
             }
 
-            lastNeoPixelUpDown.Value = Settings.Default.stripLength;
+            // Sets Advanced Lighting Properties
+            lastNeoPixelUpDown.Maximum = Settings.Default.stripLength;
+            firstNeoPixelUpDown.Maximum = Settings.Default.stripLength;
 
             advancedLightingPanel.Visible = Settings.Default.advancedLighting;
 
@@ -171,7 +173,7 @@ namespace Spectrum {
         // Connects to Port
         private void portConnectButton_Click(object sender, EventArgs e) {
             try {
-                //if (serialPort1.IsOpen) portConnect(false);
+                // Trys to Connect/Disconnect to the Serial Port
                 if (!serialPort1.IsOpen) portConnect(true);
                 else portConnect(false);
             }
@@ -201,8 +203,6 @@ namespace Spectrum {
             if (blueValue.Value < 10) blue = "00" + blue; if (blueValue.Value >= 10 && blueValue.Value < 100) blue = "0" + blue;
 
             message = "SolidColor" + red + green + blue + firstLast;
-
-            if (Settings.Default.rememberLightProfile) Settings.Default.lastCommand = message;
 
             // Resets Responsive Lighting Wait
             if (!waitFor) waitFor = true;
@@ -266,8 +266,6 @@ namespace Spectrum {
             var delay = delayValue.Value.ToString();
             message = rainbowType + delay;
 
-            if (Settings.Default.rememberLightProfile) Settings.Default.lastCommand = message;
-            //Console.WriteLine(Settings.Default.lastCommand);
             messageQueue.Add(message);
         }
 
@@ -285,6 +283,11 @@ namespace Spectrum {
 
                 // Sends Message To Arduino
                 serialPort1.WriteLine(message);
+
+                if (Settings.Default.rememberLightProfile && message != "turnOff") {
+                    Settings.Default.lastCommand = message;
+                    Settings.Default.Save();
+                }
 
                 // Removes Message From List
                 messageQueue.RemoveAt(0);
@@ -354,6 +357,7 @@ namespace Spectrum {
                     Settings.Default.defaultStripLength = Settings.Default.stripLength;
                 }
                 Settings.Default.isConnected = true;
+                timer1.Enabled = true;
             }
 
             // Closes Serial Port
@@ -372,6 +376,7 @@ namespace Spectrum {
                 settingsForm.startupConnectCheckBox.Enabled = false;
                 settingsForm.defaultPortComboBox.Enabled = true;
                 settingsForm.stripLengthUpDown.Enabled = true;
+                timer1.Enabled = false;
             }
 
             Settings.Default.Save();
@@ -399,7 +404,7 @@ namespace Spectrum {
 
                 if (Settings.Default.rememberLightProfile) {
                     Console.WriteLine(Settings.Default.lastCommand);
-                    serialPort1.WriteLine(Settings.Default.lastCommand);
+                    messageQueue.Add(Settings.Default.lastCommand);
                 }
 
             }
@@ -426,7 +431,7 @@ namespace Spectrum {
             System.IO.Stream stream = webClient.OpenRead("https://raw.githubusercontent.com/DeanSellas/Spectrum/master/version.txt");
             using (System.IO.StreamReader reader = new System.IO.StreamReader(stream)) {
                 String version = reader.ReadToEnd();
-                Console.WriteLine(version);
+                Console.WriteLine("Online Version: " + version);
 
                 if (version.Substring(3, 4) == "0") {
                     onlineVersion = version.Substring(0, 3);
@@ -439,7 +444,7 @@ namespace Spectrum {
 
                     updateAvailable = true;
                     installerName = "spectrumv" + onlineVersion + "setup.exe";
-                    Console.WriteLine(installerName);
+                    Console.WriteLine("Installer Name: " + installerName);
                     downloadLocation = "https://github.com/DeanSellas/Spectrum/blob/master/Installer/" + installerName + "?raw=true";
                 }
             }
@@ -461,7 +466,7 @@ namespace Spectrum {
                 if (Settings.Default.updateComboBoxInt == 2) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddDays(1);
                 if (Settings.Default.updateComboBoxInt == 3) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddDays(7);
                 if (Settings.Default.updateComboBoxInt == 4) Settings.Default.nextUpdateCheck = Settings.Default.lastUpdateCheck.AddMonths(1);
-                Console.WriteLine(Settings.Default.nextUpdateCheck);
+                Console.WriteLine("Check For Update At: " + Settings.Default.nextUpdateCheck);
                 if (Settings.Default.nextUpdateCheck == DateTime.Today && Settings.Default.updateComboBoxInt != 0) checkForUpdate = true;
 
 
