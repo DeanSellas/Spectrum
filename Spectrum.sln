@@ -1,9 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectrum", "Spectrum\Spectrum.csproj", "{76A8AA1C-5ED6-4A8B-B016-71C97C9F64F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_OLD", "_OLD", "{BF228F33-8F31-4F68-9363-30977209C0B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UpdateForm", "UpdateForm", "{C5E903E2-4D94-429B-929F-C34A67AB1E84}"
+	ProjectSection(SolutionItems) = preProject
+		Spectrum\OLD_UpdateForm.cs = Spectrum\OLD_UpdateForm.cs
+		Spectrum\OLD_UpdateForm.Designer.cs = Spectrum\OLD_UpdateForm.Designer.cs
+		Spectrum\OLD_UpdateForm.resx = Spectrum\OLD_UpdateForm.resx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +27,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C5E903E2-4D94-429B-929F-C34A67AB1E84} = {BF228F33-8F31-4F68-9363-30977209C0B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {785E300B-2C2A-4A9D-A8B0-B1E9AB583CFA}

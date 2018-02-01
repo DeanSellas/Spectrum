@@ -37,7 +37,7 @@ namespace Spectrum {
 
         // Forms
         SettingsForm settingsForm;
-        UpdateForm updateForm;
+        OLD_UpdateForm updateForm;
         SetUpForm setUpForm;
         AboutForm aboutForm;
 
@@ -476,7 +476,7 @@ namespace Spectrum {
                         DialogResult dialogResult = MessageBox.Show("New Version Of Spectrum Is Avaliable Do You Want to Download it?", "Update to " + onlineVersion, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (dialogResult == DialogResult.Yes) {
-                            updateForm = new UpdateForm(installerName, downloadLocation, onlineVersion);
+                            updateForm = new OLD_UpdateForm(installerName, downloadLocation, onlineVersion);
                             updateForm.SpectrumUpdate(updateAvailable, false);
                         }
                         Settings.Default.lastUpdateCheck = DateTime.Now.Date;
@@ -484,7 +484,7 @@ namespace Spectrum {
 
                 }
                 if (userCheck) {
-                    updateForm = new UpdateForm(installerName, downloadLocation, onlineVersion);
+                    updateForm = new OLD_UpdateForm(installerName, downloadLocation, onlineVersion);
                     updateForm.SpectrumUpdate(updateAvailable, true);
                 }
 
