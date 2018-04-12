@@ -8,16 +8,11 @@ ROADMAP: https://github.com/DeanSellas/Spectrum/projects
 SUPPORT: https://github.com/DeanSellas/Spectrum/issues or https://github.com/DeanSellas/Spectrum/wiki
 TWITTER: https://twitter.com/DeanSellas
 
-Alpha v0.2
+Alpha v0.5 : IN DEVELOPMENT
 ---------------------------------------------
-+ ADDED: Advanced Settings
-+ ADDED: Development Builds (planned for 0.2 not implemented yet)
+* REWRITING SPECTRUM'S CODE-BASE
 
-# CHANGED: How Spectrum Handles Commands Sent to the Arduino
-# CHANGED: Settings Descriptions
-
-- FIXED: If Default Port is Changed, Port on Spectrum Main Page Is Also Changed
-- FIXED: Minor Bugs
+* FEATURES TBD
 
 
 
