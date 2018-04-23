@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+
+  <Profiles>
+    <Default>
+
+      <General>
+        <directory></directory>
+        <startWithWindows>False</startWithWindows>
+        <connectOnStart>False</connectOnStart>
+        <startMinimized>False</startMinimized>
+        <advancedSettings></advancedSettings>
+        <Tray>
+          <closeToTray>False</closeToTray>
+          <minimizeToTray>False</minimizeToTray>
+        </Tray>
+        <Colors>
+          <Red>255</Red>
+          <Green>255</Green>
+          <Blue>255</Blue>
+        </Colors>
+      </General>
+
+      <Updater>
+        <downloadLocation></downloadLocation>
+        <lastCheck></lastCheck>
+        <nextCheck></nextCheck>
+      </Updater>
+
+      <Arduino>
+        <isConnected>False</isConnected>
+        <defaultPort></defaultPort>
+        <stripLength>100</stripLength>
+        <turnOffOnClose>True</turnOffOnClose>
+        <turnOnWithConnect></turnOnWithConnect>
+        <lastCommand></lastCommand>
+        <delay>10</delay>
+      </Arduino>
+      
+    </Default>
+  </Profiles>
+
+
+</Settings>
+

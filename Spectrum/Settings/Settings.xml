@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+
+  <Profiles>
+    <Default>
+
+      <General>
+        <startWithWindows>false</startWithWindows>
+        <connectOnStart>false</connectOnStart>
+        <startMinimized>false</startMinimized>
+        <advancedSettings></advancedSettings>
+        <closeToTray>false</closeToTray>
+        <minimizeToTray>false</minimizeToTray>
+        <Colors>
+          <Red>255</Red>
+          <Green>255</Green>
+          <Blue>255</Blue>
+        </Colors>
+      </General>
+
+      <Updater>
+        <downloadLocation></downloadLocation>
+        <lastCheck></lastCheck>
+        <nextCheck></nextCheck>
+      </Updater>
+
+      <Arduino>
+        <isConnected>false</isConnected>
+        <defaultPort></defaultPort>
+        <stripLength>100</stripLength>
+        <turnOffOnClose>true</turnOffOnClose>
+        <turnOnWithConnect>false</turnOnWithConnect>
+        <lastCommand></lastCommand>
+        <delay>10</delay>
+      </Arduino>
+
+    </Default>
+
+    <Profile1>
+
+      <General>
+        <startWithWindows>true</startWithWindows>
+        <connectOnStart>true</connectOnStart>
+        <startMinimized>true</startMinimized>
+        <advancedSettings></advancedSettings>
+        <closeToTray>false</closeToTray>
+        <minimizeToTray>false</minimizeToTray>
+        <Colors>
+          <Red>255</Red>
+          <Green>255</Green>
+          <Blue>255</Blue>
+        </Colors>
+      </General>
+
+      <Updater>
+        <downloadLocation></downloadLocation>
+        <lastCheck></lastCheck>
+        <nextCheck></nextCheck>
+      </Updater>
+
+      <Arduino>
+        <isConnected>false</isConnected>
+        <defaultPort></defaultPort>
+        <stripLength>100</stripLength>
+        <turnOffOnClose>true</turnOffOnClose>
+        <turnOnWithConnect>false</turnOnWithConnect>
+        <lastCommand></lastCommand>
+        <delay>10</delay>
+      </Arduino>
+
+    </Profile1>
+    
+  </Profiles>
+
+  <currentSettingsProfile>profile1</currentSettingsProfile>
+  
+</Settings>
+

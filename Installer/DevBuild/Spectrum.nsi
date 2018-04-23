@@ -2,7 +2,7 @@
 ;Welcome/Finish Page Example Script
 ;Written by Joost Verburg
 
-
+!define CURRENT_VER "0.5"
 
 
 ; Uninstall Before Upgrade
@@ -41,7 +41,7 @@ FunctionEnd
 
   ;Name and file
   Name "Spectrum"
-  OutFile "spectrumv0.2setup.exe"
+  OutFile "spectrumv${CURRENT_VER}setup.exe"
   
   !define MUI_PRODUCT "Spectrum"
   !define MUI_FILE "Spectrum"
