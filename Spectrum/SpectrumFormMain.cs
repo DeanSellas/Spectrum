@@ -24,7 +24,8 @@ namespace Spectrum {
             else currentSettings = settings.createSettings(settings.settingsProfile);
 
             // Prints Items in Settings
-            foreach (KeyValuePair<string, dynamic> kvp in currentSettings) { Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value); }
+            foreach (KeyValuePair<string, dynamic> something in currentSettings)
+                foreach (KeyValuePair<string, dynamic> kvp in currentSettings[something.Key]) { Console.WriteLine("Master = {2}, Key = {0}, Value = {1}", kvp.Key, kvp.Value, something.Key); }
         }
     }
 }
