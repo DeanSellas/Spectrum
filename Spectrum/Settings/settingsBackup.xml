@@ -23,7 +23,7 @@
       <Updater>
         <downloadLocation></downloadLocation>
         <lastCheck></lastCheck>
-        <checkForUpdate>Launch</checkForUpdate>
+        <nextCheck></nextCheck>
       </Updater>
 
       <Arduino>

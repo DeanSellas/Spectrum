@@ -10,22 +10,24 @@ using System.Windows.Forms;
 using Spectrum.Classes;
 
 namespace Spectrum {
+
     public partial class SpectrumFormMain : Form {
-        Dictionary<string, dynamic> currentSettings, defaultSettings;
-        SettingsHandler settings = new SettingsHandler();
+        //public Dictionary<string, dynamic> currentSettings;
+        Dictionary<string, dynamic> defaultSettings;
+        SettingsHandler settingsHander;
 
         public SpectrumFormMain() {
+            settingsHander = new SettingsHandler();
             InitializeComponent();
             
-            defaultSettings = settings.defaultSettings;
-            Console.WriteLine(settings.settingsProfile);
-
-            if (settings.settingsProfile == "default") currentSettings = defaultSettings;
-            else currentSettings = settings.createSettings(settings.settingsProfile);
+            defaultSettings = settingsHander.defaultSettings;
+            Console.WriteLine("Current Profile: " + settingsHander.settingsProfile);
 
             // Prints Items in Settings
-            foreach (KeyValuePair<string, dynamic> something in currentSettings)
-                foreach (KeyValuePair<string, dynamic> kvp in currentSettings[something.Key]) { Console.WriteLine("Master = {2}, Key = {0}, Value = {1}", kvp.Key, kvp.Value, something.Key); }
+            foreach (string master in settingsHander.currentSettings.Keys)
+                foreach (KeyValuePair<string, dynamic> kvp in settingsHander.currentSettings[master])
+                   Console.WriteLine("Master = {2}, Key = {0}, Value = {1}", kvp.Key, kvp.Value, master);
+            settingsHander.saveSettings();
         }
     }
 }
