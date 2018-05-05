@@ -12,8 +12,6 @@ namespace Spectrum.Classes {
         public Dictionary<string, dynamic> currentSettings = new Dictionary<string, dynamic>();
         public String settingsProfile;
 
-        DateTime test;
-
         String launchTime = DateTime.Now.ToString();
 
         String settingsFile = Environment.CurrentDirectory + "/Settings/settings.xml";
@@ -26,40 +24,37 @@ namespace Spectrum.Classes {
             // creates/assigns proper settings
             if (settingsProfile != "Default") currentSettings = createSettings(settingsProfile);
             else currentSettings = defaultSettings;
-            test = DateTime.Parse(launchTime);
         }
+
+        private XmlNode createNode(XmlNode root, String nodeName) { return root.OwnerDocument.CreateElement(nodeName); }
 
         public void saveSettings() {
             XmlDocument doc = new XmlDocument();
             doc.Load(settingsFile);
             XmlNode root = doc.DocumentElement;
             XmlNode myNode = root.SelectSingleNode("descendant::" + settingsProfile);
+            
+            // if new settings profile
+            if (myNode == null) {
+                XmlNode newProfile = createNode(root, settingsProfile);
+                myNode = root.SelectSingleNode("descendant::Profiles").AppendChild(newProfile);
+            }
 
-            // Loops through masters
-            foreach (XmlNode master in myNode.ChildNodes) {
-                var masterName = master.Name.ToString();
-
-                // Creates list to store node names that will be removed
+            // writes settings to file
+            foreach(String master in currentSettings.Keys) {
                 List<XmlNode> removeNodeList = new List<XmlNode>();
-                
-                // Loops through settings
-                foreach (XmlNode child in master.ChildNodes) {
-                    var childName = child.Name.ToString();
-
-                    // if setting exists in currentSettings
-                    if (currentSettings[masterName].ContainsKey(childName)) {
-                        // if item is different from default d
-                        if (!defaultSettings[masterName].ContainsKey(childName) || currentSettings[masterName][childName] != defaultSettings[masterName][childName]) {
-                            child.InnerText = Convert.ToString(currentSettings[masterName][childName]);
-                            //Console.WriteLine(childName);
-                        }
-                        // else delete the node
-                        else removeNodeList.Add(child);
-                    }
+                XmlNode masterNode = root.SelectSingleNode("descendant::" + settingsProfile + "/" + master);
+                if (masterNode == null) masterNode = myNode.AppendChild(createNode(root, master));
+                foreach (String child in currentSettings[master].Keys) {
+                    XmlNode currentNode = currentNode = myNode.SelectSingleNode("descendant::" + child); ;
+                    if (currentNode == null) currentNode = masterNode.AppendChild(createNode(root, child));
+                    currentNode.InnerText = Convert.ToString(currentSettings[master][child]);
+                    if (currentSettings[master][child] == defaultSettings[master][child]) removeNodeList.Add(currentNode);
                 }
                 // Removes nodes that are the same as the default. Not sure why This needs to be included outside of main loop
-                for (int i = 0; i < removeNodeList.Count; i++) master.RemoveChild(removeNodeList[i]);
+                for (int i = 0; i < removeNodeList.Count; i++) masterNode.RemoveChild(removeNodeList[i]);
             }
+            // sets default updater data
             XmlNode defaultCheck = root.SelectSingleNode("descendant::Default/Updater");
             foreach (XmlNode item in defaultCheck.ChildNodes) {
                 if (item.Name == "downloadLocation") item.InnerText = defaultSettings["Updater"]["downloadLocation"];
@@ -67,8 +62,8 @@ namespace Spectrum.Classes {
                 if (item.Name == "lastCheck") item.InnerText = launchTime;
             }
 
-
             doc.Save(settingsFile);
+            createSettings(settingsProfile);
         }
 
         public Dictionary<string, dynamic> createSettings(string profileName = "Default") {
