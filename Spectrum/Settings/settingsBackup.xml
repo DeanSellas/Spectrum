@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
 
-  <currentSettingsProfile>Profile1</currentSettingsProfile>
-
+  <currentSettingsProfile></currentSettingsProfile>
 
   <Profiles>
-    
+
     <Default>
 
       <General>
@@ -23,7 +22,7 @@
       <Updater>
         <downloadLocation></downloadLocation>
         <lastCheck></lastCheck>
-        <nextCheck></nextCheck>
+        <checkForUpdate>Launch</checkForUpdate>
       </Updater>
 
       <Arduino>
@@ -38,23 +37,7 @@
 
     </Default>
 
-    <Profile1>
-
-      <General>
-        <startWithWindows>true</startWithWindows>
-        <connectOnStart>true</connectOnStart>
-        <startMinimized>true</startMinimized>
-        <advancedSettings>true</advancedSettings>
-        <closeToTray>false</closeToTray>
-        <minimizeToTray>false</minimizeToTray>
-        <redValue>255</redValue>
-        <greenValue>255</greenValue>
-        <blueValue>255</blueValue>
-      </General>
-
-    </Profile1>
-    
   </Profiles>
-  
+
 </Settings>
 

@@ -10,11 +10,10 @@ TWITTER: https://twitter.com/DeanSellas
 
 Alpha v0.5 : IN DEVELOPMENT
 ---------------------------------------------
-* REWRITING SPECTRUM'S CODE-BASE
++ ADDED: Settings Handler
+	*Designed to control Spectrum's Settings and allow for multible profiles and more modular code*
 
-* FEATURES TBD
-
-
+FOLLOW PROGRESS HERE: https://github.com/DeanSellas/Spectrum/projects/5
 
 Alpha v0.1.3
 ---------------------------------------------
