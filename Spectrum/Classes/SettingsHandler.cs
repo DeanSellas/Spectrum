@@ -184,7 +184,5 @@ namespace Spectrum.Classes {
         // Creates A New Node
         private XmlNode createNode(XmlNode root, String nodeName) { return root.OwnerDocument.CreateElement(nodeName); }
 
-
-
     }
 }
