@@ -18,14 +18,15 @@ namespace Spectrum {
             settingsHander = new SettingsHandler();
             InitializeComponent();
             
-            Console.WriteLine("Current Profile: " + settingsHander.settingsProfile);
-            
+            Console.WriteLine("Current Profile: " + settingsHander.settingsProfile + "\n --------------------------------");
+
             // Prints Items in Settings
-            foreach (string master in settingsHander.currentSettings.Keys)
-                foreach (KeyValuePair<string, dynamic> kvp in settingsHander.currentSettings[master])
-                   Console.WriteLine("Master = {2}, Key = {0}, Value = {1}", kvp.Key, kvp.Value, master);
-            for (int i = 0; i < settingsHander.settingsProfilesList.Count; i++) Console.WriteLine("Profile: {0}", settingsHander.settingsProfilesList[i]);
-            settingsHander.saveSettings();
+            foreach (string one in settingsHander.settings.Keys)
+                foreach (string two in settingsHander.settings[one].Keys)
+                    foreach (string three in settingsHander.settings[one][two].Keys)
+                        Console.WriteLine("Profile: {0} -- Master: {1} -- Settings: {2} -- Value: {3}", one, two, three, settingsHander.settings[one][two][three]);
+            Console.WriteLine("---Profiles Avaliable---");
+            foreach(string profile in settingsHander.profileList) Console.WriteLine("Profile: {0}", profile);
         }
     }
 }

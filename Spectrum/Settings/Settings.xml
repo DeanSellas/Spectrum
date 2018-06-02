@@ -20,9 +20,9 @@
       </General>
 
       <Updater>
+        <checkForUpdate>Launch</checkForUpdate>
         <downloadLocation></downloadLocation>
         <lastCheck></lastCheck>
-        <checkForUpdate>Launch</checkForUpdate>
       </Updater>
 
       <Arduino>

@@ -8,11 +8,10 @@ using System.Windows.Forms;
 
 namespace Spectrum.Classes {
     class SettingsHandler {
-        public Dictionary<string, dynamic> defaultSettings = new Dictionary<string, dynamic>();
-        public Dictionary<string, dynamic> currentSettings = new Dictionary<string, dynamic>();
+        public Dictionary<string, dynamic> settings = new Dictionary<string, dynamic>();
         public string settingsProfile;
 
-        public List<string> settingsProfilesList = new List<string>();
+        public List<string> profileList = new List<string>();
 
         String launchTime = DateTime.Now.ToString();
 
@@ -20,15 +19,14 @@ namespace Spectrum.Classes {
 
         XmlDocument doc = new XmlDocument();
         public SettingsHandler() {
-
+            profileList = getSettingProfiles();
+            
             // creates default settings
-            defaultSettings = createSettings();
+            settings = createSettings();
 
-            // creates/assigns proper settings
-            if (settingsProfile != "Default") currentSettings = createSettings(settingsProfile);
-            else currentSettings = defaultSettings;
-
-            settingsProfilesList = getSettingProfiles();
+            if (settingsProfile == "") settingsProfile = "Default";
+            else if (!settings.ContainsKey(settingsProfile)) newProfile(settingsProfile);
+            saveSettings();
         }
 
         // Gets Settings Profiles
@@ -36,14 +34,116 @@ namespace Spectrum.Classes {
             List<string> profiles = new List<string>();
             doc.Load(settingsFile);
             XmlNode root = doc.DocumentElement;
+
+            settingsProfile = root.SelectSingleNode("descendant::currentSettingsProfile").InnerText;
+
             XmlNode parent = root.SelectSingleNode("descendant::Profiles");
 
             // Adds each profile to list
-            foreach (XmlNode child in parent.ChildNodes) profiles.Add(child.Name);
+            foreach (XmlNode child in parent.ChildNodes) 
+                profiles.Add(child.Name);
 
             return profiles;
         }
 
+        public Dictionary<string, dynamic> createSettings() {
+            Dictionary<string, dynamic> tmpSettings = new Dictionary<string, dynamic>();
+
+            doc.Load(settingsFile);
+            XmlNode root = doc.DocumentElement;
+
+            // loops through profiles
+            foreach (string profile in profileList) {
+                // creates new dictionary for profile
+                tmpSettings[profile] = new Dictionary<string, dynamic>();
+
+                XmlNode parent = root.SelectSingleNode("descendant::" + profile);
+                // loops through categories
+                foreach (XmlNode master in parent.ChildNodes) {
+                    tmpSettings[profile][master.Name] = new Dictionary<string, dynamic>();
+                    // loops through settings
+                    foreach(XmlNode setting in master.ChildNodes) {
+                        // converts to int if possible
+                        try {
+                            tmpSettings[profile][master.Name][setting.Name] = Convert.ToInt32(setting.InnerText);
+                        }
+                        // converts to boolean or saves as string
+                        catch {
+                            if(setting.InnerText.ToLower() == "false" || setting.InnerText.ToLower() == "true") tmpSettings[profile][master.Name][setting.Name] = Convert.ToBoolean(setting.InnerText);
+                            else tmpSettings[profile][master.Name][setting.Name] = setting.InnerText;
+                        }
+                        // check for download location and sets to default if none is set
+                        if(profile == "Default" && setting.Name == "downloadLocation" && tmpSettings[profile][master.Name][setting.Name] == "")
+                            tmpSettings[profile][master.Name][setting.Name] = Environment.CurrentDirectory;
+                    }
+                }
+            }
+            return tmpSettings;
+        }
+
+        public void saveSettings() {
+            doc.Load(settingsFile);
+            XmlNode root = doc.DocumentElement;
+
+            // loops through profiles
+            foreach (string profile in settings.Keys) {
+                // sets parent profile node
+                XmlNode parentNode = root.SelectSingleNode("descendant::" + profile);
+
+                // create new profile if it doesnt already exist
+                if (parentNode == null) parentNode = root.SelectSingleNode("descendant::Profiles").AppendChild(createNode(root, profile));
+
+                // loops through categories
+                foreach (string master in settings[profile].Keys) {
+                    // sets master node
+                    XmlNode masterNode = parentNode.SelectSingleNode("descendant::" + master);
+                    // list of items to be removed
+                    List<XmlNode> removeNodeList = new List<XmlNode>();
+                    // loops through settings
+                    foreach (string child in settings[profile][master].Keys) {
+                        // assigns child node
+                        XmlNode childNode = masterNode.SelectSingleNode("descendant::" + child);
+                        //Console.WriteLine(childNode.ParentNode.Name);
+                        // if node doesnt exist create it
+                        if (childNode == null) childNode = masterNode.AppendChild(createNode(root, child));
+                        // saves the node settings
+                        if (profile != "Default") {
+                            if (settings[profile][master][child] != settings["Default"][master][child])
+                                childNode.InnerText = Convert.ToString(settings[profile][master][child]);
+                            // if settings is different set node for deletion
+                            else removeNodeList.Add(childNode);
+                                
+                        }
+
+                        // saves download location
+                        if (profile == "Default" && child == "downloadLocation") childNode.InnerText = Convert.ToString(settings[profile][master][child]);
+                        // saves last update check
+                        if (profile == "Default" && child == "lastCheck") childNode.InnerText = Convert.ToString(settings[profile][master][child]);
+                    }
+
+                    // Removes nodes that are the same as the default. Not sure why This needs to be included outside of main loop
+                    for (int i = 0; i < removeNodeList.Count; i++) {
+                        masterNode.RemoveChild(removeNodeList[i]);
+                        settings[profile][master].Remove(removeNodeList[i].Name);
+                    }
+                }
+            }
+
+            // saves settings then updates them for Spectrum
+            doc.Save(settingsFile);
+        }
+        
+
+        public void newProfile(string profileName) {
+            settings[profileName] = new Dictionary<string, dynamic>();
+            saveSettings();
+            profileList = getSettingProfiles();
+        }
+
+        // Creates A New Node
+        private XmlNode createNode(XmlNode root, String nodeName) { return root.OwnerDocument.CreateElement(nodeName); }
+
+        /* OLD CODE WILL BE DELETED
         public Dictionary<string, dynamic> createSettings(string profileName = "Default") {
             Dictionary<string, dynamic> settingsDic = new Dictionary<string, dynamic>();
             
@@ -141,7 +241,7 @@ namespace Spectrum.Classes {
                 if (item.Name == "lastCheck") item.InnerText = launchTime;
             }
 
-            if (settingsProfile == "Default") { doc.Save(settingsFile); createSettings(settingsProfile); return; }
+            if (settingsProfile == "Default") { doc.Save(settingsFile); createSettings(); return; }
 
             XmlNode myNode = root.SelectSingleNode("descendant::" + settingsProfile);
 
@@ -178,11 +278,7 @@ namespace Spectrum.Classes {
 
             // saves settings then updates them for Spectrum
             doc.Save(settingsFile);
-            createSettings(settingsProfile);
-        }
-
-        // Creates A New Node
-        private XmlNode createNode(XmlNode root, String nodeName) { return root.OwnerDocument.CreateElement(nodeName); }
-
+            createSettings();
+        }*/
     }
 }
