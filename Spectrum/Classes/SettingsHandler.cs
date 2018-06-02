@@ -46,6 +46,7 @@ namespace Spectrum.Classes {
             return profiles;
         }
 
+        // Creates Settings Dictionary From XML File
         public Dictionary<string, dynamic> createSettings() {
             Dictionary<string, dynamic> tmpSettings = new Dictionary<string, dynamic>();
 
@@ -80,7 +81,8 @@ namespace Spectrum.Classes {
             }
             return tmpSettings;
         }
-
+        
+        // Saves Settings To XML File
         public void saveSettings() {
             doc.Load(settingsFile);
             XmlNode root = doc.DocumentElement;
@@ -133,7 +135,7 @@ namespace Spectrum.Classes {
             doc.Save(settingsFile);
         }
         
-
+        // Creates A New Profile
         public void newProfile(string profileName) {
             settings[profileName] = new Dictionary<string, dynamic>();
             saveSettings();

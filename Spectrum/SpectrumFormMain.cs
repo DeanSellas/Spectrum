@@ -28,5 +28,14 @@ namespace Spectrum {
             Console.WriteLine("---Profiles Avaliable---");
             foreach(string profile in settingsHander.profileList) Console.WriteLine("Profile: {0}", profile);
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
+            About aboutForm = new About();
+            aboutForm.Show();
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e) {
+
+        }
     }
 }
