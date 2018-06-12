@@ -69,6 +69,7 @@
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\SettingsHandler.cs" />
+    <Compile Include="Classes\UpdateHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpectrumFormMain.cs">

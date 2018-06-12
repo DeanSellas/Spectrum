@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,11 +14,13 @@ namespace Spectrum {
 
     public partial class SpectrumFormMain : Form {
         SettingsHandler settingsHander;
+        UpdateHandler updateHandler;
 
         public SpectrumFormMain() {
             settingsHander = new SettingsHandler();
-            InitializeComponent();
-            
+
+            updateHandler = new UpdateHandler(settingsHander);
+
             Console.WriteLine("Current Profile: " + settingsHander.settingsProfile + "\n --------------------------------");
 
             // Prints Items in Settings
@@ -27,15 +30,24 @@ namespace Spectrum {
                         Console.WriteLine("Profile: {0} -- Master: {1} -- Settings: {2} -- Value: {3}", one, two, three, settingsHander.settings[one][two][three]);
             Console.WriteLine("---Profiles Avaliable---");
             foreach(string profile in settingsHander.profileList) Console.WriteLine("Profile: {0}", profile);
+            
+            InitializeComponent();
         }
 
+        private void documentationToolStripMenuItem_Click(object sender, EventArgs e) {
+            Process.Start("https://github.com/DeanSellas/Spectrum/wiki");
+        }
+        private void bugReportToolStripMenuItem_Click(object sender, EventArgs e) {
+            Process.Start("https://github.com/DeanSellas/Spectrum/issues");
+        }
+        private void githubToolStripMenuItem_Click(object sender, EventArgs e) {
+            Process.Start("https://github.com/DeanSellas/Spectrum");
+        }
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
             About aboutForm = new About();
-            aboutForm.Show();
+            aboutForm.ShowDialog();
         }
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e) {
-
-        }
+        
     }
 }

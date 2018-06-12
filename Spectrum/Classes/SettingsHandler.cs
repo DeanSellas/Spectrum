@@ -76,6 +76,8 @@ namespace Spectrum.Classes {
                         // check for download location and sets to default if none is set
                         if(profile == "Default" && setting.Name == "downloadLocation" && tmpSettings[profile][master.Name][setting.Name] == "")
                             tmpSettings[profile][master.Name][setting.Name] = Environment.CurrentDirectory;
+                        if (profile == "Default" && setting.Name == "lastCheck" && tmpSettings[profile][master.Name][setting.Name] == "")
+                            tmpSettings[profile][master.Name][setting.Name] = launchTime;
                     }
                 }
             }
