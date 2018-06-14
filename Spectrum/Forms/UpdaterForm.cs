@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Threading;
 using System.ComponentModel;
 using System.IO;
-using Spectrum.Classes;
 using System.Windows.Forms;
 using System.Net;
 using System.Diagnostics;
+using Spectrum.Classes;
+
 
 namespace Spectrum.Forms {
     public partial class UpdaterForm : Form {
@@ -13,8 +13,7 @@ namespace Spectrum.Forms {
         SettingsHandler settingsHandler;
 
         WebClient webClient = new WebClient();
-
-        public UpdaterForm(string onlineVersion) {
+        public UpdaterForm(bool devBuilds, string onlineVersion) {
             settingsHandler = new SettingsHandler();
 
             // formats online version
@@ -26,12 +25,12 @@ namespace Spectrum.Forms {
             }
             onlineVersion = tmpVersion;
 
-            // if dev builds enabled download from dev branch
-            if (settingsHandler.settings[settingsHandler.settingsProfile]["Updater"].ContainsKey("devBuilds") && settingsHandler.settingsProfile != "Default")
-                downloadLink = String.Format("https://github.com/DeanSellas/Spectrum/blob/DevBranch/Installer/DevBuild/spectrumv{0}setup.exe?raw=true", onlineVersion);
 
-            else
+            // if dev builds enabled download from dev branch
+            if (!devBuilds)
                 downloadLink = String.Format("https://github.com/DeanSellas/Spectrum/blob/DevBranch/Installer/Public/spectrumv{0}setup.exe?raw=true", onlineVersion);
+            else
+                downloadLink = String.Format("https://github.com/DeanSellas/Spectrum/blob/DevBranch/Installer/DevBuild/spectrumv{0}setup.exe?raw=true", onlineVersion);
 
             // sets download location
             installerName = String.Format("{0}\\spectrumv{1}setup.exe", settingsHandler.settings[settingsHandler.settingsProfile]["Updater"]["downloadLocation"], onlineVersion);
@@ -89,5 +88,7 @@ namespace Spectrum.Forms {
             }
             Close();
         }
+
+        private void cancelButton_Click(object sender, EventArgs e) { Close(); }
     }
 }

@@ -13,7 +13,7 @@ namespace Spectrum.Classes {
         private string currentVersion = Application.ProductVersion;
         private string onlineVersion;
 
-        public bool updateAvalible = false;
+        public bool updateAvalible = false, devBuilds = false;
         public UpdateHandler(SettingsHandler s) {
             settingsHandler = s;
 
@@ -33,6 +33,7 @@ namespace Spectrum.Classes {
             catch { check = "launch"; }
 
             Console.WriteLine(check);
+
             // when does spectrum check for updates
             if (check == "launch") checkForUpdate();
             else if (check == "daily" && (DateTime.Now - Convert.ToDateTime(lastCheck)).TotalDays >= 1) checkForUpdate();
@@ -43,7 +44,7 @@ namespace Spectrum.Classes {
         }
 
         private void getOnlineVersion() {
-            bool devBuilds = false;
+            
             // enables dev builds
             if (settingsHandler.settings[settingsHandler.settingsProfile]["Updater"].ContainsKey("devBuilds") && settingsHandler.settingsProfile != "Default") devBuilds = true;
 
@@ -59,7 +60,6 @@ namespace Spectrum.Classes {
         }
 
         public void checkForUpdate() {
-
             // checks to see if online version is higher than current version
             if (!updateAvalible) {
                 for (int i = 0; i < currentVersion.Length; i++) {
@@ -70,6 +70,7 @@ namespace Spectrum.Classes {
                 }
             }
             
+            // saves last check time
             settingsHandler.settings["Default"]["Updater"]["lastCheck"] = DateTime.Now.ToString();
             settingsHandler.saveSettings();
 
@@ -77,9 +78,9 @@ namespace Spectrum.Classes {
             if (updateAvalible) {
                 DialogResult dialogResult = MessageBox.Show("Would you like to update Spectrum to: " + onlineVersion + "?", "Update Spectrum", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (dialogResult == DialogResult.Yes) {
-                    // needs try except if user does not grant permissions
+                    // needs try except if user does not grant permissions || not exactly sure why but this works
                     try {
-                        UpdaterForm updater = new UpdaterForm(onlineVersion);
+                        UpdaterForm updater = new UpdaterForm(devBuilds, onlineVersion);
                         updater.ShowDialog();
                     }
                     catch { }

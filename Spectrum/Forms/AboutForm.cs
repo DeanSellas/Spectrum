@@ -13,7 +13,7 @@ namespace Spectrum {
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
+            this.labelVersion.Text = String.Format("Version {0}", FileVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
@@ -34,9 +34,9 @@ namespace Spectrum {
             }
         }
 
-        public string AssemblyVersion {
+        public string FileVersion {
             get {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                return Application.ProductVersion;
             }
         }
 

@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Spectrum.Properties {
+    using System;
     
     
     /// <summary>
@@ -18,7 +19,7 @@ namespace Spectrum.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -37,7 +38,7 @@ namespace Spectrum.Properties {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
-                if ((resourceMan == null)) {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Spectrum.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
@@ -56,6 +57,32 @@ namespace Spectrum.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;Settings&gt;
+        ///
+        ///  &lt;currentSettingsProfile&gt;&lt;/currentSettingsProfile&gt;
+        ///
+        ///  &lt;Profiles&gt;
+        ///
+        ///    &lt;Default&gt;
+        ///
+        ///      &lt;General&gt;
+        ///        &lt;startWithWindows&gt;false&lt;/startWithWindows&gt;
+        ///        &lt;connectOnStart&gt;false&lt;/connectOnStart&gt;
+        ///        &lt;startMinimized&gt;false&lt;/startMinimized&gt;
+        ///        &lt;advancedSettings&gt;false&lt;/advancedSettings&gt;
+        ///        &lt;closeToTray&gt;false&lt;/closeToTray&gt;
+        ///        &lt;minimizeToTray&gt;false&lt;/minimizeToTray&gt;
+        ///        &lt;redValue&gt;255&lt;/redValue&gt;
+        ///        &lt;greenValue&gt;255&lt;/gre [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string settingsDefault {
+            get {
+                return ResourceManager.GetString("settingsDefault", resourceCulture);
             }
         }
     }

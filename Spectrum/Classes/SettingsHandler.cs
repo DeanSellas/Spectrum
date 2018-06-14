@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Windows.Forms;
+using System.IO;
 
 namespace Spectrum.Classes {
     class SettingsHandler {
@@ -13,12 +10,14 @@ namespace Spectrum.Classes {
 
         public List<string> profileList = new List<string>();
 
-        String launchTime = DateTime.Now.ToString();
+        string launchTime = DateTime.Now.ToString();
 
-        String settingsFile = Environment.CurrentDirectory + "/Settings/settings.xml";
+        string settingsFile = Environment.CurrentDirectory + "\\Settings\\settings.xml";
 
         XmlDocument doc = new XmlDocument();
         public SettingsHandler() {
+            settingsExist();
+
             profileList = getSettingProfiles();
             
             // creates default settings
@@ -27,6 +26,17 @@ namespace Spectrum.Classes {
             if (settingsProfile == "") settingsProfile = "Default";
             else if (!settings.ContainsKey(settingsProfile)) newProfile(settingsProfile);
             saveSettings();
+        }
+
+        // Checks to see if settings exist, if not creates settings
+        private void settingsExist() {
+            // creates directory if it does not exist
+            if (!Directory.Exists("Settings"))
+                Directory.CreateDirectory("Settings");
+            // creates settings if file does not exist
+            if (!File.Exists(settingsFile))
+                File.WriteAllText(settingsFile, Properties.Resources.settingsDefault);
+
         }
 
         // Gets Settings Profiles

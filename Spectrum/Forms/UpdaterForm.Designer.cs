@@ -23,18 +23,11 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.downloadProgressBar = new System.Windows.Forms.ProgressBar();
             this.cancelButton = new System.Windows.Forms.Button();
             this.downloadButton = new System.Windows.Forms.Button();
             this.downloadLabel = new System.Windows.Forms.Label();
+            this.downloadProgressBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
-            // 
-            // downloadProgressBar
-            // 
-            this.downloadProgressBar.Location = new System.Drawing.Point(12, 12);
-            this.downloadProgressBar.Name = "downloadProgressBar";
-            this.downloadProgressBar.Size = new System.Drawing.Size(469, 23);
-            this.downloadProgressBar.TabIndex = 0;
             // 
             // cancelButton
             // 
@@ -44,6 +37,7 @@
             this.cancelButton.TabIndex = 1;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // downloadButton
             // 
@@ -65,15 +59,23 @@
             this.downloadLabel.Text = "0 kb/0 kb";
             this.downloadLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // downloadProgressBar
+            // 
+            this.downloadProgressBar.Location = new System.Drawing.Point(12, 12);
+            this.downloadProgressBar.Name = "downloadProgressBar";
+            this.downloadProgressBar.Size = new System.Drawing.Size(469, 23);
+            this.downloadProgressBar.TabIndex = 4;
+            // 
             // UpdaterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(493, 90);
+            this.ControlBox = false;
+            this.Controls.Add(this.downloadProgressBar);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.downloadButton);
             this.Controls.Add(this.downloadLabel);
-            this.Controls.Add(this.downloadProgressBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -87,10 +89,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ProgressBar downloadProgressBar;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button downloadButton;
         private System.Windows.Forms.Label downloadLabel;
+        private System.Windows.Forms.ProgressBar downloadProgressBar;
     }
 }

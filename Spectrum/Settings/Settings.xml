@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
 
-  <currentSettingsProfile></currentSettingsProfile>
+  <currentSettingsProfile>Profile1</currentSettingsProfile>
 
   <Profiles>
     
@@ -53,6 +53,7 @@
       </General>
 
       <Updater>
+        <devBuilds>true</devBuilds>
         <downloadLocation>D:\Downloads</downloadLocation>
       </Updater>
 

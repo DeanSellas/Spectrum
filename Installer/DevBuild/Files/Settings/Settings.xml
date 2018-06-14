@@ -19,7 +19,7 @@
         <checkForUpdate>launch</checkForUpdate>
         <devBuilds>false</devBuilds>
         <downloadLocation>D:\Google Drive\Documents\Projects\C#\Spectrum\Spectrum\bin\Debug</downloadLocation>
-        <lastCheck>06/13/2018 9:59:34 PM</lastCheck>
+        <lastCheck>06/14/2018 2:15:31 PM</lastCheck>
       </Updater>
       <Arduino>
         <isConnected>false</isConnected>
