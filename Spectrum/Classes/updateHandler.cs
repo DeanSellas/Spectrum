@@ -54,6 +54,19 @@ namespace Spectrum.Classes {
             else reader = new StreamReader(web.OpenRead("https://raw.githubusercontent.com/DeanSellas/Spectrum/DevBranch/version.txt"));
             onlineVersion = reader.ReadLine();
 
+            
+        }
+
+        public void checkForUpdate() {
+
+            // checks to see if online version is higher than current version
+            for (int i = 0; i < currentVersion.Length; i++) {
+                if (currentVersion[i] != '.' && Convert.ToInt32(currentVersion[i]) > Convert.ToInt32(onlineVersion[i]))
+                    break;
+                else if(currentVersion[i] != '.' && currentVersion[i] != onlineVersion[i])
+                    updateAvalible = true;
+            }
+
             // formats online version
             string tmpVersion = "";
             for (int i = 0; i < onlineVersion.Length; i++) {
@@ -62,13 +75,6 @@ namespace Spectrum.Classes {
                 else break;
             }
             onlineVersion = tmpVersion;
-        }
-
-        public void checkForUpdate() {
-
-            // checks to see if online version is higher than current version
-            for (int i = 0; i < currentVersion.Length; i++)
-                if (currentVersion[i] != '.' && Convert.ToInt32(currentVersion[i]) < Convert.ToInt32(onlineVersion[i])) { updateAvalible = true; break; }
 
             settingsHandler.settings["Default"]["Updater"]["lastCheck"] = DateTime.Now.ToString();
             settingsHandler.saveSettings();
