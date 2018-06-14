@@ -1,45 +1,48 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
-
+  <currentSettingsProfile>
+  </currentSettingsProfile>
   <Profiles>
     <Default>
-
       <General>
-        <directory></directory>
-        <startWithWindows>False</startWithWindows>
-        <connectOnStart>False</connectOnStart>
-        <startMinimized>False</startMinimized>
-        <advancedSettings></advancedSettings>
-        <Tray>
-          <closeToTray>False</closeToTray>
-          <minimizeToTray>False</minimizeToTray>
-        </Tray>
-        <Colors>
-          <Red>255</Red>
-          <Green>255</Green>
-          <Blue>255</Blue>
-        </Colors>
+        <startWithWindows>false</startWithWindows>
+        <connectOnStart>false</connectOnStart>
+        <startMinimized>false</startMinimized>
+        <advancedSettings>false</advancedSettings>
+        <closeToTray>false</closeToTray>
+        <minimizeToTray>false</minimizeToTray>
+        <redValue>255</redValue>
+        <greenValue>255</greenValue>
+        <blueValue>255</blueValue>
       </General>
-
       <Updater>
-        <downloadLocation></downloadLocation>
-        <lastCheck></lastCheck>
-        <nextCheck></nextCheck>
+        <checkForUpdate>launch</checkForUpdate>
+        <devBuilds>false</devBuilds>
+        <downloadLocation>D:\Google Drive\Documents\Projects\C#\Spectrum\Spectrum\bin\Debug</downloadLocation>
+        <lastCheck>06/13/2018 9:59:34 PM</lastCheck>
       </Updater>
-
       <Arduino>
-        <isConnected>False</isConnected>
-        <defaultPort></defaultPort>
+        <isConnected>false</isConnected>
+        <defaultPort>
+        </defaultPort>
         <stripLength>100</stripLength>
-        <turnOffOnClose>True</turnOffOnClose>
-        <turnOnWithConnect></turnOnWithConnect>
-        <lastCommand></lastCommand>
+        <turnOffOnClose>true</turnOffOnClose>
+        <turnOnWithConnect>false</turnOnWithConnect>
+        <lastCommand>
+        </lastCommand>
         <delay>10</delay>
       </Arduino>
-      
     </Default>
+    <Profile1>
+      <General>
+        <startWithWindows>True</startWithWindows>
+        <connectOnStart>True</connectOnStart>
+        <startMinimized>True</startMinimized>
+        <advancedSettings>True</advancedSettings>
+      </General>
+      <Updater>
+        <downloadLocation>D:\Downloads</downloadLocation>
+      </Updater>
+    </Profile1>
   </Profiles>
-
-
 </Settings>
-

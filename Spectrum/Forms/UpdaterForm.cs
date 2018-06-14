@@ -17,6 +17,15 @@ namespace Spectrum.Forms {
         public UpdaterForm(string onlineVersion) {
             settingsHandler = new SettingsHandler();
 
+            // formats online version
+            string tmpVersion = "";
+            for (int i = 0; i < onlineVersion.Length; i++) {
+                if (i > 1 && onlineVersion[i + 1] != '0') tmpVersion += onlineVersion[i];
+                else if (i <= 1) tmpVersion += onlineVersion[i];
+                else break;
+            }
+            onlineVersion = tmpVersion;
+
             // if dev builds enabled download from dev branch
             if (settingsHandler.settings[settingsHandler.settingsProfile]["Updater"].ContainsKey("devBuilds") && settingsHandler.settingsProfile != "Default")
                 downloadLink = String.Format("https://github.com/DeanSellas/Spectrum/blob/DevBranch/Installer/DevBuild/spectrumv{0}setup.exe?raw=true", onlineVersion);

@@ -17,6 +17,7 @@ namespace Spectrum.Classes {
         public UpdateHandler(SettingsHandler s) {
             settingsHandler = s;
 
+            // sets download location
             try { downloadLocation = settingsHandler.settings[settingsHandler.settingsProfile]["Updater"]["downloadLocation"]; }
             catch { downloadLocation = settingsHandler.settings["Default"]["Updater"]["downloadLocation"]; }
             
@@ -60,22 +61,15 @@ namespace Spectrum.Classes {
         public void checkForUpdate() {
 
             // checks to see if online version is higher than current version
-            for (int i = 0; i < currentVersion.Length; i++) {
-                if (currentVersion[i] != '.' && Convert.ToInt32(currentVersion[i]) > Convert.ToInt32(onlineVersion[i]))
-                    break;
-                else if(currentVersion[i] != '.' && currentVersion[i] != onlineVersion[i])
-                    updateAvalible = true;
+            if (!updateAvalible) {
+                for (int i = 0; i < currentVersion.Length; i++) {
+                    if (currentVersion[i] != '.' && Convert.ToInt32(currentVersion[i]) > Convert.ToInt32(onlineVersion[i]))
+                        break;
+                    else if (currentVersion[i] != '.' && currentVersion[i] != onlineVersion[i])
+                        updateAvalible = true;
+                }
             }
-
-            // formats online version
-            string tmpVersion = "";
-            for (int i = 0; i < onlineVersion.Length; i++) {
-                if (i > 1 && onlineVersion[i + 1] != '0') tmpVersion += onlineVersion[i];
-                else if (i <= 1) tmpVersion += onlineVersion[i];
-                else break;
-            }
-            onlineVersion = tmpVersion;
-
+            
             settingsHandler.settings["Default"]["Updater"]["lastCheck"] = DateTime.Now.ToString();
             settingsHandler.saveSettings();
 
