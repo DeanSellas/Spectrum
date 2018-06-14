@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Threading;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using Spectrum.Classes;
 using System.Windows.Forms;
@@ -14,35 +9,38 @@ using System.Diagnostics;
 
 namespace Spectrum.Forms {
     public partial class UpdaterForm : Form {
-        string installerName, downloadLocation, downloadLink;
+        string installerName, downloadLink;
         SettingsHandler settingsHandler;
 
         WebClient webClient = new WebClient();
 
         public UpdaterForm(string onlineVersion) {
             settingsHandler = new SettingsHandler();
+
+            // if dev builds enabled download from dev branch
+            if (settingsHandler.settings[settingsHandler.settingsProfile]["Updater"].ContainsKey("devBuilds") && settingsHandler.settingsProfile != "Default")
+                downloadLink = String.Format("https://github.com/DeanSellas/Spectrum/blob/DevBranch/Installer/DevBuild/spectrumv{0}setup.exe?raw=true", onlineVersion);
+
+            else
+                downloadLink = String.Format("https://github.com/DeanSellas/Spectrum/blob/DevBranch/Installer/Public/spectrumv{0}setup.exe?raw=true", onlineVersion);
+
+            // sets download location
+            installerName = String.Format("{0}\\spectrumv{1}setup.exe", settingsHandler.settings[settingsHandler.settingsProfile]["Updater"]["downloadLocation"], onlineVersion);
+
             InitializeComponent();
 
-            installerName = "spectrumv" + onlineVersion + "setup.exe";
-            Text = String.Format("Updating to Spectrum {0}", onlineVersion);
-
-            if(settingsHandler.settings[settingsHandler.settingsProfile]["Updater"].ContainsKey("devBuilds") && settingsHandler.settingsProfile != "Default")
-                downloadLink = String.Format("https://github.com/DeanSellas/Spectrum/blob/DevBranch/Installer/DevBuild/{0}?raw=true", installerName);
-            
-            else
-                downloadLink = String.Format("https://github.com/DeanSellas/Spectrum/blob/DevBranch/Installer/Public/{0}?raw=true", installerName);
+            Text = String.Format("Update to {0}", onlineVersion);
 
             Console.WriteLine(downloadLink);
-
-            downloadLocation = settingsHandler.settings[settingsHandler.settingsProfile]["Updater"]["downloadLocation"];
-            installerName = downloadLocation + "\\" + installerName;
-
-
+            Console.WriteLine(installerName);
         }
 
         private void downloadButton_Click(object sender, EventArgs e) {
+            downloadButton.Text = "Downloading...";
+            downloadButton.Enabled = false;
+
             // Checks to see if file exists and if it does dont download again
-            if (File.Exists(installerName)) { downloadComplete(); return; }
+            if (File.Exists(installerName)) { downloadProgressBar.Value = 100; downloadComplete(); return; }
 
             // Starts the download
             // allows for use of https
@@ -50,31 +48,30 @@ namespace Spectrum.Forms {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             webClient.DownloadFileAsync(new Uri(downloadLink), installerName);
 
+            // increments download bar
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
             webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
-
-            downloadButton.Text = "Downloading...";
-            downloadButton.Enabled = false;
         }
 
         // Updates Progress Bar
         void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
+            // changes download bar info
             double bytesIn = double.Parse(e.BytesReceived.ToString());
             double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
             double percentage = bytesIn / totalBytes * 100;
 
             // sets label and progress bar
-            downloadLabel.Text = String.Format("{0}/{1} kb", bytesIn, totalBytes);
+            downloadLabel.Text = String.Format("{0} kb/{1} kb", bytesIn, totalBytes);
             downloadProgressBar.Value = int.Parse(Math.Truncate(percentage).ToString());
         }
 
         // When Download Is Complete
         void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
-            downloadButton.Text = "Download Complete";
             downloadComplete();
         }
 
         private void downloadComplete() {
+            downloadButton.Text = "Download Complete";
             // Installs New Version
             DialogResult dialogResult = MessageBox.Show("Would you like to install the new version now?", "Download Complete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes) {

@@ -57,11 +57,12 @@
             // 
             // downloadLabel
             // 
-            this.downloadLabel.Location = new System.Drawing.Point(189, 38);
+            this.downloadLabel.BackColor = System.Drawing.Color.Transparent;
+            this.downloadLabel.Location = new System.Drawing.Point(12, 38);
             this.downloadLabel.Name = "downloadLabel";
-            this.downloadLabel.Size = new System.Drawing.Size(100, 23);
+            this.downloadLabel.Size = new System.Drawing.Size(469, 23);
             this.downloadLabel.TabIndex = 3;
-            this.downloadLabel.Text = "0/0 kb";
+            this.downloadLabel.Text = "0 kb/0 kb";
             this.downloadLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // UpdaterForm
@@ -69,9 +70,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(493, 90);
-            this.Controls.Add(this.downloadLabel);
-            this.Controls.Add(this.downloadButton);
             this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.downloadButton);
+            this.Controls.Add(this.downloadLabel);
             this.Controls.Add(this.downloadProgressBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;

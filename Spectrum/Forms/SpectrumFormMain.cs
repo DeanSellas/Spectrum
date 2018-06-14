@@ -34,6 +34,10 @@ namespace Spectrum {
             InitializeComponent();
         }
 
+        private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e) {
+            updateHandler.checkForUpdate();
+        }
+
         private void documentationToolStripMenuItem_Click(object sender, EventArgs e) {
             Process.Start("https://github.com/DeanSellas/Spectrum/wiki");
         }

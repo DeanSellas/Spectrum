@@ -20,9 +20,10 @@
       </General>
 
       <Updater>
+        <checkForUpdate>launch</checkForUpdate>
+        <devBuilds>false</devBuilds>
         <downloadLocation></downloadLocation>
         <lastCheck></lastCheck>
-        <checkForUpdate>Launch</checkForUpdate>
       </Updater>
 
       <Arduino>

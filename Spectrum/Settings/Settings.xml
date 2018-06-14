@@ -53,7 +53,7 @@
       </General>
 
       <Updater>
-        <devBuilds>true</devBuilds>
+        <downloadLocation>D:\Downloads</downloadLocation>
       </Updater>
 
     </Profile1>
