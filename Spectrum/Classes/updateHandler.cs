@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.Net;
+using Spectrum.Forms;
 
 namespace Spectrum.Classes {
     class UpdateHandler {
@@ -26,6 +27,9 @@ namespace Spectrum.Classes {
             Console.WriteLine("Updater is online");
             
             getOnlineVersion();
+
+            
+
             Console.WriteLine(downloadLocation);
             Console.WriteLine("Current Version: {0} || Online Version: {1}", currentVersion, onlineVersion);
 
@@ -46,31 +50,46 @@ namespace Spectrum.Classes {
 
         private void getOnlineVersion() {
             bool devBuilds = false;
-            StreamReader reader;
+            // enables dev builds
             if (settingsHandler.settings[settingsHandler.settingsProfile]["Updater"].ContainsKey("devBuilds") && settingsHandler.settingsProfile != "Default") devBuilds = true;
 
+            // reads version from github
+            StreamReader reader;
             WebClient web = new WebClient();
+            // Checks to see if dev builds are enabled
             if(!devBuilds) reader = new StreamReader(web.OpenRead("https://raw.githubusercontent.com/DeanSellas/Spectrum/master/version.txt"));
             else reader = new StreamReader(web.OpenRead("https://raw.githubusercontent.com/DeanSellas/Spectrum/DevBranch/version.txt"));
             onlineVersion = reader.ReadLine();
+
+            // formats online version
+            string tmpVersion = "";
+            for (int i = 0; i < onlineVersion.Length; i++) {
+                if (i > 1 && onlineVersion[i + 1] != '0') tmpVersion += onlineVersion[i];
+                else if (i <= 1) tmpVersion += onlineVersion[i];
+                else break;
+            }
+            onlineVersion = tmpVersion;
         }
 
         public void checkForUpdate() {
-            
-            for(int i = 0; i < currentVersion.Length; i++) 
+
+            for (int i = 0; i < currentVersion.Length; i++)
                 if (currentVersion[i] != '.' && Convert.ToInt32(currentVersion[i]) < Convert.ToInt32(onlineVersion[i])) { updateAvalible = true; break; }
 
             settingsHandler.settings["Default"]["Updater"]["lastCheck"] = DateTime.Now.ToString();
             settingsHandler.saveSettings();
 
+
             if (updateAvalible) {
                 DialogResult dialogResult = MessageBox.Show("Would you like to update Spectrum to: " + onlineVersion + "?", "Update Spectrum", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (dialogResult == DialogResult.Yes) downloadUpdate();
+                if (dialogResult == DialogResult.Yes) {
+                    try {
+                        UpdaterForm updater = new UpdaterForm(onlineVersion);
+                        updater.ShowDialog();
+                    }
+                    catch { }
+                }
             }
-        }
-
-        private void downloadUpdate() {
-
         }
 
     }
