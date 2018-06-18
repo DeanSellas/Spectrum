@@ -33,6 +33,15 @@ namespace Spectrum {
             
         }
 
+        // dont tell anyone its a secret!!
+        private void superSecretFeatureToolStripMenuItem_Click(object sender, EventArgs e) {
+            MessageBox.Show("Sorry the feature you are looking for is in another castle", "Totally Not A Secret Feature", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            // not a hint to what the feature may be...
+            // really dont try to convert it to text
+            // i am serious
+            Console.WriteLine("01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01100111 01101111 01101111 00101110 01100111 01101100 00101111 00110011 01010001 01010001 00110110 01101111 01100010");
+        }
+
         // user check for updates
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e) {
             updateHandler.checkForUpdate();
