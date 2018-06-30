@@ -81,9 +81,9 @@
             this.MinimizeBox = false;
             this.Name = "UpdaterForm";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UpdaterForm";
+            this.TopMost = true;
             this.ResumeLayout(false);
 
         }
@@ -91,7 +91,7 @@
         #endregion
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button downloadButton;
-        private System.Windows.Forms.Label downloadLabel;
-        private System.Windows.Forms.ProgressBar downloadProgressBar;
+        public System.Windows.Forms.Label downloadLabel;
+        public System.Windows.Forms.ProgressBar downloadProgressBar;
     }
 }

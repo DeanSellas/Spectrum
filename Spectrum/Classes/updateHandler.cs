@@ -3,17 +3,20 @@ using System.IO;
 using System.Windows.Forms;
 using System.Net;
 using Spectrum.Forms;
+using System.ComponentModel;
 
 namespace Spectrum.Classes {
-    class UpdateHandler {
+    public class UpdateHandler {
 
         SettingsHandler settingsHandler;
+        UpdaterForm updateForm;
 
-        private string downloadLocation;
-        private string currentVersion = Application.ProductVersion;
-        private string onlineVersion;
+        string downloadLocation;
+        string currentVersion = Application.ProductVersion;
+        string onlineVersion;
 
         public bool updateAvalible = false, devBuilds = false;
+
         public UpdateHandler(SettingsHandler s) {
             settingsHandler = s;
 
@@ -80,12 +83,44 @@ namespace Spectrum.Classes {
                 if (dialogResult == DialogResult.Yes) {
                     // needs try except if user does not grant permissions || not exactly sure why but this works
                     try {
-                        UpdaterForm updater = new UpdaterForm(devBuilds, onlineVersion);
-                        updater.ShowDialog();
+                        updateForm = new UpdaterForm(this, settingsHandler, devBuilds, onlineVersion);
+                        updateForm.ShowDialog();
                     }
                     catch { }
                 }
             }
+        }
+
+        // Starts Download
+        public void startDownload(string downloadLink, string installerName) {
+            WebClient webClient = new WebClient();
+
+            // Starts the download
+            // allows for use of https
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            webClient.DownloadFileAsync(new Uri(downloadLink), installerName);
+
+            // increments download bar
+            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+        }
+
+        // Updates Progress Bar
+        private void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
+            // changes download bar info
+            double bytesIn = double.Parse(e.BytesReceived.ToString());
+            double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
+            double percentage = bytesIn / totalBytes * 100;
+
+            // sets label and progress bar
+            updateForm.downloadLabel.Text = String.Format("{0} kb/{1} kb", bytesIn, totalBytes);
+            updateForm.downloadProgressBar.Value = int.Parse(Math.Truncate(percentage).ToString());
+        }
+
+        // When Download Is Complete
+        private void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
+            updateForm.downloadComplete();
         }
 
     }

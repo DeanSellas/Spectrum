@@ -23,9 +23,11 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.spectrumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.superSecretFeatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,7 +39,7 @@
             this.githubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.donateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.superSecretFeatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comPort = new System.IO.Ports.SerialPort(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,6 +74,13 @@
             this.saveSettingsToolStripMenuItem.Name = "saveSettingsToolStripMenuItem";
             this.saveSettingsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.saveSettingsToolStripMenuItem.Text = "Save";
+            // 
+            // superSecretFeatureToolStripMenuItem
+            // 
+            this.superSecretFeatureToolStripMenuItem.Name = "superSecretFeatureToolStripMenuItem";
+            this.superSecretFeatureToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.superSecretFeatureToolStripMenuItem.Text = "Super Secret Feature";
+            this.superSecretFeatureToolStripMenuItem.Click += new System.EventHandler(this.superSecretFeatureToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -149,12 +158,9 @@
             this.donateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.donateToolStripMenuItem.Text = "Donate";
             // 
-            // superSecretFeatureToolStripMenuItem
+            // comPort
             // 
-            this.superSecretFeatureToolStripMenuItem.Name = "superSecretFeatureToolStripMenuItem";
-            this.superSecretFeatureToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.superSecretFeatureToolStripMenuItem.Text = "Super Secret Feature";
-            this.superSecretFeatureToolStripMenuItem.Click += new System.EventHandler(this.superSecretFeatureToolStripMenuItem_Click);
+            this.comPort.PortName = "0";
             // 
             // SpectrumFormMain
             // 
@@ -189,5 +195,6 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem donateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem superSecretFeatureToolStripMenuItem;
+        private System.IO.Ports.SerialPort comPort;
     }
 }

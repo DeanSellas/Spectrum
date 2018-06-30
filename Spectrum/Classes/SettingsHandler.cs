@@ -4,7 +4,7 @@ using System.Xml;
 using System.IO;
 
 namespace Spectrum.Classes {
-    class SettingsHandler {
+    public class SettingsHandler {
         public Dictionary<string, dynamic> settings = new Dictionary<string, dynamic>();
         public string settingsProfile;
 

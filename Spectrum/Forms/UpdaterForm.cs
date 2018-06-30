@@ -11,10 +11,12 @@ namespace Spectrum.Forms {
     public partial class UpdaterForm : Form {
         string installerName, downloadLink;
         SettingsHandler settingsHandler;
+        UpdateHandler updateHandler;
+        //WebClient webClient = new WebClient();
 
-        WebClient webClient = new WebClient();
-        public UpdaterForm(bool devBuilds, string onlineVersion) {
-            settingsHandler = new SettingsHandler();
+        public UpdaterForm(UpdateHandler u, SettingsHandler s, bool devBuilds, string onlineVersion) {
+            settingsHandler = s;
+            updateHandler = u;
 
             // formats online version
             string tmpVersion = "";
@@ -50,35 +52,13 @@ namespace Spectrum.Forms {
             // Checks to see if file exists and if it does dont download again
             if (File.Exists(installerName)) { downloadProgressBar.Value = 100; downloadComplete(); return; }
 
-            // Starts the download
-            // allows for use of https
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            webClient.DownloadFileAsync(new Uri(downloadLink), installerName);
-
-            // increments download bar
-            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
-            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+            updateHandler.startDownload(downloadLink, installerName);
         }
 
-        // Updates Progress Bar
-        void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
-            // changes download bar info
-            double bytesIn = double.Parse(e.BytesReceived.ToString());
-            double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
-            double percentage = bytesIn / totalBytes * 100;
+        private void cancelButton_Click(object sender, EventArgs e) { Close(); }
 
-            // sets label and progress bar
-            downloadLabel.Text = String.Format("{0} kb/{1} kb", bytesIn, totalBytes);
-            downloadProgressBar.Value = int.Parse(Math.Truncate(percentage).ToString());
-        }
-
-        // When Download Is Complete
-        void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
-            downloadComplete();
-        }
-
-        private void downloadComplete() {
+        // Runs After Download
+        public void downloadComplete() {
             downloadButton.Text = "Download Complete";
             // Installs New Version
             DialogResult dialogResult = MessageBox.Show("Would you like to install the new version now?", "Download Complete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -89,6 +69,6 @@ namespace Spectrum.Forms {
             Close();
         }
 
-        private void cancelButton_Click(object sender, EventArgs e) { Close(); }
+        
     }
 }
