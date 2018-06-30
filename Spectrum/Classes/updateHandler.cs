@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Net;
 using Spectrum.Forms;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Spectrum.Classes {
     public class UpdateHandler {
@@ -11,20 +12,24 @@ namespace Spectrum.Classes {
         SettingsHandler settingsHandler;
         UpdaterForm updateForm;
 
+        WebClient webClient;
+
         string downloadLocation;
         string currentVersion = Application.ProductVersion;
         string onlineVersion;
-
+        
         public bool updateAvalible = false, devBuilds = false;
 
         public UpdateHandler(SettingsHandler s) {
             settingsHandler = s;
+            webClient = new WebClient();
 
             // sets download location
             try { downloadLocation = settingsHandler.settings[settingsHandler.settingsProfile]["Updater"]["downloadLocation"]; }
             catch { downloadLocation = settingsHandler.settings["Default"]["Updater"]["downloadLocation"]; }
-            
-            getOnlineVersion();
+
+            bool hasInternet = checkConnection();
+            if(hasInternet) getOnlineVersion();
 
             //Console.WriteLine(downloadLocation);
             Console.WriteLine("Current Version: {0} || Online Version: {1}", currentVersion, onlineVersion);
@@ -35,33 +40,45 @@ namespace Spectrum.Classes {
             try { check = settingsHandler.settings[settingsHandler.settingsProfile]["Updater"]["checkForUpdate"]; }
             catch { check = "launch"; }
 
-            Console.WriteLine(check);
+            Console.WriteLine("Check For Update: " + check + "\n--------------------------------");
 
-            // when does spectrum check for updates
-            if (check == "launch") checkForUpdate();
-            else if (check == "daily" && (DateTime.Now - Convert.ToDateTime(lastCheck)).TotalDays >= 1) checkForUpdate();
-            else if (check == "weekly" && (DateTime.Now - Convert.ToDateTime(lastCheck)).TotalDays >= 7) checkForUpdate();
-            else if (check == "biweekly" && (DateTime.Now - Convert.ToDateTime(lastCheck)).TotalDays >= 14) checkForUpdate();
-            else if (check == "monthly" && (DateTime.Now - Convert.ToDateTime(lastCheck)).TotalDays >= 30) checkForUpdate();
+            if (hasInternet) {
+                // when does spectrum check for updates
+                if (check == "launch") checkForUpdate();
+                else if (check == "daily" && (DateTime.Now - Convert.ToDateTime(lastCheck)).TotalDays >= 1) checkForUpdate();
+                else if (check == "weekly" && (DateTime.Now - Convert.ToDateTime(lastCheck)).TotalDays >= 7) checkForUpdate();
+                else if (check == "biweekly" && (DateTime.Now - Convert.ToDateTime(lastCheck)).TotalDays >= 14) checkForUpdate();
+                else if (check == "monthly" && (DateTime.Now - Convert.ToDateTime(lastCheck)).TotalDays >= 30) checkForUpdate();
+            }
 
         }
 
+        // Checks if user can connect to the server
+        public bool checkConnection() {
+            try {
+                using (webClient.OpenRead("https://raw.githubusercontent.com/DeanSellas/Spectrum/master/version.txt"))
+                    return true;
+            }
+            catch {
+                MessageBox.Show("Could not esstablish a connection to the update server. Please Check your Internet and try again.", "No Internet Connection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+        }
+
+        // Gets the most recent version number
         private void getOnlineVersion() {
-            
             // enables dev builds
             if (settingsHandler.settings[settingsHandler.settingsProfile]["Updater"].ContainsKey("devBuilds") && settingsHandler.settingsProfile != "Default") devBuilds = true;
 
             // reads version from github
             StreamReader reader;
-            WebClient web = new WebClient();
             // Checks to see if dev builds are enabled
-            if(!devBuilds) reader = new StreamReader(web.OpenRead("https://raw.githubusercontent.com/DeanSellas/Spectrum/master/version.txt"));
-            else reader = new StreamReader(web.OpenRead("https://raw.githubusercontent.com/DeanSellas/Spectrum/DevBranch/version.txt"));
+            if(!devBuilds) reader = new StreamReader(webClient.OpenRead("https://raw.githubusercontent.com/DeanSellas/Spectrum/master/version.txt"));
+            else reader = new StreamReader(webClient.OpenRead("https://raw.githubusercontent.com/DeanSellas/Spectrum/DevBranch/version.txt"));
             onlineVersion = reader.ReadLine();
-
-            
         }
 
+        // Checks for update
         public void checkForUpdate() {
             // checks to see if online version is higher than current version
             if (!updateAvalible) {
@@ -81,25 +98,19 @@ namespace Spectrum.Classes {
             if (updateAvalible) {
                 DialogResult dialogResult = MessageBox.Show("Would you like to update Spectrum to: " + onlineVersion + "?", "Update Spectrum", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (dialogResult == DialogResult.Yes) {
-                    // needs try except if user does not grant permissions || not exactly sure why but this works
-                    try {
-                        updateForm = new UpdaterForm(this, settingsHandler, devBuilds, onlineVersion);
-                        updateForm.ShowDialog();
-                    }
-                    catch { }
+                    updateForm = new UpdaterForm(this, settingsHandler, devBuilds, onlineVersion);
+                    updateForm.ShowDialog();
                 }
             }
         }
 
         // Starts Download
-        public void startDownload(string downloadLink, string installerName) {
-            WebClient webClient = new WebClient();
-
+        public void startDownload() {
             // Starts the download
             // allows for use of https
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            webClient.DownloadFileAsync(new Uri(downloadLink), installerName);
+            webClient.DownloadFileAsync(new Uri(updateForm.downloadLink), updateForm.installerName);
 
             // increments download bar
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
@@ -119,8 +130,21 @@ namespace Spectrum.Classes {
         }
 
         // When Download Is Complete
-        private void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
-            updateForm.downloadComplete();
+        private void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) { downloadComplete(); }
+
+        public void downloadComplete() {
+            updateForm.downloadButton.Text = "Download Complete";
+            // Installs New Version
+            DialogResult dialogResult = MessageBox.Show("Would you like to install the new version now?", "Download Complete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes) {
+                // needs try except if user does not grant permissions || not exactly sure why but this works
+                try {
+                    Process.Start(updateForm.installerName);
+                    Environment.Exit(1);
+                }
+                catch { /* Do Nothing */ }
+            }
+            updateForm.Close();
         }
 
     }

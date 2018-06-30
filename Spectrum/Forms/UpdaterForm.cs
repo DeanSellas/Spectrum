@@ -1,22 +1,23 @@
 ﻿using System;
-using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
-using System.Net;
 using System.Diagnostics;
 using Spectrum.Classes;
 
 
 namespace Spectrum.Forms {
     public partial class UpdaterForm : Form {
-        string installerName, downloadLink;
+        
         SettingsHandler settingsHandler;
         UpdateHandler updateHandler;
-        //WebClient webClient = new WebClient();
 
-        public UpdaterForm(UpdateHandler u, SettingsHandler s, bool devBuilds, string onlineVersion) {
+        public string installerName, downloadLink;
+        bool devBuilds;
+
+        public UpdaterForm(UpdateHandler u, SettingsHandler s, bool dev, string onlineVersion) {
             settingsHandler = s;
             updateHandler = u;
+            devBuilds = dev;
 
             // formats online version
             string tmpVersion = "";
@@ -25,8 +26,8 @@ namespace Spectrum.Forms {
                 else if (i <= 1) tmpVersion += onlineVersion[i];
                 else break;
             }
-            onlineVersion = tmpVersion;
 
+            onlineVersion = tmpVersion;
 
             // if dev builds enabled download from dev branch
             if (!devBuilds)
@@ -45,30 +46,26 @@ namespace Spectrum.Forms {
             Console.WriteLine(installerName);
         }
 
+        // Start Download
         private void downloadButton_Click(object sender, EventArgs e) {
             downloadButton.Text = "Downloading...";
             downloadButton.Enabled = false;
 
             // Checks to see if file exists and if it does dont download again
-            if (File.Exists(installerName)) { downloadProgressBar.Value = 100; downloadComplete(); return; }
+            if (File.Exists(installerName)) { downloadProgressBar.Value = 100; updateHandler.downloadComplete(); return; }
 
-            updateHandler.startDownload(downloadLink, installerName);
+            updateHandler.startDownload();
         }
 
+        // Closes Form 
         private void cancelButton_Click(object sender, EventArgs e) { Close(); }
 
-        // Runs After Download
-        public void downloadComplete() {
-            downloadButton.Text = "Download Complete";
-            // Installs New Version
-            DialogResult dialogResult = MessageBox.Show("Would you like to install the new version now?", "Download Complete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.Yes) {
-                Process.Start(installerName);
-                Environment.Exit(1);
-            }
-            Close();
+        // Changelog Link
+        private void changelogLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            if (!devBuilds) Process.Start("https://raw.githubusercontent.com/DeanSellas/Spectrum/master/changelog.txt");
+            else Process.Start("https://raw.githubusercontent.com/DeanSellas/Spectrum/DevBranch/changelog.txt");
+            changelogLink.LinkVisited = true;
         }
-
         
     }
 }

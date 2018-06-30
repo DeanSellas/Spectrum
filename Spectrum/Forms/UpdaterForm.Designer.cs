@@ -27,6 +27,7 @@
             this.downloadButton = new System.Windows.Forms.Button();
             this.downloadLabel = new System.Windows.Forms.Label();
             this.downloadProgressBar = new System.Windows.Forms.ProgressBar();
+            this.changelogLink = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -66,12 +67,24 @@
             this.downloadProgressBar.Size = new System.Drawing.Size(469, 23);
             this.downloadProgressBar.TabIndex = 4;
             // 
+            // changelogLink
+            // 
+            this.changelogLink.AutoSize = true;
+            this.changelogLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.changelogLink.Location = new System.Drawing.Point(213, 65);
+            this.changelogLink.Name = "changelogLink";
+            this.changelogLink.Size = new System.Drawing.Size(65, 13);
+            this.changelogLink.TabIndex = 5;
+            this.changelogLink.TabStop = true;
+            this.changelogLink.Text = "Change Log";
+            this.changelogLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.changelogLink_LinkClicked);
+            // 
             // UpdaterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(493, 90);
-            this.ControlBox = false;
+            this.Controls.Add(this.changelogLink);
             this.Controls.Add(this.downloadProgressBar);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.downloadButton);
@@ -85,13 +98,15 @@
             this.Text = "UpdaterForm";
             this.TopMost = true;
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.Button downloadButton;
         public System.Windows.Forms.Label downloadLabel;
         public System.Windows.Forms.ProgressBar downloadProgressBar;
+        private System.Windows.Forms.LinkLabel changelogLink;
+        public System.Windows.Forms.Button downloadButton;
     }
 }
