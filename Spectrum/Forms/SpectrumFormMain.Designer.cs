@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpectrumFormMain));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.spectrumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,7 +41,16 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.donateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comPort = new System.IO.Ports.SerialPort(this.components);
+            this.statusLabel = new System.Windows.Forms.Label();
+            this.trayNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.trayContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.hideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
+            this.trayContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -125,28 +135,28 @@
             // documentationToolStripMenuItem
             // 
             this.documentationToolStripMenuItem.Name = "documentationToolStripMenuItem";
-            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.documentationToolStripMenuItem.Text = "Documentation";
             this.documentationToolStripMenuItem.Click += new System.EventHandler(this.documentationToolStripMenuItem_Click);
             // 
             // bugReportToolStripMenuItem
             // 
             this.bugReportToolStripMenuItem.Name = "bugReportToolStripMenuItem";
-            this.bugReportToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.bugReportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.bugReportToolStripMenuItem.Text = "Bug Report";
             this.bugReportToolStripMenuItem.Click += new System.EventHandler(this.bugReportToolStripMenuItem_Click);
             // 
             // githubToolStripMenuItem
             // 
             this.githubToolStripMenuItem.Name = "githubToolStripMenuItem";
-            this.githubToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.githubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.githubToolStripMenuItem.Text = "Github";
             this.githubToolStripMenuItem.Click += new System.EventHandler(this.githubToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -162,17 +172,86 @@
             // 
             this.comPort.PortName = "0";
             // 
+            // statusLabel
+            // 
+            this.statusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.statusLabel.AutoSize = true;
+            this.statusLabel.BackColor = System.Drawing.Color.Red;
+            this.statusLabel.ForeColor = System.Drawing.Color.Transparent;
+            this.statusLabel.Location = new System.Drawing.Point(514, 363);
+            this.statusLabel.Margin = new System.Windows.Forms.Padding(15, 0, 15, 0);
+            this.statusLabel.MinimumSize = new System.Drawing.Size(100, 20);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(100, 20);
+            this.statusLabel.TabIndex = 1;
+            this.statusLabel.Text = "Disconnected";
+            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // trayNotifyIcon
+            // 
+            this.trayNotifyIcon.ContextMenuStrip = this.trayContextMenu;
+            this.trayNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayNotifyIcon.Icon")));
+            this.trayNotifyIcon.Text = "notifyIcon1";
+            this.trayNotifyIcon.Visible = true;
+            // 
+            // trayContextMenu
+            // 
+            this.trayContextMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.trayContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.connectToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.hideToolStripMenuItem,
+            this.settingsToolStripMenuItem1,
+            this.exitToolStripMenuItem1});
+            this.trayContextMenu.Name = "contextMenuStrip1";
+            this.trayContextMenu.ShowCheckMargin = true;
+            this.trayContextMenu.ShowImageMargin = false;
+            this.trayContextMenu.Size = new System.Drawing.Size(120, 98);
+            // 
+            // connectToolStripMenuItem
+            // 
+            this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.connectToolStripMenuItem.Text = "Connect";
+            // 
+            // settingsToolStripMenuItem1
+            // 
+            this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
+            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
+            this.settingsToolStripMenuItem1.Text = "Settings";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(116, 6);
+            // 
+            // hideToolStripMenuItem
+            // 
+            this.hideToolStripMenuItem.Name = "hideToolStripMenuItem";
+            this.hideToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.hideToolStripMenuItem.Text = "Hide";
+            // 
+            // exitToolStripMenuItem1
+            // 
+            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
+            this.exitToolStripMenuItem1.Text = "Exit";
+            // 
             // SpectrumFormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(614, 383);
+            this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(630, 422);
             this.Name = "SpectrumFormMain";
             this.Text = "Spectrum";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.trayContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,5 +275,13 @@
         private System.Windows.Forms.ToolStripMenuItem donateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem superSecretFeatureToolStripMenuItem;
         private System.IO.Ports.SerialPort comPort;
+        private System.Windows.Forms.Label statusLabel;
+        private System.Windows.Forms.NotifyIcon trayNotifyIcon;
+        private System.Windows.Forms.ContextMenuStrip trayContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem hideToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
     }
 }

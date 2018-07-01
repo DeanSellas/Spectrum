@@ -34,6 +34,7 @@ namespace Spectrum {
 
         // user check for updates
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (!updateHandler.checkConnection()) return;
             updateHandler.checkForUpdate();
             if (!updateHandler.updateAvalible) MessageBox.Show("No Updates Avalible", "No Updates Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
