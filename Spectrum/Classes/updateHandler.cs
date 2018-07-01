@@ -67,8 +67,8 @@ namespace Spectrum.Classes {
 
         // Gets the most recent version number
         private void getOnlineVersion() {
-            // enables dev builds
-            if (settingsHandler.settings[settingsHandler.settingsProfile]["Updater"].ContainsKey("devBuilds") && settingsHandler.settingsProfile != "Default") devBuilds = true;
+            // enables dev builds if current build is one or setting is enabled
+            if ((settingsHandler.settings[settingsHandler.settingsProfile]["Advanced"].ContainsKey("devBuilds") && settingsHandler.settingsProfile != "Default") || settingsHandler.settings["Default"]["Advanced"]["devBuilds"]) devBuilds = true;
 
             // reads version from github
             StreamReader reader;

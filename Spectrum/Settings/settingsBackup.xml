@@ -21,7 +21,6 @@
 
       <Updater>
         <checkForUpdate>launch</checkForUpdate>
-        <devBuilds>false</devBuilds>
         <downloadLocation></downloadLocation>
         <lastCheck></lastCheck>
       </Updater>
@@ -36,6 +35,10 @@
         <delay>10</delay>
       </Arduino>
 
+      <Advanced>
+        <devBuilds>false</devBuilds>
+        <advancedLighting>false</advancedLighting>
+      </Advanced>
     </Default>
 
   </Profiles>

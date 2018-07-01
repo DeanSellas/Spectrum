@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
 
-  <currentSettingsProfile></currentSettingsProfile>
+  <currentSettingsProfile>Profile1</currentSettingsProfile>
 
   <Profiles>
     
@@ -21,7 +21,6 @@
 
       <Updater>
         <checkForUpdate>launch</checkForUpdate>
-        <devBuilds>false</devBuilds>
         <downloadLocation></downloadLocation>
         <lastCheck></lastCheck>
       </Updater>
@@ -35,7 +34,11 @@
         <lastCommand></lastCommand>
         <delay>10</delay>
       </Arduino>
-
+      
+      <Advanced>
+        <devBuilds>false</devBuilds>
+        <advancedLighting>false</advancedLighting>
+      </Advanced>
     </Default>
 
     <Profile1>
@@ -53,9 +56,12 @@
       </General>
 
       <Updater>
-        <devBuilds>true</devBuilds>
         <downloadLocation>D:\Downloads</downloadLocation>
       </Updater>
+
+      <Advanced>
+        <devBuilds>true</devBuilds>
+      </Advanced>
 
     </Profile1>
     
