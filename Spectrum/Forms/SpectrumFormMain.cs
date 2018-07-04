@@ -19,15 +19,7 @@ namespace Spectrum {
 
             InitializeComponent();
             renameApp();
-            Console.WriteLine("Current Profile: " + settingsHander.settingsProfile + "\n--------------------------------");
 
-            // Prints Items in Settings
-            foreach (string one in settingsHander.settings.Keys)
-                foreach (string two in settingsHander.settings[one].Keys)
-                    foreach (string three in settingsHander.settings[one][two].Keys)
-                        Console.WriteLine("Profile: {0} -- Master: {1} -- Settings: {2} -- Value: {3}", one, two, three, settingsHander.settings[one][two][three]);
-            Console.WriteLine("---Profiles Avaliable---");
-            foreach(string profile in settingsHander.profileList) Console.WriteLine("Profile: {0}", profile);
         }
 
         // Changes Title
