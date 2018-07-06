@@ -8,16 +8,22 @@ namespace Spectrum {
     public partial class SpectrumFormMain : Form {
         SettingsHandler settingsHander;
         UpdateHandler updateHandler;
+        SerialPortHandler serialPortHandler;
         string version = Application.ProductVersion;
 
         bool userExit = false;
 
         public SpectrumFormMain() {
+
+            InitializeComponent();
+
             settingsHander = new SettingsHandler();
 
             updateHandler = new UpdateHandler(settingsHander);
 
-            InitializeComponent();
+            serialPortHandler = new SerialPortHandler(this, settingsHander);
+
+
             renameApp();
 
         }
@@ -92,6 +98,15 @@ namespace Spectrum {
             else hideToolStripMenuItem.Text = "Show";
         }
 
-        
+        private void connectButton_Click(object sender, EventArgs e) {
+            if (!serialPortHandler.isConnected) serialPortHandler.Connect();
+            else serialPortHandler.Disconnect();
+        }
+
+        private void connectToolStripMenuItem_Click(object sender, EventArgs e) { connectButton.PerformClick(); connectToolStripMenuItem.Text = connectButton.Text; }
+
+        private void refreshButton_Click(object sender, EventArgs e) {
+            serialPortHandler.listSerialPorts();
+        }
     }
 }

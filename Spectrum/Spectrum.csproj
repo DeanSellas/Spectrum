@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\SerialPortHandler.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +121,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Button\refresh.png" />
     <Content Include="Settings\settingsBackup.xml" />
     <Content Include="Settings\Settings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

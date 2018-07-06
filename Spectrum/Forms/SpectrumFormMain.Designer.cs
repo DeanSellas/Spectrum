@@ -40,7 +40,6 @@
             this.githubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.donateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.comPort = new System.IO.Ports.SerialPort(this.components);
             this.statusLabel = new System.Windows.Forms.Label();
             this.trayNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.trayContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -49,6 +48,9 @@
             this.hideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.serialPortComboBox = new System.Windows.Forms.ComboBox();
+            this.connectButton = new System.Windows.Forms.Button();
+            this.refreshButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.trayContextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -169,10 +171,6 @@
             this.donateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.donateToolStripMenuItem.Text = "Donate";
             // 
-            // comPort
-            // 
-            this.comPort.PortName = "0";
-            // 
             // statusLabel
             // 
             this.statusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -215,6 +213,7 @@
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
             this.connectToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.connectToolStripMenuItem.Text = "Connect";
+            this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -241,11 +240,43 @@
             this.exitToolStripMenuItem1.Text = "Exit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // serialPortComboBox
+            // 
+            this.serialPortComboBox.FormattingEnabled = true;
+            this.serialPortComboBox.Location = new System.Drawing.Point(240, 53);
+            this.serialPortComboBox.Name = "serialPortComboBox";
+            this.serialPortComboBox.Size = new System.Drawing.Size(121, 21);
+            this.serialPortComboBox.TabIndex = 2;
+            // 
+            // connectButton
+            // 
+            this.connectButton.Location = new System.Drawing.Point(265, 80);
+            this.connectButton.Name = "connectButton";
+            this.connectButton.Size = new System.Drawing.Size(75, 23);
+            this.connectButton.TabIndex = 3;
+            this.connectButton.Text = "Connect";
+            this.connectButton.UseVisualStyleBackColor = true;
+            this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.BackgroundImage = global::Spectrum.Properties.Resources.refresh;
+            this.refreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.refreshButton.Location = new System.Drawing.Point(367, 47);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(30, 30);
+            this.refreshButton.TabIndex = 4;
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            // 
             // SpectrumFormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(626, 387);
+            this.Controls.Add(this.refreshButton);
+            this.Controls.Add(this.connectButton);
+            this.Controls.Add(this.serialPortComboBox);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -279,7 +310,6 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem donateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem superSecretFeatureToolStripMenuItem;
-        private System.IO.Ports.SerialPort comPort;
         private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.NotifyIcon trayNotifyIcon;
         private System.Windows.Forms.ContextMenuStrip trayContextMenu;
@@ -288,5 +318,8 @@
         private System.Windows.Forms.ToolStripMenuItem hideToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
+        public System.Windows.Forms.ComboBox serialPortComboBox;
+        public System.Windows.Forms.Button connectButton;
+        public System.Windows.Forms.Button refreshButton;
     }
 }
