@@ -16,16 +16,18 @@ namespace Spectrum {
         public SpectrumFormMain() {
 
             InitializeComponent();
-
+            
             settingsHander = new SettingsHandler();
 
             updateHandler = new UpdateHandler(settingsHander);
 
             serialPortHandler = new SerialPortHandler(this, settingsHander);
 
-
             renameApp();
 
+
+
+            serialPortComboBox.SelectedIndex = 0;
         }
 
         // Changes Title
@@ -36,6 +38,7 @@ namespace Spectrum {
             if (settingsHander.settings["Default"]["Advanced"]["devBuilds"]) Text += " || DevBuild ||";
         }
 
+        // Hides Spectrum and changes proper elements
         private void hideSpectrum() {
             Hide();
             
@@ -45,9 +48,11 @@ namespace Spectrum {
             trayNotifyIcon.ShowBalloonTip(3);
         }
 
+        // Conects to Designated Serial Port
+        private void connectToolStripMenuItem_Click(object sender, EventArgs e) { connectButton.PerformClick(); }
+        private void refreshButton_Click(object sender, EventArgs e) { serialPortHandler.listSerialPorts(); }
 
-
-        // user check for updates
+        // Checks For Updates
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e) {
             if (!updateHandler.checkConnection()) return;
             updateHandler.checkForUpdate();
@@ -103,10 +108,9 @@ namespace Spectrum {
             else serialPortHandler.Disconnect();
         }
 
-        private void connectToolStripMenuItem_Click(object sender, EventArgs e) { connectButton.PerformClick(); connectToolStripMenuItem.Text = connectButton.Text; }
-
-        private void refreshButton_Click(object sender, EventArgs e) {
-            serialPortHandler.listSerialPorts();
+        private void serialPortComboBox_SelectedIndexChanged(object sender, EventArgs e) {
+            serialPortHandler.portName = serialPortComboBox.SelectedItem.ToString();
+            connectToolStripMenuItem.Text = "Connect To: " + serialPortHandler.portName;
         }
     }
 }

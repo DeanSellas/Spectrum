@@ -12,18 +12,35 @@ namespace Spectrum.Classes {
         SettingsHandler settingsHandler;
         SpectrumFormMain spectrumForm;
 
-        SerialPort comPort = new SerialPort();
+        SerialPort arduinoPort = new SerialPort();
+
+        Timer sendTimer = new Timer();
+        Queue<string> messageQueue = new Queue<string>(); 
 
         public List<string> serialPortList = new List<string>();
         public bool isConnected = false;
+        public string portName = "";
+
         public SerialPortHandler(SpectrumFormMain sf, SettingsHandler sh) {
             settingsHandler = sh;
             spectrumForm = sf;
-
+            
             listSerialPorts();
+
+            sendTimer.Enabled = false;
+            sendTimer.Tick += new EventHandler(sendTimer_Tick);
+            sendTimer.Interval = 1250;
+
+            // sendMessage("RainbowFull100");
+            // sendMessage("turnOff");
         }
 
+        // Adds message to Queue so it can be sent
+        public void sendMessage(string message) { messageQueue.Enqueue(message); sendTimer.Enabled = true; sendTimer.Start(); }
+
+        // Lists Serial Ports
         public void listSerialPorts() {
+            // Clears List and Combobox
             serialPortList.Clear();
             spectrumForm.serialPortComboBox.Items.Clear();
 
@@ -37,25 +54,28 @@ namespace Spectrum.Classes {
             if (serialPortList.Count == 0) {
                 MessageBox.Show("No Serial Ports were found please make sure your Arduino is plugged in and powered and try again", "No Serial Ports Found.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 spectrumForm.serialPortComboBox.Enabled = false;
+                spectrumForm.connectButton.Enabled = false;
+                spectrumForm.connectToolStripMenuItem.Enabled = false;
             }
             else {
-                spectrumForm.serialPortComboBox.SelectedIndex = 0;
+                
                 spectrumForm.serialPortComboBox.Enabled = true;
+                spectrumForm.connectButton.Enabled = true;
+                spectrumForm.connectToolStripMenuItem.Enabled = true;
             }
                 
         }
 
+        // Connects to Selected Serial Port
         public void Connect() {
-
-            // sets port to connect to
-            string portName = spectrumForm.serialPortComboBox.SelectedItem.ToString();
             
             // trys to connect to port and if successful assigns proper settings
             try {
-                comPort.PortName = portName;
-                comPort.Open();
+                arduinoPort.PortName = portName;
+                arduinoPort.Open();
                 spectrumForm.serialPortComboBox.Enabled = false;
                 spectrumForm.connectButton.Text = "Disconnect";
+                spectrumForm.connectToolStripMenuItem.Text = "Disconnect";
                 isConnected = true;
             }
             catch {
@@ -64,13 +84,28 @@ namespace Spectrum.Classes {
             
         }
 
-        // disconnects from port
+        // Disconnects From Port
         public void Disconnect() {
-            comPort.Close();
+            arduinoPort.Close();
             spectrumForm.serialPortComboBox.Enabled = true;
             spectrumForm.connectButton.Text = "Connect";
+            spectrumForm.connectToolStripMenuItem.Text = "Connect To: " + portName;
             isConnected = false;
         }
 
+
+        // Sends Message On Timer Tick
+        private void sendTimer_Tick(object sender, EventArgs e) {
+            if (isConnected) {
+                if (messageQueue.Count > 0) sendMessageHelper(messageQueue.Dequeue());
+                // stops timer if there is no need for it to run
+                else if (sendTimer.Enabled) { sendTimer.Stop(); sendTimer.Enabled = false; }
+            }
+            
+        }
+        private void sendMessageHelper(string message) {
+            arduinoPort.WriteLine(message);
+            Console.WriteLine("Sent Message: " + message);
+        }
     }
 }
