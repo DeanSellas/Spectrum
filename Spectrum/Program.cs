@@ -1,22 +1,29 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
+using Spectrum.Classes;
 
-namespace Spectrum
-{
+namespace Spectrum {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        static Mutex mutex = new Mutex(true, "{94c9e38c-1478-43aa-9e66-a7f2f833c173}");
         [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+        static void Main() {
+
             // only allows 1 instance of spectrum to run at a time
-            if(Process.GetProcessesByName("Spectrum").Length > 1) MessageBox.Show("Specturm Is Already Running.", "Spectrum Is Running", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            else Application.Run(new SpectrumFormMain());
+            if (mutex.WaitOne(TimeSpan.Zero, true)) {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new SpectrumFormMain());
+                mutex.ReleaseMutex();
+            }
+            else {
+                NativeMethods.PostMessage((IntPtr)NativeMethods.HWND_BROADCAST, NativeMethods.WM_SHOWME, IntPtr.Zero, IntPtr.Zero);
+            }
         }
+
+
+        
     }
 }

@@ -15,6 +15,9 @@ Alpha v0.5 : IN DEVELOPMENT
 + ADDED: Refined Updater
 	*Can handle both regular updates and devbuild updates*
 
+# CHANGED: Using Mutex
+	*Only allows 1 instance of spectrum to run at a time*
+
 FOLLOW PROGRESS HERE: https://github.com/DeanSellas/Spectrum/projects/5
 
 Alpha v0.1.3

@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\NativeMethods.cs" />
     <Compile Include="Classes\SerialPortHandler.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>

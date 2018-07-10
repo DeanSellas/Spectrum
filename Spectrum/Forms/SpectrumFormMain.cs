@@ -6,6 +6,18 @@ using Spectrum.Classes;
 namespace Spectrum {
 
     public partial class SpectrumFormMain : Form {
+
+
+        // Brings Spectrum To Font If Running
+        protected override void WndProc(ref Message m) {
+            if (m.Msg == NativeMethods.WM_SHOWME) {
+                NativeMethods.BringToFront(this);
+            }
+            base.WndProc(ref m);
+        }
+
+
+
         SettingsHandler settingsHander;
         UpdateHandler updateHandler;
         SerialPortHandler serialPortHandler;
@@ -14,20 +26,22 @@ namespace Spectrum {
         bool userExit = false;
 
         public SpectrumFormMain() {
-
             InitializeComponent();
             
             settingsHander = new SettingsHandler();
 
             updateHandler = new UpdateHandler(settingsHander);
 
-            serialPortHandler = new SerialPortHandler(this, settingsHander);
+            serialPortHandler = new SerialPortHandler(this, settingsHander); 
+        }
 
+
+        private void SpectrumFormMain_Shown(object sender, EventArgs e) {
             renameApp();
 
-
-
             serialPortComboBox.SelectedIndex = 0;
+
+            trayNotifyIcon.Visible = true;
         }
 
         // Changes Title
@@ -112,5 +126,7 @@ namespace Spectrum {
             serialPortHandler.portName = serialPortComboBox.SelectedItem.ToString();
             connectToolStripMenuItem.Text = "Connect To: " + serialPortHandler.portName;
         }
+
+        
     }
 }
