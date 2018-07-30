@@ -22,8 +22,5 @@ namespace Spectrum {
                 NativeMethods.PostMessage((IntPtr)NativeMethods.HWND_BROADCAST, NativeMethods.WM_SHOWME, IntPtr.Zero, IntPtr.Zero);
             }
         }
-
-
-        
     }
 }

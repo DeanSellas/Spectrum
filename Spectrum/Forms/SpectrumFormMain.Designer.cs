@@ -51,8 +51,23 @@
             this.serialPortComboBox = new System.Windows.Forms.ComboBox();
             this.connectButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
+            this.colorPicker = new System.Windows.Forms.ColorDialog();
+            this.solidColorButton = new System.Windows.Forms.Button();
+            this.redValue = new System.Windows.Forms.NumericUpDown();
+            this.greenValue = new System.Windows.Forms.NumericUpDown();
+            this.blueValue = new System.Windows.Forms.NumericUpDown();
+            this.colorPreviewPanel = new System.Windows.Forms.Panel();
+            this.redValueLabel = new System.Windows.Forms.Label();
+            this.greenValueLabel = new System.Windows.Forms.Label();
+            this.blueValueLabel = new System.Windows.Forms.Label();
+            this.offButton = new System.Windows.Forms.Button();
+            this.animationButton = new System.Windows.Forms.Button();
+            this.animationComboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.trayContextMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.redValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.greenValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blueValue)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -63,7 +78,7 @@
             this.donateToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(626, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(556, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -99,6 +114,7 @@
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -177,7 +193,7 @@
             this.statusLabel.AutoSize = true;
             this.statusLabel.BackColor = System.Drawing.Color.Red;
             this.statusLabel.ForeColor = System.Drawing.Color.Transparent;
-            this.statusLabel.Location = new System.Drawing.Point(526, 367);
+            this.statusLabel.Location = new System.Drawing.Point(456, 403);
             this.statusLabel.Margin = new System.Windows.Forms.Padding(15, 0, 15, 0);
             this.statusLabel.MinimumSize = new System.Drawing.Size(100, 20);
             this.statusLabel.Name = "statusLabel";
@@ -244,7 +260,7 @@
             this.serialPortComboBox.FormattingEnabled = true;
             this.serialPortComboBox.Location = new System.Drawing.Point(240, 53);
             this.serialPortComboBox.Name = "serialPortComboBox";
-            this.serialPortComboBox.Size = new System.Drawing.Size(121, 21);
+            this.serialPortComboBox.Size = new System.Drawing.Size(109, 21);
             this.serialPortComboBox.TabIndex = 2;
             this.serialPortComboBox.SelectedIndexChanged += new System.EventHandler(this.serialPortComboBox_SelectedIndexChanged);
             // 
@@ -252,7 +268,7 @@
             // 
             this.connectButton.Location = new System.Drawing.Point(240, 80);
             this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(121, 23);
+            this.connectButton.Size = new System.Drawing.Size(109, 23);
             this.connectButton.TabIndex = 3;
             this.connectButton.Text = "Connect";
             this.connectButton.UseVisualStyleBackColor = true;
@@ -262,26 +278,165 @@
             // 
             this.refreshButton.BackgroundImage = global::Spectrum.Properties.Resources.refresh;
             this.refreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.refreshButton.Location = new System.Drawing.Point(367, 53);
+            this.refreshButton.Location = new System.Drawing.Point(358, 53);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(21, 21);
             this.refreshButton.TabIndex = 4;
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
+            // colorPicker
+            // 
+            this.colorPicker.SolidColorOnly = true;
+            // 
+            // solidColorButton
+            // 
+            this.solidColorButton.Enabled = false;
+            this.solidColorButton.Location = new System.Drawing.Point(56, 131);
+            this.solidColorButton.Name = "solidColorButton";
+            this.solidColorButton.Size = new System.Drawing.Size(75, 20);
+            this.solidColorButton.TabIndex = 5;
+            this.solidColorButton.Text = "Solid Color";
+            this.solidColorButton.UseVisualStyleBackColor = true;
+            this.solidColorButton.Click += new System.EventHandler(this.solidColorButton_Click);
+            // 
+            // redValue
+            // 
+            this.redValue.Location = new System.Drawing.Point(206, 131);
+            this.redValue.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.redValue.Name = "redValue";
+            this.redValue.Size = new System.Drawing.Size(61, 20);
+            this.redValue.TabIndex = 6;
+            this.redValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.redValue.ValueChanged += new System.EventHandler(this.previewBoxColorValueChanged);
+            this.redValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.previewBoxColorKeyUp);
+            // 
+            // greenValue
+            // 
+            this.greenValue.Location = new System.Drawing.Point(349, 131);
+            this.greenValue.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.greenValue.Name = "greenValue";
+            this.greenValue.Size = new System.Drawing.Size(61, 20);
+            this.greenValue.TabIndex = 7;
+            this.greenValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.greenValue.ValueChanged += new System.EventHandler(this.previewBoxColorValueChanged);
+            this.greenValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.previewBoxColorKeyUp);
+            // 
+            // blueValue
+            // 
+            this.blueValue.Location = new System.Drawing.Point(483, 131);
+            this.blueValue.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.blueValue.Name = "blueValue";
+            this.blueValue.Size = new System.Drawing.Size(61, 20);
+            this.blueValue.TabIndex = 8;
+            this.blueValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.blueValue.ValueChanged += new System.EventHandler(this.previewBoxColorValueChanged);
+            this.blueValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.previewBoxColorKeyUp);
+            // 
+            // colorPreviewPanel
+            // 
+            this.colorPreviewPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.colorPreviewPanel.Location = new System.Drawing.Point(240, 178);
+            this.colorPreviewPanel.Name = "colorPreviewPanel";
+            this.colorPreviewPanel.Size = new System.Drawing.Size(109, 90);
+            this.colorPreviewPanel.TabIndex = 11;
+            // 
+            // redValueLabel
+            // 
+            this.redValueLabel.AutoSize = true;
+            this.redValueLabel.Location = new System.Drawing.Point(141, 135);
+            this.redValueLabel.Name = "redValueLabel";
+            this.redValueLabel.Size = new System.Drawing.Size(60, 13);
+            this.redValueLabel.TabIndex = 12;
+            this.redValueLabel.Text = "Red Value:";
+            // 
+            // greenValueLabel
+            // 
+            this.greenValueLabel.AutoSize = true;
+            this.greenValueLabel.Location = new System.Drawing.Point(274, 135);
+            this.greenValueLabel.Name = "greenValueLabel";
+            this.greenValueLabel.Size = new System.Drawing.Size(69, 13);
+            this.greenValueLabel.TabIndex = 13;
+            this.greenValueLabel.Text = "Green Value:";
+            // 
+            // blueValueLabel
+            // 
+            this.blueValueLabel.AutoSize = true;
+            this.blueValueLabel.Location = new System.Drawing.Point(416, 135);
+            this.blueValueLabel.Name = "blueValueLabel";
+            this.blueValueLabel.Size = new System.Drawing.Size(61, 13);
+            this.blueValueLabel.TabIndex = 13;
+            this.blueValueLabel.Text = "Blue Value:";
+            // 
+            // offButton
+            // 
+            this.offButton.Location = new System.Drawing.Point(240, 357);
+            this.offButton.Name = "offButton";
+            this.offButton.Size = new System.Drawing.Size(109, 54);
+            this.offButton.TabIndex = 14;
+            this.offButton.Text = "Off";
+            this.offButton.UseVisualStyleBackColor = true;
+            this.offButton.Click += new System.EventHandler(this.offButton_Click);
+            // 
+            // animationButton
+            // 
+            this.animationButton.Enabled = false;
+            this.animationButton.Location = new System.Drawing.Point(56, 317);
+            this.animationButton.Name = "animationButton";
+            this.animationButton.Size = new System.Drawing.Size(75, 21);
+            this.animationButton.TabIndex = 5;
+            this.animationButton.Text = "Animation";
+            this.animationButton.UseVisualStyleBackColor = true;
+            this.animationButton.Click += new System.EventHandler(this.animationButton_Click);
+            // 
+            // animationComboBox
+            // 
+            this.animationComboBox.FormattingEnabled = true;
+            this.animationComboBox.Items.AddRange(new object[] {
+            "Cycle",
+            "Full Rainbow"});
+            this.animationComboBox.Location = new System.Drawing.Point(144, 317);
+            this.animationComboBox.Name = "animationComboBox";
+            this.animationComboBox.Size = new System.Drawing.Size(123, 21);
+            this.animationComboBox.TabIndex = 15;
+            // 
             // SpectrumFormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 387);
+            this.ClientSize = new System.Drawing.Size(556, 423);
+            this.Controls.Add(this.animationComboBox);
+            this.Controls.Add(this.offButton);
+            this.Controls.Add(this.blueValueLabel);
+            this.Controls.Add(this.greenValueLabel);
+            this.Controls.Add(this.redValueLabel);
+            this.Controls.Add(this.animationButton);
+            this.Controls.Add(this.solidColorButton);
+            this.Controls.Add(this.blueValue);
+            this.Controls.Add(this.greenValue);
+            this.Controls.Add(this.colorPreviewPanel);
+            this.Controls.Add(this.redValue);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.connectButton);
             this.Controls.Add(this.serialPortComboBox);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(630, 422);
+            this.MaximizeBox = false;
             this.Name = "SpectrumFormMain";
             this.Text = "Spectrum";
             this.Shown += new System.EventHandler(this.SpectrumFormMain_Shown);
@@ -289,6 +444,9 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.trayContextMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.redValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.greenValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blueValue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,5 +480,17 @@
         public System.Windows.Forms.Button connectButton;
         public System.Windows.Forms.Button refreshButton;
         public System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
+        private System.Windows.Forms.ColorDialog colorPicker;
+        private System.Windows.Forms.NumericUpDown redValue;
+        private System.Windows.Forms.NumericUpDown greenValue;
+        private System.Windows.Forms.NumericUpDown blueValue;
+        private System.Windows.Forms.Panel colorPreviewPanel;
+        public System.Windows.Forms.Button solidColorButton;
+        private System.Windows.Forms.Label redValueLabel;
+        private System.Windows.Forms.Label greenValueLabel;
+        private System.Windows.Forms.Label blueValueLabel;
+        private System.Windows.Forms.Button offButton;
+        public System.Windows.Forms.Button animationButton;
+        private System.Windows.Forms.ComboBox animationComboBox;
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 using Spectrum.Classes;
+using Spectrum.Forms;
 
 namespace Spectrum {
 
@@ -40,8 +42,11 @@ namespace Spectrum {
             renameApp();
 
             serialPortComboBox.SelectedIndex = 0;
+            animationComboBox.SelectedIndex = 0;
 
             trayNotifyIcon.Visible = true;
+
+            previewColorMaster();
         }
 
         // Changes Title
@@ -69,8 +74,7 @@ namespace Spectrum {
         // Checks For Updates
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e) {
             if (!updateHandler.checkConnection()) return;
-            updateHandler.checkForUpdate();
-            if (!updateHandler.updateAvalible) MessageBox.Show("No Updates Avalible", "No Updates Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            updateHandler.checkForUpdate(true);
         }
 
         private void documentationToolStripMenuItem_Click(object sender, EventArgs e) { Process.Start("https://github.com/DeanSellas/Spectrum/wiki"); }
@@ -127,6 +131,49 @@ namespace Spectrum {
             connectToolStripMenuItem.Text = "Connect To: " + serialPortHandler.portName;
         }
 
-        
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
+            SettingsForm settingsForm = new SettingsForm();
+            settingsForm.Show();
+        }
+
+        private void solidColorButton_Click(object sender, EventArgs e) {
+
+            var red = redValue.Value.ToString();
+            var green = greenValue.Value.ToString();
+            var blue = blueValue.Value.ToString();
+
+            // Red Value Hotfix
+            if (redValue.Value < 10) red = "00" + red; if (redValue.Value >= 10 && redValue.Value < 100) red = "0" + red;
+            // Green Value Hotfix
+            if (greenValue.Value < 10) green = "00" + green; if (greenValue.Value >= 10 && greenValue.Value < 100) green = "0" + green;
+            // Blue Value Hotfix
+            if (blueValue.Value < 10) blue = "00" + blue; if (blueValue.Value >= 10 && blueValue.Value < 100) blue = "0" + blue;
+
+            var message = "SolidColor" + red + green + blue;
+            serialPortHandler.sendMessage(message);
+        }
+
+        private void animationButton_Click(object sender, EventArgs e) {
+            string message = "";
+            if (animationComboBox.Text == "Cycle") message = "RainbowCycle";
+            else if(animationComboBox.Text == "Full Rainbow") message = "RainbowFull";
+            serialPortHandler.sendMessage(message);
+        }
+
+        private void previewColorMaster() {
+            // sets background of preview box
+            colorPreviewPanel.BackColor = Color.FromArgb(Convert.ToInt32(redValue.Value), Convert.ToInt32(greenValue.Value), Convert.ToInt32(blueValue.Value));
+        }
+        private void previewBoxColorValueChanged(object sender, EventArgs e) { previewColorMaster(); }
+        private void previewBoxColorKeyUp(object sender, KeyEventArgs e) {
+            // sets value to 0 if empty
+            NumericUpDown me = (NumericUpDown)sender;
+            if (me.Text == "") me.Text = "0";
+            previewColorMaster();
+        }
+
+        private void offButton_Click(object sender, EventArgs e) {
+            serialPortHandler.sendMessage("turnOff");
+        }
     }
 }

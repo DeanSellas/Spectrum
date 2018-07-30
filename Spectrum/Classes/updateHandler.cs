@@ -70,8 +70,6 @@ namespace Spectrum.Classes {
             // enables dev builds if current build is one or setting is enabled
             if(((settingsHandler.settings[settingsHandler.settingsProfile].ContainsKey("Advanced") && settingsHandler.settings[settingsHandler.settingsProfile]["Advanced"].ContainsKey("devBuilds")) && settingsHandler.settingsProfile != "Default") || settingsHandler.settings["Default"]["Advanced"]["devBuilds"]) devBuilds = true;
 
-
-
             // reads version from github
             StreamReader reader;
             // Checks to see if dev builds are enabled
@@ -81,7 +79,7 @@ namespace Spectrum.Classes {
         }
 
         // Checks for update
-        public void checkForUpdate() {
+        public void checkForUpdate(bool user = false) {
             // checks to see if online version is higher than current version
             if (!updateAvalible) {
                 for (int i = 0; i < currentVersion.Length; i++) {
@@ -104,6 +102,7 @@ namespace Spectrum.Classes {
                     updateForm.ShowDialog();
                 }
             }
+            else if(user) MessageBox.Show("No Updates Avalible", "No Updates Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Starts Download

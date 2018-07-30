@@ -76,6 +76,10 @@ namespace Spectrum.Classes {
                 spectrumForm.serialPortComboBox.Enabled = false;
                 spectrumForm.connectButton.Text = "Disconnect";
                 spectrumForm.connectToolStripMenuItem.Text = "Disconnect";
+
+                spectrumForm.solidColorButton.Enabled = true;
+                spectrumForm.animationButton.Enabled = true;
+
                 isConnected = true;
             }
             catch {
@@ -90,6 +94,10 @@ namespace Spectrum.Classes {
             spectrumForm.serialPortComboBox.Enabled = true;
             spectrumForm.connectButton.Text = "Connect";
             spectrumForm.connectToolStripMenuItem.Text = "Connect To: " + portName;
+
+            spectrumForm.solidColorButton.Enabled = false;
+            spectrumForm.animationButton.Enabled = false;
+
             isConnected = false;
         }
 
