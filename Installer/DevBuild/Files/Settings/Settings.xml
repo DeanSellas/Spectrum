@@ -17,9 +17,8 @@
       </General>
       <Updater>
         <checkForUpdate>launch</checkForUpdate>
-        <devBuilds>false</devBuilds>
-        <downloadLocation>D:\Google Drive\Documents\Projects\C#\Spectrum\Spectrum\bin\Debug</downloadLocation>
-        <lastCheck>06/14/2018 2:15:31 PM</lastCheck>
+        <downloadLocation>D:\GoogleDrive\Documents\Projects\C#\Spectrum\Spectrum\bin\Debug</downloadLocation>
+        <lastCheck>09/22/2018 2:02:52 PM</lastCheck>
       </Updater>
       <Arduino>
         <isConnected>false</isConnected>
@@ -32,6 +31,10 @@
         </lastCommand>
         <delay>10</delay>
       </Arduino>
+      <Advanced>
+        <devBuilds>false</devBuilds>
+        <advancedLighting>false</advancedLighting>
+      </Advanced>
     </Default>
     <Profile1>
       <General>
@@ -43,6 +46,9 @@
       <Updater>
         <downloadLocation>D:\Downloads</downloadLocation>
       </Updater>
+      <Advanced>
+        <devBuilds>True</devBuilds>
+      </Advanced>
     </Profile1>
   </Profiles>
 </Settings>

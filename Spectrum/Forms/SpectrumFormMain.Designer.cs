@@ -313,6 +313,7 @@
             this.redValue.TabIndex = 6;
             this.redValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.redValue.ValueChanged += new System.EventHandler(this.previewBoxColorValueChanged);
+            this.redValue.Click += new System.EventHandler(this.numericUpDownClick);
             this.redValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.previewBoxColorKeyUp);
             // 
             // greenValue
@@ -328,6 +329,7 @@
             this.greenValue.TabIndex = 7;
             this.greenValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.greenValue.ValueChanged += new System.EventHandler(this.previewBoxColorValueChanged);
+            this.greenValue.Click += new System.EventHandler(this.numericUpDownClick);
             this.greenValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.previewBoxColorKeyUp);
             // 
             // blueValue
@@ -343,6 +345,7 @@
             this.blueValue.TabIndex = 8;
             this.blueValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.blueValue.ValueChanged += new System.EventHandler(this.previewBoxColorValueChanged);
+            this.blueValue.Click += new System.EventHandler(this.numericUpDownClick);
             this.blueValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.previewBoxColorKeyUp);
             // 
             // colorPreviewPanel

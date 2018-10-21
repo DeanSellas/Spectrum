@@ -18,13 +18,18 @@ namespace Spectrum {
             base.WndProc(ref m);
         }
 
+        // Forms
+        SettingsForm settingsForm;
 
-
+        // Handlers/Classes
         SettingsHandler settingsHander;
         UpdateHandler updateHandler;
         SerialPortHandler serialPortHandler;
+
+        // Strings
         string version = Application.ProductVersion;
 
+        // Booleans
         bool userExit = false;
 
         public SpectrumFormMain() {
@@ -34,7 +39,9 @@ namespace Spectrum {
 
             updateHandler = new UpdateHandler(settingsHander);
 
-            serialPortHandler = new SerialPortHandler(this, settingsHander); 
+            serialPortHandler = new SerialPortHandler(this, settingsHander);
+
+            settingsForm = new SettingsForm(this, settingsHander);
         }
 
 
@@ -132,7 +139,7 @@ namespace Spectrum {
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
-            SettingsForm settingsForm = new SettingsForm();
+            
             settingsForm.Show();
         }
 
@@ -162,9 +169,18 @@ namespace Spectrum {
 
         private void previewColorMaster() {
             // sets background of preview box
-            colorPreviewPanel.BackColor = Color.FromArgb(Convert.ToInt32(redValue.Value), Convert.ToInt32(greenValue.Value), Convert.ToInt32(blueValue.Value));
+            Color preview = Color.FromArgb(Convert.ToInt32(redValue.Value), Convert.ToInt32(greenValue.Value), Convert.ToInt32(blueValue.Value));
+            // if color is 0 set to transparent
+            if (preview == Color.FromArgb(0, 0, 0)) preview = Color.Transparent;
+            colorPreviewPanel.BackColor = preview;
         }
-        private void previewBoxColorValueChanged(object sender, EventArgs e) { previewColorMaster(); }
+
+
+        private void previewBoxColorValueChanged(object sender, EventArgs e) { previewColorMaster(); Console.WriteLine(sender); }
+
+        // Highlights all items when box is selected
+        private void numericUpDownClick(object sender, EventArgs e) { NumericUpDown selected = (NumericUpDown) sender; selected.Select(0, 3); }
+
         private void previewBoxColorKeyUp(object sender, KeyEventArgs e) {
             // sets value to 0 if empty
             NumericUpDown me = (NumericUpDown)sender;
@@ -175,5 +191,7 @@ namespace Spectrum {
         private void offButton_Click(object sender, EventArgs e) {
             serialPortHandler.sendMessage("turnOff");
         }
+
+        
     }
 }

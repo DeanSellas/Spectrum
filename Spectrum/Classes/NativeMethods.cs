@@ -6,11 +6,13 @@ using System.Windows.Forms;
 
 namespace Spectrum.Classes {
 
+    // Makes Sure only 1 instance of Spectrum is running at any given time.
+
     // this class just wraps some Win32 stuff that we're going to use
     internal class NativeMethods {
 
         public const int HWND_BROADCAST = 0xffff;
-        public static readonly int WM_SHOWME = RegisterWindowMessage("WM_SHOWME");
+        public static readonly int WM_SHOWME = RegisterWindowMessage("SpectrumShowMe");
         [DllImport("user32")]
         public static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);
         [DllImport("user32")]
