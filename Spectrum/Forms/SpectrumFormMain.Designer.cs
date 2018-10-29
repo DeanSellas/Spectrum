@@ -63,6 +63,7 @@
             this.offButton = new System.Windows.Forms.Button();
             this.animationButton = new System.Windows.Forms.Button();
             this.animationComboBox = new System.Windows.Forms.ComboBox();
+            this.colorPickerLabel = new System.Windows.Forms.LinkLabel();
             this.menuStrip1.SuspendLayout();
             this.trayContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.redValue)).BeginInit();
@@ -415,11 +416,23 @@
             this.animationComboBox.Size = new System.Drawing.Size(123, 21);
             this.animationComboBox.TabIndex = 15;
             // 
+            // colorPickerLabel
+            // 
+            this.colorPickerLabel.AutoSize = true;
+            this.colorPickerLabel.Location = new System.Drawing.Point(265, 271);
+            this.colorPickerLabel.Name = "colorPickerLabel";
+            this.colorPickerLabel.Size = new System.Drawing.Size(64, 13);
+            this.colorPickerLabel.TabIndex = 16;
+            this.colorPickerLabel.TabStop = true;
+            this.colorPickerLabel.Text = "Color Picker";
+            this.colorPickerLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.colorPickerClick);
+            // 
             // SpectrumFormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 423);
+            this.Controls.Add(this.colorPickerLabel);
             this.Controls.Add(this.animationComboBox);
             this.Controls.Add(this.offButton);
             this.Controls.Add(this.blueValueLabel);
@@ -495,5 +508,6 @@
         private System.Windows.Forms.Button offButton;
         public System.Windows.Forms.Button animationButton;
         private System.Windows.Forms.ComboBox animationComboBox;
+        private System.Windows.Forms.LinkLabel colorPickerLabel;
     }
 }

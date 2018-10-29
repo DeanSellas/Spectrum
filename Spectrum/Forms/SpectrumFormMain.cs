@@ -192,6 +192,15 @@ namespace Spectrum {
             serialPortHandler.sendMessage("turnOff");
         }
 
-        
+        private void colorPickerClick(object sender, LinkLabelLinkClickedEventArgs e) {
+            colorPicker.ShowDialog();
+            Color color = colorPicker.Color;
+
+            Console.WriteLine("RED: {0} GREEN: {1} BLUE: {2}", color.R, color.G, color.B);
+            redValue.Value = color.R;
+            greenValue.Value = color.G;
+            blueValue.Value = color.B;
+
+        }
     }
 }
