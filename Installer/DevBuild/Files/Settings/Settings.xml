@@ -18,7 +18,7 @@
       <Updater>
         <checkForUpdate>launch</checkForUpdate>
         <downloadLocation>D:\Dean's Files\GoogleDrive\Documents\Projects\C#\Spectrum\Spectrum\bin\Debug</downloadLocation>
-        <lastCheck>10/21/2018 6:26:27 PM</lastCheck>
+        <lastCheck>10/29/2018 6:55:14 PM</lastCheck>
       </Updater>
       <Arduino>
         <isConnected>false</isConnected>

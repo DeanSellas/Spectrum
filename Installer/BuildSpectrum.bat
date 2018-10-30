@@ -35,22 +35,20 @@ REM MOVE FILES FUNCTION
 	copy ..\Spectrum\bin\Release\*.exe Public\Files
 	copy ..\Spectrum\bin\Release\Settings\* Public\Files\Settings
 
-	C:
-	cd "Program Files (x86)\NSIS"
-	makensis.exe "D:\Dean's Files\GoogleDrive\Documents\Projects\C#\Spectrum\Installer\Public\Spectrum.nsi"
-	echo 
-	echo Spectrum is Built!
+	makensis Public\Spectrum.nsi
+	cls
+	echo Prosses Is Done Spectrum is Built!
 EXIT /B 0
 
 :moveFilesDev
 	echo Moving Files...
 	mkdir DevBuild\Files\Settings
 
+
 	copy ..\Spectrum\bin\Debug\*.exe DevBuild\Files
 	copy ..\Spectrum\bin\Debug\Settings\* DevBuild\Files\Settings
-	
-	C:
-	cd "Program Files (x86)\NSIS"
-	makensis.exe "D:\Dean's Files\GoogleDrive\Documents\Projects\C#\Spectrum\Installer\DevBuild\Spectrum.nsi"
-	echo Spectrum is Built!
+
+	makensis DevBuild\Spectrum.nsi
+	cls
+	echo Prosses Is Done Spectrum is Built!
 EXIT /B 0
