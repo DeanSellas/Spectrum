@@ -9,14 +9,23 @@ using System.Windows.Forms;
 
 namespace Spectrum {
     partial class About : Form {
-        public About() {
+        public About(Boolean dev = false) {
             InitializeComponent();
-            this.Text = String.Format("About {0}", AssemblyTitle);
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Version {0}", FileVersion);
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.labelCompanyName.Text = "Author: " + AssemblyCompany;
-            this.textBoxDescription.Text = "Spectrum is a Windows App that is meant to communicate with Arduino Boards to control NeoPixels." + Environment.NewLine +
+
+            if(dev == true) {
+                Text = String.Format("About {0} || DEV BUILD", AssemblyTitle);
+                labelProductName.Text = String.Format("{0} || DEV BUILD", AssemblyProduct);
+            }
+
+            else {
+                Text = String.Format("About {0}", AssemblyTitle);
+                labelProductName.Text = AssemblyProduct;
+            }
+            
+            labelVersion.Text = String.Format("Version {0}", FileVersion);
+            labelCopyright.Text = AssemblyCopyright;
+            labelCompanyName.Text = "Author: " + AssemblyCompany;
+            textBoxDescription.Text = "Spectrum is a Windows App that is meant to communicate with Arduino Boards to control NeoPixels." + Environment.NewLine +
                 "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.";
         }
 

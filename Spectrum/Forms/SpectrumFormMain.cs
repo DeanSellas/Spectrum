@@ -19,6 +19,7 @@ namespace Spectrum {
         }
 
         // Forms
+        About aboutForm;
         SettingsForm settingsForm;
 
         // Handlers/Classes
@@ -32,6 +33,12 @@ namespace Spectrum {
         // Booleans
         bool userExit = false;
 
+        ///
+        /// <Init>
+        /// Starts Spectrum and starts the handlers
+        /// </Init>
+        /// 
+
         public SpectrumFormMain() {
             InitializeComponent();
             
@@ -41,10 +48,17 @@ namespace Spectrum {
 
             serialPortHandler = new SerialPortHandler(this, settingsHander);
 
-            settingsForm = new SettingsForm(this, settingsHander);
+            formsInit();
         }
 
 
+        ///
+        /// <Forms>
+        /// This section builds the forms and shows them
+        /// </Forms>
+        /// 
+
+        // Spectrum startup
         private void SpectrumFormMain_Shown(object sender, EventArgs e) {
             renameApp();
 
@@ -67,12 +81,28 @@ namespace Spectrum {
         // Hides Spectrum and changes proper elements
         private void hideSpectrum() {
             Hide();
-            
+
             // Creates Balloon Tip
             trayNotifyIcon.BalloonTipTitle = "Spectrum";
             trayNotifyIcon.BalloonTipText = "Spectrum Has Been Minimized to Tray";
             trayNotifyIcon.ShowBalloonTip(3);
         }
+
+        // Creates base forms
+        private void formsInit() {
+            settingsForm = new SettingsForm(this, settingsHander);
+            aboutForm = new About(settingsHander.settings["Default"]["Advanced"]["devBuilds"]);
+        }
+
+        public void showSettings() { settingsForm.ShowDialog(); }
+        public void showAbout() { aboutForm.ShowDialog(); }
+
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) { showSettings(); }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) { showAbout(); }
+
+
 
         // Conects to Designated Serial Port
         private void connectToolStripMenuItem_Click(object sender, EventArgs e) { connectButton.PerformClick(); }
@@ -90,10 +120,7 @@ namespace Spectrum {
 
         private void githubToolStripMenuItem_Click(object sender, EventArgs e) { Process.Start("https://github.com/DeanSellas/Spectrum"); }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
-            About aboutForm = new About();
-            aboutForm.ShowDialog();
-        }
+        
 
         // dont tell anyone its a secret!!
         private void superSecretFeatureToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -138,13 +165,16 @@ namespace Spectrum {
             connectToolStripMenuItem.Text = "Connect To: " + serialPortHandler.portName;
         }
 
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
-            
-            settingsForm.Show();
-        }
 
-        private void solidColorButton_Click(object sender, EventArgs e) {
+        ///
+        /// <Colors>
+        /// All the colors of the rainbow
+        /// Seriously though. This Section contains the code that makes the color picker and animations work
+        /// </Colors>
+        /// 
 
+
+        private void setSolidColor() {
             var red = redValue.Value.ToString();
             var green = greenValue.Value.ToString();
             var blue = blueValue.Value.ToString();
@@ -160,12 +190,14 @@ namespace Spectrum {
             serialPortHandler.sendMessage(message);
         }
 
-        private void animationButton_Click(object sender, EventArgs e) {
+        private void setAnimation() {
             string message = "";
             if (animationComboBox.Text == "Cycle") message = "RainbowCycle";
-            else if(animationComboBox.Text == "Full Rainbow") message = "RainbowFull";
+            else if (animationComboBox.Text == "Full Rainbow") message = "RainbowFull";
             serialPortHandler.sendMessage(message);
         }
+
+        
 
         private void previewColorMaster() {
             // sets background of preview box
@@ -174,7 +206,6 @@ namespace Spectrum {
             if (preview == Color.FromArgb(0, 0, 0)) preview = Color.Transparent;
             colorPreviewPanel.BackColor = preview;
         }
-
 
         private void previewBoxColorValueChanged(object sender, EventArgs e) { previewColorMaster(); Console.WriteLine(sender); }
 
@@ -188,10 +219,7 @@ namespace Spectrum {
             previewColorMaster();
         }
 
-        private void offButton_Click(object sender, EventArgs e) {
-            serialPortHandler.sendMessage("turnOff");
-        }
-
+        // Opens Color Picker and Sets Colors
         private void colorPickerClick(object sender, LinkLabelLinkClickedEventArgs e) {
             colorPicker.ShowDialog();
             Color color = colorPicker.Color;
@@ -202,5 +230,22 @@ namespace Spectrum {
             blueValue.Value = color.B;
 
         }
+
+
+
+        ///
+        /// <Buttons>
+        /// DON'T PRESS THE RED BUTTON
+        /// I'M SERIOUS!
+        /// 
+        /// Functions that handle button presses
+        /// </Buttons>
+        /// 
+        
+        private void solidColorButton_Click(object sender, EventArgs e) { setSolidColor(); }
+
+        private void animationButton_Click(object sender, EventArgs e) { setAnimation(); }
+
+        private void offButton_Click(object sender, EventArgs e) { serialPortHandler.sendMessage("turnOff"); }
     }
 }
