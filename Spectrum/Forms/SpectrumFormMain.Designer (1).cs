@@ -455,7 +455,6 @@
             this.MaximizeBox = false;
             this.Name = "SpectrumFormMain";
             this.Text = "Spectrum";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SpectrumFormMain_FormClosing);
             this.Shown += new System.EventHandler(this.SpectrumFormMain_Shown);
             this.VisibleChanged += new System.EventHandler(this.SpectrumFormMain_VisibleChanged);
             this.menuStrip1.ResumeLayout(false);

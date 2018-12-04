@@ -24,33 +24,21 @@
         /// </summary>
         private void InitializeComponent() {
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("General");
-            this.generalGroupBox = new System.Windows.Forms.GroupBox();
-            this.startWithWindows = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.profileComboBox = new System.Windows.Forms.ComboBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.generalGroupBox.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // generalGroupBox
+            // groupBox1
             // 
-            this.generalGroupBox.Controls.Add(this.startWithWindows);
-            this.generalGroupBox.Controls.Add(this.profileComboBox);
-            this.generalGroupBox.Location = new System.Drawing.Point(131, 12);
-            this.generalGroupBox.Name = "generalGroupBox";
-            this.generalGroupBox.Size = new System.Drawing.Size(252, 191);
-            this.generalGroupBox.TabIndex = 0;
-            this.generalGroupBox.TabStop = false;
-            this.generalGroupBox.Text = "General";
-            // 
-            // startWithWindows
-            // 
-            this.startWithWindows.AutoSize = true;
-            this.startWithWindows.Location = new System.Drawing.Point(63, 60);
-            this.startWithWindows.Name = "startWithWindows";
-            this.startWithWindows.Size = new System.Drawing.Size(120, 17);
-            this.startWithWindows.TabIndex = 1;
-            this.startWithWindows.Text = "Start With Windows";
-            this.startWithWindows.UseVisualStyleBackColor = true;
+            this.groupBox1.Controls.Add(this.profileComboBox);
+            this.groupBox1.Location = new System.Drawing.Point(131, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(252, 191);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
             // 
             // profileComboBox
             // 
@@ -77,21 +65,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.generalGroupBox);
+            this.Controls.Add(this.groupBox1);
             this.Name = "SettingsForm";
             this.Text = "SettingsForm";
-            this.Shown += new System.EventHandler(this.SettingsForm_Shown);
-            this.generalGroupBox.ResumeLayout(false);
-            this.generalGroupBox.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox generalGroupBox;
+        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox profileComboBox;
         private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.CheckBox startWithWindows;
     }
 }

@@ -6,7 +6,7 @@ using System.IO;
 namespace Spectrum.Classes {
     public class SettingsHandler {
         public Dictionary<string, dynamic> settings = new Dictionary<string, dynamic>();
-        public string currentProfile;
+        public string settingsProfile;
 
         public List<string> profileList = new List<string>();
 
@@ -23,8 +23,8 @@ namespace Spectrum.Classes {
 
             // creates default settings
             settings = createSettings();
-            if (currentProfile == "") currentProfile = "Default";
-            else if (!settings.ContainsKey(currentProfile)) newProfile(currentProfile);
+            if (settingsProfile == "") settingsProfile = "Default";
+            else if (!settings.ContainsKey(settingsProfile)) newProfile(settingsProfile);
             printSettings();
 
             //changedSettings.Add("setting to change");
@@ -35,7 +35,7 @@ namespace Spectrum.Classes {
 
         // Prints Items in Settings
         public void printSettings() {
-            Console.WriteLine("Current Profile: " + currentProfile + "\n--------------------------------");
+            Console.WriteLine("Current Profile: " + settingsProfile + "\n--------------------------------");
 
             foreach (string one in settings.Keys)
                 foreach (string two in settings[one].Keys)
@@ -64,7 +64,9 @@ namespace Spectrum.Classes {
             XmlNode root = doc.DocumentElement;
 
             // assigns settings profile and if it doesnt exist create it
-            currentProfile = root.SelectSingleNode("descendant::currentSettingsProfile").InnerText;
+            settingsProfile = root.SelectSingleNode("descendant::currentSettingsProfile").InnerText;
+
+            
 
             XmlNode parent = root.SelectSingleNode("descendant::Profiles");
 

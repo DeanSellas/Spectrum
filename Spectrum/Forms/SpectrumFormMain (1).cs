@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Spectrum.Classes;
 using Spectrum.Forms;
@@ -41,9 +39,6 @@ namespace Spectrum {
         /// </Init>
         /// 
 
-        
-        public Dictionary<string, dynamic> settings;
-
         public SpectrumFormMain() {
             InitializeComponent();
             
@@ -52,9 +47,6 @@ namespace Spectrum {
             updateHandler = new UpdateHandler(settingsHander);
 
             serialPortHandler = new SerialPortHandler(this, settingsHander);
-
-
-            settings = settingsHander.settings;
 
             formsInit();
         }
@@ -78,28 +70,12 @@ namespace Spectrum {
             previewColorMaster();
         }
 
-
-        // Code to run when closing
-        private void SpectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
-            // Closes to tray if conditions are met
-            if (!userExit && settingsHander.currentProfile != "Default" && settingsHander.settings[settingsHander.currentProfile]["General"].ContainsKey("closeToTray")) {
-                e.Cancel = true;
-                hideSpectrum();
-                return;
-            }
-
-            // if turn off on exit true
-            serialPortHandler.messageQueue.Clear();
-            serialPortHandler.sendMessageHelper("turnOff");
-
-        }
-
         // Changes Title
         private void renameApp() {
             // Sets title
             if (version[4] == '0') Text = "Spectrum " + version.Substring(0, 3);
             else Text = "Spectrum " + version.Substring(0, 5);
-            if (settings["Default"]["Advanced"]["devBuilds"]) Text += " || DevBuild ||";
+            if (settingsHander.settings["Default"]["Advanced"]["devBuilds"]) Text += " || DevBuild ||";
         }
 
         // Hides Spectrum and changes proper elements
@@ -115,7 +91,7 @@ namespace Spectrum {
         // Creates base forms
         private void formsInit() {
             settingsForm = new SettingsForm(this, settingsHander);
-            aboutForm = new About(settings["Default"]["Advanced"]["devBuilds"]);
+            aboutForm = new About(settingsHander.settings["Default"]["Advanced"]["devBuilds"]);
         }
 
         public void showSettings() { settingsForm.ShowDialog(); }
@@ -159,8 +135,14 @@ namespace Spectrum {
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) { userExit = true; Close(); }
         private void trayNotifyIcon_DoubleClick(object sender, EventArgs e) { Show(); }
 
-        
-
+        // Code to run when closing
+        private void SpectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
+            // Closes to tray if conditions are met
+            if (!userExit && settingsHander.settingsProfile != "Default" && settingsHander.settings[settingsHander.settingsProfile]["General"].ContainsKey("closeToTray")) {
+                e.Cancel = true;
+                hideSpectrum();
+            }
+        }
 
         private void hideToolStripMenuItem_Click(object sender, EventArgs e) {
             // if visable hide spectrum
@@ -225,14 +207,10 @@ namespace Spectrum {
             colorPreviewPanel.BackColor = preview;
         }
 
-        private void previewBoxColorValueChanged(object sender, EventArgs e) {
-            previewColorMaster(); Console.WriteLine(sender);
-        }
+        private void previewBoxColorValueChanged(object sender, EventArgs e) { previewColorMaster(); Console.WriteLine(sender); }
 
         // Highlights all items when box is selected
-        private void numericUpDownClick(object sender, EventArgs e) {
-            NumericUpDown selected = (NumericUpDown) sender; selected.Select(0, 3);
-        }
+        private void numericUpDownClick(object sender, EventArgs e) { NumericUpDown selected = (NumericUpDown) sender; selected.Select(0, 3); }
 
         private void previewBoxColorKeyUp(object sender, KeyEventArgs e) {
             // sets value to 0 if empty
@@ -252,6 +230,8 @@ namespace Spectrum {
             blueValue.Value = color.B;
 
         }
+
+
 
         ///
         /// <Buttons>

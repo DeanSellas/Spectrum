@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
-  <currentSettingsProfile>Profile1</currentSettingsProfile>
+  <currentSettingsProfile>
+  </currentSettingsProfile>
   <Profiles>
     <Default>
       <General>
@@ -10,11 +11,14 @@
         <advancedSettings>false</advancedSettings>
         <closeToTray>false</closeToTray>
         <minimizeToTray>false</minimizeToTray>
+        <redValue>255</redValue>
+        <greenValue>255</greenValue>
+        <blueValue>255</blueValue>
       </General>
       <Updater>
         <checkForUpdate>launch</checkForUpdate>
         <downloadLocation>D:\Dean's Files\GoogleDrive\Documents\Projects\C#\Spectrum\Spectrum\bin\Debug</downloadLocation>
-        <lastCheck>12/03/2018 9:44:49 PM</lastCheck>
+        <lastCheck>11/03/2018 8:54:56 PM</lastCheck>
       </Updater>
       <Arduino>
         <isConnected>false</isConnected>
@@ -27,11 +31,6 @@
         </lastCommand>
         <delay>10</delay>
       </Arduino>
-      <Colors>
-        <redValue>255</redValue>
-        <greenValue>255</greenValue>
-        <blueValue>255</blueValue>
-      </Colors>
       <Advanced>
         <devBuilds>false</devBuilds>
         <advancedLighting>false</advancedLighting>

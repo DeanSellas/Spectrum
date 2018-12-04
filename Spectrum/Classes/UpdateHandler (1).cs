@@ -25,7 +25,7 @@ namespace Spectrum.Classes {
             webClient = new WebClient();
 
             // sets download location
-            try { downloadLocation = settingsHandler.settings[settingsHandler.currentProfile]["Updater"]["downloadLocation"]; }
+            try { downloadLocation = settingsHandler.settings[settingsHandler.settingsProfile]["Updater"]["downloadLocation"]; }
             catch { downloadLocation = settingsHandler.settings["Default"]["Updater"]["downloadLocation"]; }
 
             bool hasInternet = checkConnection();
@@ -37,7 +37,7 @@ namespace Spectrum.Classes {
             // sets lastcheck and check data
             string check, lastCheck;
             lastCheck = settingsHandler.settings["Default"]["Updater"]["lastCheck"];
-            try { check = settingsHandler.settings[settingsHandler.currentProfile]["Updater"]["checkForUpdate"]; }
+            try { check = settingsHandler.settings[settingsHandler.settingsProfile]["Updater"]["checkForUpdate"]; }
             catch { check = "launch"; }
 
             Console.WriteLine("Check For Update: " + check + "\n--------------------------------");
@@ -68,7 +68,7 @@ namespace Spectrum.Classes {
         // Gets the most recent version number
         private void getOnlineVersion() {
             // enables dev builds if current build is one or setting is enabled
-            if(((settingsHandler.settings[settingsHandler.currentProfile].ContainsKey("Advanced") && settingsHandler.settings[settingsHandler.currentProfile]["Advanced"].ContainsKey("devBuilds")) && settingsHandler.currentProfile != "Default") || settingsHandler.settings["Default"]["Advanced"]["devBuilds"]) devBuilds = true;
+            if(((settingsHandler.settings[settingsHandler.settingsProfile].ContainsKey("Advanced") && settingsHandler.settings[settingsHandler.settingsProfile]["Advanced"].ContainsKey("devBuilds")) && settingsHandler.settingsProfile != "Default") || settingsHandler.settings["Default"]["Advanced"]["devBuilds"]) devBuilds = true;
 
             // reads version from github
             StreamReader reader;

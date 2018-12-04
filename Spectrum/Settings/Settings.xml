@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
 
-  <currentSettingsProfile></currentSettingsProfile>
+  <currentSettingsProfile>Profile1</currentSettingsProfile>
 
   <Profiles>
     
@@ -14,9 +14,6 @@
         <advancedSettings>false</advancedSettings>
         <closeToTray>false</closeToTray>
         <minimizeToTray>false</minimizeToTray>
-        <redValue>255</redValue>
-        <greenValue>255</greenValue>
-        <blueValue>255</blueValue>
       </General>
 
       <Updater>
@@ -34,6 +31,13 @@
         <lastCommand></lastCommand>
         <delay>10</delay>
       </Arduino>
+
+
+      <Colors>
+        <redValue>255</redValue>
+        <greenValue>255</greenValue>
+        <blueValue>255</blueValue>
+      </Colors>
       
       <Advanced>
         <devBuilds>false</devBuilds>
@@ -50,9 +54,6 @@
         <advancedSettings>true</advancedSettings>
         <closeToTray>false</closeToTray>
         <minimizeToTray>false</minimizeToTray>
-        <redValue>255</redValue>
-        <greenValue>255</greenValue>
-        <blueValue>255</blueValue>
       </General>
 
       <Updater>

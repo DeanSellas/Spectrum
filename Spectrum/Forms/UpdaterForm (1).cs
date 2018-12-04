@@ -36,7 +36,7 @@ namespace Spectrum.Forms {
                 downloadLink = String.Format("https://github.com/DeanSellas/Spectrum/blob/DevBranch/Installer/DevBuild/spectrumv{0}setup.exe?raw=true", onlineVersion);
 
             // sets download location
-            installerName = String.Format("{0}\\spectrumv{1}setup.exe", settingsHandler.settings[settingsHandler.currentProfile]["Updater"]["downloadLocation"], onlineVersion);
+            installerName = String.Format("{0}\\spectrumv{1}setup.exe", settingsHandler.settings[settingsHandler.settingsProfile]["Updater"]["downloadLocation"], onlineVersion);
 
             InitializeComponent();
 

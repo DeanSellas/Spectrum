@@ -15,7 +15,7 @@ namespace Spectrum.Classes {
         SerialPort arduinoPort = new SerialPort();
 
         Timer sendTimer = new Timer();
-        public Queue<string> messageQueue = new Queue<string>(); 
+        Queue<string> messageQueue = new Queue<string>(); 
 
         public List<string> serialPortList = new List<string>();
         public bool isConnected = false;
@@ -36,11 +36,7 @@ namespace Spectrum.Classes {
         }
 
         // Adds message to Queue so it can be sent
-        public void sendMessage(string message) {
-            messageQueue.Enqueue(message);
-            sendTimer.Enabled = true;
-            sendTimer.Start();
-        }
+        public void sendMessage(string message) { messageQueue.Enqueue(message); sendTimer.Enabled = true; sendTimer.Start(); }
 
         // Lists Serial Ports
         public void listSerialPorts() {
@@ -109,14 +105,13 @@ namespace Spectrum.Classes {
         // Sends Message On Timer Tick
         private void sendTimer_Tick(object sender, EventArgs e) {
             if (isConnected) {
-                if (messageQueue.Count > 0)
-                    sendMessageHelper(messageQueue.Dequeue());
+                if (messageQueue.Count > 0) sendMessageHelper(messageQueue.Dequeue());
                 // stops timer if there is no need for it to run
                 else if (sendTimer.Enabled) { sendTimer.Stop(); sendTimer.Enabled = false; }
             }
             
         }
-        protected internal void sendMessageHelper(string message) {
+        private void sendMessageHelper(string message) {
             arduinoPort.WriteLine(message);
             Console.WriteLine("Sent Message: " + message);
         }
