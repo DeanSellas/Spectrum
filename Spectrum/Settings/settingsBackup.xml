@@ -11,12 +11,8 @@
         <startWithWindows>false</startWithWindows>
         <connectOnStart>false</connectOnStart>
         <startMinimized>false</startMinimized>
-        <advancedSettings>false</advancedSettings>
         <closeToTray>false</closeToTray>
         <minimizeToTray>false</minimizeToTray>
-        <redValue>255</redValue>
-        <greenValue>255</greenValue>
-        <blueValue>255</blueValue>
       </General>
 
       <Updater>
@@ -35,10 +31,19 @@
         <delay>10</delay>
       </Arduino>
 
+
+      <Colors>
+        <redValue>255</redValue>
+        <greenValue>255</greenValue>
+        <blueValue>255</blueValue>
+      </Colors>
+      
       <Advanced>
+        <enableAdvanced>false</enableAdvanced>
         <devBuilds>false</devBuilds>
         <advancedLighting>false</advancedLighting>
       </Advanced>
+      
     </Default>
 
   </Profiles>

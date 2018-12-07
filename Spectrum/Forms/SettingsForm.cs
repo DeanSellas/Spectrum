@@ -23,11 +23,14 @@ namespace Spectrum.Forms {
             spectrumMain = main;
             settingsHander = settings;
             InitializeComponent();
-            buildProfiles();
+            
+
+            //MaximumSize = new Size(435, 295);
         }
 
 
         private void SettingsForm_Shown(object sender, EventArgs e) {
+            buildProfiles();
             buildSettings();
         }
 
@@ -46,30 +49,31 @@ namespace Spectrum.Forms {
             profileComboBox.SelectedIndex = index;
         }
 
+        // builds settings for current profile
         private void buildSettings() {
             activeProfile = profileComboBox.SelectedItem.ToString();
 
             buildSettingsRecusion(this.Controls, this);
         }
         private void buildSettingsRecusion(Control.ControlCollection controls, Control parent) {
+            // goes through controls
             foreach(Control item in controls) {
+                // if item is control is a checkbox set it
                 if(item is CheckBox) {
                     setCheckbox((CheckBox)item, (GroupBox)parent);
-                    return;
+                    continue;
                 }
+                // recurisve call if no checkboxes
                 buildSettingsRecusion(item.Controls, item);
             }
         }
 
+        // sets checkboxes
         private void setCheckbox(CheckBox check, GroupBox parent) {
             bool val;
-            try {
-                val = spectrumMain.settings[activeProfile][parent.Text][check.Name];
-            }
-            catch {
-                Console.WriteLine(check.Name + " was not found in settings!");
-                return;
-            }
+
+            val = spectrumMain.getSetting(activeProfile, parent.Text, check.Name);
+
             check.Checked = val;
 
             Console.WriteLine(String.Format("{0} was set to {1}", check.Name, val));

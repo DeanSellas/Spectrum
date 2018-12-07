@@ -188,4 +188,5 @@ namespace Spectrum.Classes {
         private XmlNode createNode(XmlNode root, String nodeName) { return root.OwnerDocument.CreateElement(nodeName); }
 
     }
+
 }

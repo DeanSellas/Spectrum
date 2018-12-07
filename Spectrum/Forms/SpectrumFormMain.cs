@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Spectrum.Classes;
 using Spectrum.Forms;
@@ -11,14 +10,12 @@ namespace Spectrum {
 
     public partial class SpectrumFormMain : Form {
 
+        ///
+        /// <Init>
+        ///     Starts Spectrum and starts the handlers
+        /// </Init>
+        /// 
 
-        // Brings Spectrum To Font If Running
-        protected override void WndProc(ref Message m) {
-            if (m.Msg == NativeMethods.WM_SHOWME) {
-                NativeMethods.BringToFront(this);
-            }
-            base.WndProc(ref m);
-        }
 
         // Forms
         About aboutForm;
@@ -34,13 +31,6 @@ namespace Spectrum {
 
         // Booleans
         bool userExit = false;
-
-        ///
-        /// <Init>
-        /// Starts Spectrum and starts the handlers
-        /// </Init>
-        /// 
-
         
         public Dictionary<string, dynamic> settings;
 
@@ -60,9 +50,38 @@ namespace Spectrum {
         }
 
 
+
+        ///
+        /// <Functions>
+        ///     functions for operation of spectrum
+        /// </Buttons>
+        ///
+
+
+        // Brings Spectrum To Font If Running
+        protected override void WndProc(ref Message m) {
+            if (m.Msg == NativeMethods.WM_SHOWME) {
+                NativeMethods.BringToFront(this);
+            }
+            base.WndProc(ref m);
+        }
+
+        // gets setting value
+        public dynamic getSetting(string profile, string master, string setting) {
+            try {
+                return settings[profile][master][setting];
+            }
+            catch {
+                return settings["Default"][master][setting];
+            }
+        }
+
+        
+
+
         ///
         /// <Forms>
-        /// This section builds the forms and shows them
+        ///     This section builds the forms and shows them
         /// </Forms>
         /// 
 
@@ -78,6 +97,7 @@ namespace Spectrum {
             previewColorMaster();
         }
 
+        
 
         // Code to run when closing
         private void SpectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
@@ -89,8 +109,11 @@ namespace Spectrum {
             }
 
             // if turn off on exit true
-            serialPortHandler.messageQueue.Clear();
-            serialPortHandler.sendMessageHelper("turnOff");
+            if (serialPortHandler.isConnected) {
+                
+                serialPortHandler.messageQueue.Clear();
+                serialPortHandler.sendMessageHelper("turnOff");
+            }
 
         }
 
@@ -109,7 +132,7 @@ namespace Spectrum {
             // Creates Balloon Tip
             trayNotifyIcon.BalloonTipTitle = "Spectrum";
             trayNotifyIcon.BalloonTipText = "Spectrum Has Been Minimized to Tray";
-            trayNotifyIcon.ShowBalloonTip(3);
+            trayNotifyIcon.ShowBalloonTip(0);
         }
 
         // Creates base forms
@@ -186,8 +209,8 @@ namespace Spectrum {
 
         ///
         /// <Colors>
-        /// All the colors of the rainbow
-        /// Seriously though. This Section contains the code that makes the color picker and animations work
+        ///     All the colors of the rainbow
+        ///     Seriously though. This Section contains the code that makes the color picker and animations work
         /// </Colors>
         /// 
 
@@ -255,10 +278,10 @@ namespace Spectrum {
 
         ///
         /// <Buttons>
-        /// DON'T PRESS THE RED BUTTON
-        /// I'M SERIOUS!
+        ///     DON'T PRESS THE RED BUTTON
+        ///     I'M SERIOUS!
         /// 
-        /// Functions that handle button presses
+        ///     Functions that handle button presses
         /// </Buttons>
         /// 
         
@@ -267,5 +290,12 @@ namespace Spectrum {
         private void animationButton_Click(object sender, EventArgs e) { setAnimation(); }
 
         private void offButton_Click(object sender, EventArgs e) { serialPortHandler.sendMessage("turnOff"); }
+
+
+
+
+
+
+        
     }
 }

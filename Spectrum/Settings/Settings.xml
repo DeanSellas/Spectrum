@@ -10,10 +10,9 @@
       <General>
         <startWithWindows>false</startWithWindows>
         <connectOnStart>false</connectOnStart>
-        <startMinimized>false</startMinimized>
-        <advancedSettings>false</advancedSettings>
-        <closeToTray>false</closeToTray>
         <minimizeToTray>false</minimizeToTray>
+        <startMinimized>false</startMinimized>
+        <closeToTray>false</closeToTray>
       </General>
 
       <Updater>
@@ -27,7 +26,8 @@
         <defaultPort></defaultPort>
         <stripLength>100</stripLength>
         <turnOffOnClose>true</turnOffOnClose>
-        <turnOnWithConnect>false</turnOnWithConnect>
+        <turnOnWithApp>false</turnOnWithApp>
+        <responsiveLighting>false</responsiveLighting>
         <lastCommand></lastCommand>
         <delay>10</delay>
       </Arduino>
@@ -40,9 +40,11 @@
       </Colors>
       
       <Advanced>
+        <enableAdvanced>false</enableAdvanced>
         <devBuilds>false</devBuilds>
         <advancedLighting>false</advancedLighting>
       </Advanced>
+
     </Default>
 
     <Profile1>
@@ -51,7 +53,6 @@
         <startWithWindows>true</startWithWindows>
         <connectOnStart>true</connectOnStart>
         <startMinimized>true</startMinimized>
-        <advancedSettings>true</advancedSettings>
         <closeToTray>false</closeToTray>
         <minimizeToTray>false</minimizeToTray>
       </General>
@@ -61,6 +62,7 @@
       </Updater>
 
       <Advanced>
+        <enableAdvanced>true</enableAdvanced>
         <devBuilds>true</devBuilds>
       </Advanced>
 
