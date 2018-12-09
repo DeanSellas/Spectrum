@@ -57,6 +57,9 @@ namespace Spectrum.Classes {
             }
             if (serialPortList.Count == 0) {
                 MessageBox.Show("No Serial Ports were found please make sure your Arduino is plugged in and powered and try again", "No Serial Ports Found.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                spectrumForm.serialPortComboBox.Items.Add("No Ports Found");
+
                 spectrumForm.serialPortComboBox.Enabled = false;
                 spectrumForm.connectButton.Enabled = false;
                 spectrumForm.connectToolStripMenuItem.Enabled = false;

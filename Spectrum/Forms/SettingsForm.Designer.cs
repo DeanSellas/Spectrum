@@ -23,24 +23,25 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("General");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Arduino");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("General");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Arduino");
             this.general = new System.Windows.Forms.GroupBox();
+            this.minimizeToTray = new System.Windows.Forms.CheckBox();
+            this.closeToTray = new System.Windows.Forms.CheckBox();
             this.startMinimized = new System.Windows.Forms.CheckBox();
             this.connectOnStart = new System.Windows.Forms.CheckBox();
             this.startWithWindows = new System.Windows.Forms.CheckBox();
             this.profileComboBox = new System.Windows.Forms.ComboBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.closeToTray = new System.Windows.Forms.CheckBox();
-            this.minimizeToTray = new System.Windows.Forms.CheckBox();
             this.arduino = new System.Windows.Forms.GroupBox();
             this.turnOffOnClose = new System.Windows.Forms.CheckBox();
             this.responsiveLighting = new System.Windows.Forms.CheckBox();
             this.turnOnWithApp = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.portComboBox = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.refreshButton = new System.Windows.Forms.Button();
             this.general.SuspendLayout();
             this.arduino.SuspendLayout();
             this.SuspendLayout();
@@ -59,6 +60,26 @@
             this.general.TabIndex = 0;
             this.general.TabStop = false;
             this.general.Text = "General";
+            // 
+            // minimizeToTray
+            // 
+            this.minimizeToTray.AutoSize = true;
+            this.minimizeToTray.Location = new System.Drawing.Point(63, 106);
+            this.minimizeToTray.Name = "minimizeToTray";
+            this.minimizeToTray.Size = new System.Drawing.Size(112, 17);
+            this.minimizeToTray.TabIndex = 5;
+            this.minimizeToTray.Text = "Minimized To Tray";
+            this.minimizeToTray.UseVisualStyleBackColor = true;
+            // 
+            // closeToTray
+            // 
+            this.closeToTray.AutoSize = true;
+            this.closeToTray.Location = new System.Drawing.Point(63, 152);
+            this.closeToTray.Name = "closeToTray";
+            this.closeToTray.Size = new System.Drawing.Size(92, 17);
+            this.closeToTray.TabIndex = 4;
+            this.closeToTray.Text = "Close To Tray";
+            this.closeToTray.UseVisualStyleBackColor = true;
             // 
             // startMinimized
             // 
@@ -102,7 +123,7 @@
             // 
             this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.treeView1.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeView1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeView1.FullRowSelect = true;
             this.treeView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.treeView1.Indent = 5;
@@ -110,46 +131,27 @@
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.treeView1.Name = "treeView1";
-            treeNode5.Name = "generalNode";
-            treeNode5.Text = "General";
-            treeNode5.ToolTipText = "General Settings";
-            treeNode6.Name = "arduinoNode";
-            treeNode6.Text = "Arduino";
-            treeNode6.ToolTipText = "Arduino Settings";
+            treeNode3.Name = "generalNode";
+            treeNode3.Text = "General";
+            treeNode3.ToolTipText = "General Settings";
+            treeNode4.Name = "arduinoNode";
+            treeNode4.Text = "Arduino";
+            treeNode4.ToolTipText = "Arduino Settings";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode6});
+            treeNode3,
+            treeNode4});
             this.treeView1.ShowLines = false;
             this.treeView1.ShowNodeToolTips = true;
-            this.treeView1.Size = new System.Drawing.Size(121, 538);
+            this.treeView1.Size = new System.Drawing.Size(113, 538);
             this.treeView1.TabIndex = 0;
-            // 
-            // closeToTray
-            // 
-            this.closeToTray.AutoSize = true;
-            this.closeToTray.Location = new System.Drawing.Point(63, 152);
-            this.closeToTray.Name = "closeToTray";
-            this.closeToTray.Size = new System.Drawing.Size(92, 17);
-            this.closeToTray.TabIndex = 4;
-            this.closeToTray.Text = "Close To Tray";
-            this.closeToTray.UseVisualStyleBackColor = true;
-            // 
-            // minimizeToTray
-            // 
-            this.minimizeToTray.AutoSize = true;
-            this.minimizeToTray.Location = new System.Drawing.Point(63, 106);
-            this.minimizeToTray.Name = "minimizeToTray";
-            this.minimizeToTray.Size = new System.Drawing.Size(112, 17);
-            this.minimizeToTray.TabIndex = 5;
-            this.minimizeToTray.Text = "Minimized To Tray";
-            this.minimizeToTray.UseVisualStyleBackColor = true;
             // 
             // arduino
             // 
+            this.arduino.Controls.Add(this.refreshButton);
             this.arduino.Controls.Add(this.turnOffOnClose);
             this.arduino.Controls.Add(this.responsiveLighting);
             this.arduino.Controls.Add(this.turnOnWithApp);
-            this.arduino.Controls.Add(this.comboBox1);
+            this.arduino.Controls.Add(this.portComboBox);
             this.arduino.Location = new System.Drawing.Point(428, 12);
             this.arduino.Name = "arduino";
             this.arduino.Size = new System.Drawing.Size(252, 191);
@@ -187,13 +189,13 @@
             this.turnOnWithApp.Text = "Turn On With App";
             this.turnOnWithApp.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // portComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(63, 19);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
+            this.portComboBox.FormattingEnabled = true;
+            this.portComboBox.Location = new System.Drawing.Point(63, 19);
+            this.portComboBox.Name = "portComboBox";
+            this.portComboBox.Size = new System.Drawing.Size(121, 21);
+            this.portComboBox.TabIndex = 0;
             // 
             // button1
             // 
@@ -224,6 +226,17 @@
             this.button3.TabIndex = 7;
             this.button3.Text = "OK";
             this.button3.UseVisualStyleBackColor = true;
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.BackgroundImage = global::Spectrum.Properties.Resources.refresh;
+            this.refreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.refreshButton.Location = new System.Drawing.Point(190, 19);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(21, 21);
+            this.refreshButton.TabIndex = 6;
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // SettingsForm
             // 
@@ -265,9 +278,10 @@
         private System.Windows.Forms.CheckBox turnOffOnClose;
         private System.Windows.Forms.CheckBox responsiveLighting;
         private System.Windows.Forms.CheckBox turnOnWithApp;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox portComboBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        public System.Windows.Forms.Button refreshButton;
     }
 }

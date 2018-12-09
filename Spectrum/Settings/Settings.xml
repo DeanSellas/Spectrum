@@ -34,13 +34,13 @@
 
 
       <Colors>
-        <redValue>255</redValue>
-        <greenValue>255</greenValue>
-        <blueValue>255</blueValue>
+        <redValue>0</redValue>
+        <greenValue>0</greenValue>
+        <blueValue>0</blueValue>
       </Colors>
       
       <Advanced>
-        <enableAdvanced>false</enableAdvanced>
+        <advancedSettings>false</advancedSettings>
         <devBuilds>false</devBuilds>
         <advancedLighting>false</advancedLighting>
       </Advanced>
@@ -62,7 +62,7 @@
       </Updater>
 
       <Advanced>
-        <enableAdvanced>true</enableAdvanced>
+        <advancedSettings>true</advancedSettings>
         <devBuilds>true</devBuilds>
       </Advanced>
 

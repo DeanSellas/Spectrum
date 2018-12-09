@@ -21,10 +21,14 @@ namespace Spectrum {
         About aboutForm;
         SettingsForm settingsForm;
 
+        logForm logForm;
+
         // Handlers/Classes
         SettingsHandler settingsHander;
         UpdateHandler updateHandler;
         SerialPortHandler serialPortHandler;
+
+        LogsHandler log;
 
         // Strings
         string version = Application.ProductVersion;
@@ -35,20 +39,117 @@ namespace Spectrum {
         public Dictionary<string, dynamic> settings;
 
         public SpectrumFormMain() {
+
             InitializeComponent();
+            logForm = new logForm();
+
+            formsInit();
+        }
+
+
+
+        
+
+
+        ///
+        /// <Forms>
+        ///     This section builds the forms and shows them
+        /// </Forms>
+        /// 
+
+        // Spectrum startup
+        private void SpectrumFormMain_Shown(object sender, EventArgs e) {
             
+
+            serialPortComboBox.SelectedIndex = 0;
+            animationComboBox.SelectedIndex = 0;
+
+            trayNotifyIcon.Visible = true;
+
+            previewColorMaster();
+
+
+            buildApp();
+
+        }
+
+        
+
+        // Code to run when closing
+        private void SpectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
+            // Closes to tray if conditions are met
+            if (!userExit && settingsHander.getSetting("General", "closeToTray", settingsHander.currentProfile)) {
+                e.Cancel = true;
+                hideSpectrum();
+                return;
+            }
+
+            // if turn off on exit true
+            if (serialPortHandler.isConnected) {
+                serialPortHandler.messageQueue.Clear();
+                serialPortHandler.sendMessageHelper("turnOff");
+            }
+
+        }
+
+
+        // Builds the app and applies correct settings
+        internal void buildApp() {
+            renameApp();
+
+
+            redValue.Value = settingsHander.getSetting("Colors", "redValue",settingsHander.currentProfile);
+            greenValue.Value = settingsHander.getSetting("Colors", "greenValue", settingsHander.currentProfile);
+            blueValue.Value = settingsHander.getSetting("Colors", "blueValue", settingsHander.currentProfile);
+
+            if(settingsHander.getSetting("Advanced", "advancedSettings", settingsHander.currentProfile)) {
+                logSeperator.Visible = true;
+                logToolStripMenuItem.Visible = true;
+            }
+        }
+
+
+
+
+        // Changes Title
+        private void renameApp() {
+            // Sets title
+            if (version[4] == '0') Text = "Spectrum " + version.Substring(0, 3);
+            else Text = "Spectrum " + version.Substring(0, 5);
+            if (settingsHander.getSetting("Advanced", "devBuilds")) Text += " || DevBuild ||";
+        }
+
+
+        // Hides Spectrum and changes proper elements
+        private void hideSpectrum() {
+            Hide();
+
+            // Creates Balloon Tip
+            trayNotifyIcon.BalloonTipTitle = "Spectrum";
+            trayNotifyIcon.BalloonTipText = "Spectrum Has Been Minimized to Tray";
+            trayNotifyIcon.ShowBalloonTip(0);
+        }
+
+        // Creates base forms
+        private void formsInit() {
+
+            log = new LogsHandler(logForm.richTextBox1);
+            Console.SetOut(log);
+
             settingsHander = new SettingsHandler();
+
+            // settings will be removed because of the new getSettings method //
+            settings = settingsHander.settings;
+
 
             updateHandler = new UpdateHandler(settingsHander);
 
             serialPortHandler = new SerialPortHandler(this, settingsHander);
 
 
-            settings = settingsHander.settings;
-
-            formsInit();
+            settingsForm = new SettingsForm(this, settingsHander);
+            aboutForm = new About(settings["Default"]["Advanced"]["devBuilds"]);
         }
-
 
 
         ///
@@ -66,94 +167,10 @@ namespace Spectrum {
             base.WndProc(ref m);
         }
 
-        // gets setting value
-        public dynamic getSetting(string profile, string master, string setting) {
-            try {
-                return settings[profile][master][setting];
-            }
-            catch {
-                return settings["Default"][master][setting];
-            }
-        }
-
-        
-
-
-        ///
-        /// <Forms>
-        ///     This section builds the forms and shows them
-        /// </Forms>
-        /// 
-
-        // Spectrum startup
-        private void SpectrumFormMain_Shown(object sender, EventArgs e) {
-            renameApp();
-
-            serialPortComboBox.SelectedIndex = 0;
-            animationComboBox.SelectedIndex = 0;
-
-            trayNotifyIcon.Visible = true;
-
-            previewColorMaster();
-        }
-
-        
-
-        // Code to run when closing
-        private void SpectrumFormMain_FormClosing(object sender, FormClosingEventArgs e) {
-            // Closes to tray if conditions are met
-            if (!userExit && settingsHander.currentProfile != "Default" && settingsHander.settings[settingsHander.currentProfile]["General"].ContainsKey("closeToTray")) {
-                e.Cancel = true;
-                hideSpectrum();
-                return;
-            }
-
-            // if turn off on exit true
-            if (serialPortHandler.isConnected) {
-                
-                serialPortHandler.messageQueue.Clear();
-                serialPortHandler.sendMessageHelper("turnOff");
-            }
-
-        }
-
-        // Changes Title
-        private void renameApp() {
-            // Sets title
-            if (version[4] == '0') Text = "Spectrum " + version.Substring(0, 3);
-            else Text = "Spectrum " + version.Substring(0, 5);
-            if (settings["Default"]["Advanced"]["devBuilds"]) Text += " || DevBuild ||";
-        }
-
-        // Hides Spectrum and changes proper elements
-        private void hideSpectrum() {
-            Hide();
-
-            // Creates Balloon Tip
-            trayNotifyIcon.BalloonTipTitle = "Spectrum";
-            trayNotifyIcon.BalloonTipText = "Spectrum Has Been Minimized to Tray";
-            trayNotifyIcon.ShowBalloonTip(0);
-        }
-
-        // Creates base forms
-        private void formsInit() {
-            settingsForm = new SettingsForm(this, settingsHander);
-            aboutForm = new About(settings["Default"]["Advanced"]["devBuilds"]);
-        }
-
-        public void showSettings() { settingsForm.ShowDialog(); }
-        public void showAbout() { aboutForm.ShowDialog(); }
-
-
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) { showSettings(); }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) { showAbout(); }
-
-
 
         // Conects to Designated Serial Port
         private void connectToolStripMenuItem_Click(object sender, EventArgs e) { connectButton.PerformClick(); }
-        private void refreshButton_Click(object sender, EventArgs e) { serialPortHandler.listSerialPorts(); }
+        
 
         // Checks For Updates
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -291,11 +308,26 @@ namespace Spectrum {
 
         private void offButton_Click(object sender, EventArgs e) { serialPortHandler.sendMessage("turnOff"); }
 
+        private void refreshButton_Click(object sender, EventArgs e) { serialPortHandler.listSerialPorts(); }
 
 
 
+        ///
+        /// <Menu>
+        ///     Settings for Context Menu
+        /// </Menu>
+        /// 
 
+        public void showSettings() { settingsForm.ShowDialog(); }
 
-        
+        public void showAbout() { aboutForm.ShowDialog(); }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) { showSettings(); }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) { showAbout(); }
+
+        private void logToolStripMenuItem_Click(object sender, EventArgs e) {
+            logForm.Show();
+        }
     }
 }

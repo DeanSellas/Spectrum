@@ -64,6 +64,8 @@
             this.animationButton = new System.Windows.Forms.Button();
             this.animationComboBox = new System.Windows.Forms.ComboBox();
             this.colorPickerLabel = new System.Windows.Forms.LinkLabel();
+            this.logSeperator = new System.Windows.Forms.ToolStripSeparator();
+            this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.trayContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.redValue)).BeginInit();
@@ -79,6 +81,7 @@
             this.donateToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.Size = new System.Drawing.Size(556, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
@@ -147,7 +150,9 @@
             this.documentationToolStripMenuItem,
             this.bugReportToolStripMenuItem,
             this.githubToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.logSeperator,
+            this.logToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -155,28 +160,28 @@
             // documentationToolStripMenuItem
             // 
             this.documentationToolStripMenuItem.Name = "documentationToolStripMenuItem";
-            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.documentationToolStripMenuItem.Text = "Documentation";
             this.documentationToolStripMenuItem.Click += new System.EventHandler(this.documentationToolStripMenuItem_Click);
             // 
             // bugReportToolStripMenuItem
             // 
             this.bugReportToolStripMenuItem.Name = "bugReportToolStripMenuItem";
-            this.bugReportToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.bugReportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.bugReportToolStripMenuItem.Text = "Bug Report";
             this.bugReportToolStripMenuItem.Click += new System.EventHandler(this.bugReportToolStripMenuItem_Click);
             // 
             // githubToolStripMenuItem
             // 
             this.githubToolStripMenuItem.Name = "githubToolStripMenuItem";
-            this.githubToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.githubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.githubToolStripMenuItem.Text = "Github";
             this.githubToolStripMenuItem.Click += new System.EventHandler(this.githubToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -427,6 +432,20 @@
             this.colorPickerLabel.Text = "Color Picker";
             this.colorPickerLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.colorPickerClick);
             // 
+            // logSeperator
+            // 
+            this.logSeperator.Name = "logSeperator";
+            this.logSeperator.Size = new System.Drawing.Size(177, 6);
+            this.logSeperator.Visible = false;
+            // 
+            // logToolStripMenuItem
+            // 
+            this.logToolStripMenuItem.Name = "logToolStripMenuItem";
+            this.logToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logToolStripMenuItem.Text = "Logs";
+            this.logToolStripMenuItem.Visible = false;
+            this.logToolStripMenuItem.Click += new System.EventHandler(this.logToolStripMenuItem_Click);
+            // 
             // SpectrumFormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -493,7 +512,6 @@
         private System.Windows.Forms.ToolStripMenuItem hideToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
-        public System.Windows.Forms.ComboBox serialPortComboBox;
         public System.Windows.Forms.Button connectButton;
         public System.Windows.Forms.Button refreshButton;
         public System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
@@ -510,5 +528,8 @@
         public System.Windows.Forms.Button animationButton;
         private System.Windows.Forms.ComboBox animationComboBox;
         private System.Windows.Forms.LinkLabel colorPickerLabel;
+        internal System.Windows.Forms.ComboBox serialPortComboBox;
+        private System.Windows.Forms.ToolStripSeparator logSeperator;
+        private System.Windows.Forms.ToolStripMenuItem logToolStripMenuItem;
     }
 }

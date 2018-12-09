@@ -33,8 +33,19 @@ namespace Spectrum.Classes {
             saveSettings();
         }
 
+
+        // gets setting value
+        internal dynamic getSetting(string master, string setting, string profile = "Default") {
+            try {
+                return settings[profile][master][setting];
+            }
+            catch {
+                return settings["Default"][master][setting];
+            }
+        }
+
         // Prints Items in Settings
-        public void printSettings() {
+        internal void printSettings() {
             Console.WriteLine("Current Profile: " + currentProfile + "\n--------------------------------");
 
             foreach (string one in settings.Keys)

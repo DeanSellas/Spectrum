@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\LogsHandler.cs" />
     <Compile Include="Classes\NativeMethods.cs" />
     <Compile Include="Classes\SerialPortHandler.cs" />
     <Compile Include="Forms\AboutForm.cs">
@@ -75,6 +76,12 @@
     </Compile>
     <Compile Include="Classes\SettingsHandler.cs" />
     <Compile Include="Classes\UpdateHandler.cs" />
+    <Compile Include="Forms\logForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\logForm.Designer.cs">
+      <DependentUpon>logForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +104,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\logForm.resx">
+      <DependentUpon>logForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>

@@ -23,14 +23,14 @@ namespace Spectrum.Forms {
             spectrumMain = main;
             settingsHander = settings;
             InitializeComponent();
-            
 
-            //MaximumSize = new Size(435, 295);
+            // MaximumSize = new Size(435, 295);
         }
 
 
         private void SettingsForm_Shown(object sender, EventArgs e) {
             buildProfiles();
+            buildPorts();
             buildSettings();
         }
 
@@ -48,6 +48,17 @@ namespace Spectrum.Forms {
 
             profileComboBox.SelectedIndex = index;
         }
+
+        private void buildPorts() {
+            foreach(string i in spectrumMain.serialPortComboBox.Items) {
+                portComboBox.Items.Add(i);
+            }
+            portComboBox.SelectedIndex = 0;
+
+            portComboBox.Enabled = spectrumMain.serialPortComboBox.Enabled;
+
+        }
+
 
         // builds settings for current profile
         private void buildSettings() {
@@ -72,13 +83,13 @@ namespace Spectrum.Forms {
         private void setCheckbox(CheckBox check, GroupBox parent) {
             bool val;
 
-            val = spectrumMain.getSetting(activeProfile, parent.Text, check.Name);
+            val = settingsHander.getSetting(parent.Text, check.Name, activeProfile);
 
             check.Checked = val;
 
             Console.WriteLine(String.Format("{0} was set to {1}", check.Name, val));
         }
 
-        
+        private void refreshButton_Click(object sender, EventArgs e) { spectrumMain.refreshButton.PerformClick(); }
     }
 }
