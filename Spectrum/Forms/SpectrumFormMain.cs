@@ -28,7 +28,7 @@ namespace Spectrum {
         UpdateHandler updateHandler;
         SerialPortHandler serialPortHandler;
 
-        LogsHandler log;
+        LogsHandler.TextBoxLog log;
 
         // Strings
         string version = Application.ProductVersion;
@@ -41,14 +41,36 @@ namespace Spectrum {
         public SpectrumFormMain() {
 
             InitializeComponent();
-            logForm = new logForm();
+            
 
             formsInit();
         }
 
 
 
-        
+        // Creates base forms and applies proper settings
+        private void formsInit() {
+
+            logForm = new logForm();
+
+            log = new LogsHandler.TextBoxLog(logForm.richTextBox1);
+            Console.SetOut(new LogsHandler(log, Console.Out));
+
+            settingsHander = new SettingsHandler();
+
+            // settings will be removed because of the new getSettings method //
+            settings = settingsHander.settings;
+
+
+            updateHandler = new UpdateHandler(settingsHander);
+
+            serialPortHandler = new SerialPortHandler(this, settingsHander);
+
+            settingsForm = new SettingsForm(this, settingsHander);
+
+            aboutForm = new About(settingsHander.getSetting("Advanced", "devBuilds"));
+        }
+
 
 
         ///
@@ -59,7 +81,6 @@ namespace Spectrum {
 
         // Spectrum startup
         private void SpectrumFormMain_Shown(object sender, EventArgs e) {
-            
 
             serialPortComboBox.SelectedIndex = 0;
             animationComboBox.SelectedIndex = 0;
@@ -130,26 +151,7 @@ namespace Spectrum {
             trayNotifyIcon.ShowBalloonTip(0);
         }
 
-        // Creates base forms
-        private void formsInit() {
-
-            log = new LogsHandler(logForm.richTextBox1);
-            Console.SetOut(log);
-
-            settingsHander = new SettingsHandler();
-
-            // settings will be removed because of the new getSettings method //
-            settings = settingsHander.settings;
-
-
-            updateHandler = new UpdateHandler(settingsHander);
-
-            serialPortHandler = new SerialPortHandler(this, settingsHander);
-
-
-            settingsForm = new SettingsForm(this, settingsHander);
-            aboutForm = new About(settings["Default"]["Advanced"]["devBuilds"]);
-        }
+        
 
 
         ///
