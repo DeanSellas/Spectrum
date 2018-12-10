@@ -11,8 +11,21 @@ using Spectrum.Classes;
 
 namespace Spectrum.Forms {
     public partial class logForm : Form {
-        public logForm() {
+        LogsHandler logHandler;
+        internal SettingsHandler settings;
+        public logForm(LogsHandler l) {
             InitializeComponent();
+
+            logHandler = l;
+        }
+
+        private void logForm_Shown(object sender, EventArgs e) {
+            path.Text = settings.getSetting("Logging", "logPath");
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            Console.WriteLine("\n-- Log Saved --");
+            logHandler.saveLog(path.Text, log.Lines);
         }
     }
 }

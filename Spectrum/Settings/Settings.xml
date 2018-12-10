@@ -17,7 +17,7 @@
 
       <Updater>
         <checkForUpdate>launch</checkForUpdate>
-        <downloadLocation></downloadLocation>
+        <downloadPath></downloadPath>
         <lastCheck></lastCheck>
       </Updater>
 
@@ -32,6 +32,11 @@
         <delay>10</delay>
       </Arduino>
 
+      <Logging>
+        <enableLogs>false</enableLogs>
+        <reportErrors>false</reportErrors>
+        <logPath></logPath>
+      </Logging>
 
       <Colors>
         <redValue>0</redValue>
@@ -58,7 +63,7 @@
       </General>
 
       <Updater>
-        <downloadLocation>D:\Downloads</downloadLocation>
+        <downloadPath>D:\Downloads</downloadPath>
       </Updater>
 
       <Advanced>

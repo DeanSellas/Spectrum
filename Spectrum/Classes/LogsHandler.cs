@@ -5,19 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Spectrum.Forms;
 
 namespace Spectrum.Classes {
     
 
     public class LogsHandler : TextWriter {
-
         // properies for log textbox
-        public class TextBoxLog : TextWriter {
-            public Control textbox;
-            public TextBoxLog(Control log) {
-                textbox = log;
-            }
+        public class TextBoxLog : LogsHandler {
 
+            logForm logForm;
+
+            Control textbox;
+
+            public TextBoxLog() {
+                logForm = new logForm(this);
+                textbox = logForm.log;
+            }
+            
             public override void Write(char value) {
                 textbox.Text += value;
             }
@@ -29,6 +34,9 @@ namespace Spectrum.Classes {
             public override Encoding Encoding {
                 get { return Encoding.ASCII; }
             }
+
+            // returns the form that method created
+            internal logForm returnForm() { return logForm; }
         }
 
 
@@ -55,6 +63,9 @@ namespace Spectrum.Classes {
             get { return Encoding.ASCII; }
         }
 
+
+
+        public void saveLog(string path, string[] s) { File.WriteAllLines(String.Format("{0}\\log.txt", path), s); }
     }
 
 }

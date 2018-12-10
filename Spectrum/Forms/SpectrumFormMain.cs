@@ -51,9 +51,8 @@ namespace Spectrum {
         // Creates base forms and applies proper settings
         private void formsInit() {
 
-            logForm = new logForm();
-
-            log = new LogsHandler.TextBoxLog(logForm.richTextBox1);
+            log = new LogsHandler.TextBoxLog();
+            
             Console.SetOut(new LogsHandler(log, Console.Out));
 
             settingsHander = new SettingsHandler();
@@ -69,6 +68,8 @@ namespace Spectrum {
             settingsForm = new SettingsForm(this, settingsHander);
 
             aboutForm = new About(settingsHander.getSetting("Advanced", "devBuilds"));
+
+            logForm = log.returnForm();
         }
 
 
@@ -324,12 +325,15 @@ namespace Spectrum {
 
         public void showAbout() { aboutForm.ShowDialog(); }
 
+        public void showLog() {
+            logForm.settings = settingsHander;
+            logForm.Show();
+        }
+
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e) { showSettings(); }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) { showAbout(); }
 
-        private void logToolStripMenuItem_Click(object sender, EventArgs e) {
-            logForm.Show();
-        }
+        private void logToolStripMenuItem_Click(object sender, EventArgs e) { showLog(); }
     }
 }

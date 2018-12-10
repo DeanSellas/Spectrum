@@ -25,8 +25,8 @@ namespace Spectrum.Classes {
             webClient = new WebClient();
 
             // sets download location
-            try { downloadLocation = settingsHandler.settings[settingsHandler.currentProfile]["Updater"]["downloadLocation"]; }
-            catch { downloadLocation = settingsHandler.settings["Default"]["Updater"]["downloadLocation"]; }
+            try { downloadLocation = settingsHandler.settings[settingsHandler.currentProfile]["Updater"]["downloadPath"]; }
+            catch { downloadLocation = settingsHandler.settings["Default"]["Updater"]["downloadPath"]; }
 
             bool hasInternet = checkConnection();
             if(hasInternet) getOnlineVersion();

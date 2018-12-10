@@ -116,9 +116,9 @@ namespace Spectrum.Classes {
                             else tmpSettings[profile][master.Name][setting.Name] = setting.InnerText;
                         }
                         // check for download location and sets to default if none is set
-                        if(profile == "Default" && setting.Name == "downloadLocation" && tmpSettings[profile][master.Name][setting.Name] == "")
+                        if(profile == "Default" && (setting.Name == "downloadPath" || setting.Name == "logPath"))
                             tmpSettings[profile][master.Name][setting.Name] = Environment.CurrentDirectory;
-                        if (profile == "Default" && setting.Name == "lastCheck" && tmpSettings[profile][master.Name][setting.Name] == "")
+                        if (profile == "Default" && setting.Name == "lastCheck")
                             tmpSettings[profile][master.Name][setting.Name] = launchTime;
                     }
                 }
@@ -164,7 +164,7 @@ namespace Spectrum.Classes {
                             }
 
                             // saves default download location
-                            if (profile == "Default" && child == "downloadLocation") childNode.InnerText = Convert.ToString(settings[profile][master][child]);
+                            if (profile == "Default" && (child == "downloadPath" || child == "logPath"))childNode.InnerText = Convert.ToString(settings[profile][master][child]);
                             // saves last update check
                             if (profile == "Default" && child == "lastCheck") childNode.InnerText = Convert.ToString(settings[profile][master][child]);
                         }
