@@ -70,7 +70,10 @@ namespace Spectrum.Classes {
                 spectrumForm.connectButton.Enabled = true;
                 spectrumForm.connectToolStripMenuItem.Enabled = true;
             }
-                
+
+
+            Console.WriteLine("--------------------------------");
+
         }
 
         // Connects to Selected Serial Port

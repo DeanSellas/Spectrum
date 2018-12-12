@@ -10,7 +10,7 @@
 
  ReadRegStr $R0 HKLM Software\Microsoft\Windows\CurrentVersion\Uninstall\Spectrum" \
   "UninstallString"
-  StrCmp $R0 "" done
+  StrCmp $R0 " done
   
 MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
   "Spectrum is already installed. $\n$\nClick `OK` to remove the \

@@ -1,55 +1,79 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
+
   <currentSettingsProfile>Profile1</currentSettingsProfile>
+
   <Profiles>
+    
     <Default>
+
       <General>
         <startWithWindows>false</startWithWindows>
         <connectOnStart>false</connectOnStart>
-        <startMinimized>false</startMinimized>
-        <advancedSettings>false</advancedSettings>
-        <closeToTray>false</closeToTray>
         <minimizeToTray>false</minimizeToTray>
+        <startMinimized>false</startMinimized>
+        <closeToTray>false</closeToTray>
       </General>
+
       <Updater>
         <checkForUpdate>launch</checkForUpdate>
-        <downloadLocation>D:\Dean's Files\GoogleDrive\Documents\Projects\C#\Spectrum\Spectrum\bin\Debug</downloadLocation>
-        <lastCheck>12/03/2018 9:44:49 PM</lastCheck>
+        <downloadPath></downloadPath>
+        <lastCheck></lastCheck>
       </Updater>
+
       <Arduino>
         <isConnected>false</isConnected>
-        <defaultPort>
-        </defaultPort>
+        <defaultPort></defaultPort>
         <stripLength>100</stripLength>
         <turnOffOnClose>true</turnOffOnClose>
-        <turnOnWithConnect>false</turnOnWithConnect>
-        <lastCommand>
-        </lastCommand>
+        <turnOnWithApp>false</turnOnWithApp>
+        <responsiveLighting>false</responsiveLighting>
+        <lastCommand></lastCommand>
         <delay>10</delay>
       </Arduino>
+
+      <Logging>
+        <enableLogs>false</enableLogs>
+        <reportErrors>false</reportErrors>
+        <logPath></logPath>
+      </Logging>
+
       <Colors>
-        <redValue>255</redValue>
-        <greenValue>255</greenValue>
-        <blueValue>255</blueValue>
+        <redValue>0</redValue>
+        <greenValue>0</greenValue>
+        <blueValue>0</blueValue>
       </Colors>
+      
       <Advanced>
+        <advancedSettings>false</advancedSettings>
         <devBuilds>false</devBuilds>
         <advancedLighting>false</advancedLighting>
       </Advanced>
+
     </Default>
+
     <Profile1>
+
       <General>
-        <startWithWindows>True</startWithWindows>
-        <connectOnStart>True</connectOnStart>
-        <startMinimized>True</startMinimized>
-        <advancedSettings>True</advancedSettings>
+        <startWithWindows>true</startWithWindows>
+        <connectOnStart>true</connectOnStart>
+        <startMinimized>true</startMinimized>
+        <closeToTray>false</closeToTray>
+        <minimizeToTray>false</minimizeToTray>
       </General>
+
       <Updater>
-        <downloadLocation>D:\Downloads</downloadLocation>
+        <downloadPath>D:\Downloads</downloadPath>
       </Updater>
+
       <Advanced>
-        <devBuilds>True</devBuilds>
+        <advancedSettings>true</advancedSettings>
+        <devBuilds>true</devBuilds>
       </Advanced>
+
     </Profile1>
+    
   </Profiles>
+  
 </Settings>
+

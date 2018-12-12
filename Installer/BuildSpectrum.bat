@@ -33,7 +33,7 @@ REM MOVE FILES FUNCTION
 	mkdir Public\Files\Settings
 
 	copy ..\Spectrum\bin\Release\*.exe Public\Files
-	copy ..\Spectrum\bin\Release\Settings\* Public\Files\Settings
+	copy ..\Spectrum\\Settings\Settings.xml Public\Files\Settings
 
 	makensis Public\Spectrum.nsi
 	cls
@@ -46,7 +46,7 @@ EXIT /B 0
 
 
 	copy ..\Spectrum\bin\Debug\*.exe DevBuild\Files
-	copy ..\Spectrum\bin\Debug\Settings\* DevBuild\Files\Settings
+	copy ..\Spectrum\\Settings\Settings.xml DevBuild\Files\Settings
 
 	makensis DevBuild\Spectrum.nsi
 	cls
