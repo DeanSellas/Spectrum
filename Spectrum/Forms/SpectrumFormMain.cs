@@ -70,6 +70,7 @@ namespace Spectrum {
             aboutForm = new About(settingsHander.getSetting("Advanced", "devBuilds"));
 
             logForm = log.returnForm();
+            logForm.settings = settingsHander;
         }
 
 
@@ -325,10 +326,7 @@ namespace Spectrum {
 
         public void showAbout() { aboutForm.ShowDialog(); }
 
-        public void showLog() {
-            logForm.settings = settingsHander;
-            logForm.Show();
-        }
+        public void showLog() { logForm.Show(); }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e) { showSettings(); }
 

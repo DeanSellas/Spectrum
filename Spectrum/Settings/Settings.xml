@@ -32,11 +32,11 @@
         <delay>10</delay>
       </Arduino>
 
-      <Logging>
+      <Logs>
         <enableLogs>false</enableLogs>
         <reportErrors>false</reportErrors>
         <logPath></logPath>
-      </Logging>
+      </Logs>
 
       <Colors>
         <redValue>0</redValue>

@@ -25,7 +25,9 @@
         private void InitializeComponent() {
             this.log = new System.Windows.Forms.RichTextBox();
             this.path = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.saveFileButton = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // log
@@ -48,30 +50,50 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.path.Location = new System.Drawing.Point(13, 418);
             this.path.Name = "path";
-            this.path.Size = new System.Drawing.Size(694, 20);
+            this.path.Size = new System.Drawing.Size(629, 20);
             this.path.TabIndex = 1;
             // 
-            // button2
+            // saveButton
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(713, 413);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 29);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Save";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveButton.Location = new System.Drawing.Point(713, 413);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(75, 29);
+            this.saveButton.TabIndex = 3;
+            this.saveButton.Text = "Save Log";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // saveFileButton
+            // 
+            this.saveFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveFileButton.Location = new System.Drawing.Point(648, 418);
+            this.saveFileButton.Name = "saveFileButton";
+            this.saveFileButton.Size = new System.Drawing.Size(30, 20);
+            this.saveFileButton.TabIndex = 4;
+            this.saveFileButton.Text = "...";
+            this.saveFileButton.UseVisualStyleBackColor = true;
+            this.saveFileButton.Click += new System.EventHandler(this.saveFileButton_Click);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "txt";
+            this.saveFileDialog1.FileName = "log.txt";
+            this.saveFileDialog1.Filter = " Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            this.saveFileDialog1.Title = "Choose Log File Location";
             // 
             // logForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.saveFileButton);
+            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.path);
             this.Controls.Add(this.log);
             this.Name = "logForm";
             this.Text = "logForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.logForm_FormClosing);
             this.Shown += new System.EventHandler(this.logForm_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -82,6 +104,8 @@
 
         public System.Windows.Forms.RichTextBox log;
         private System.Windows.Forms.TextBox path;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button saveFileButton;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

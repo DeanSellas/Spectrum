@@ -23,8 +23,10 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("General");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Arduino");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("General");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Arduino");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Updates");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Logs");
             this.general = new System.Windows.Forms.GroupBox();
             this.minimizeToTray = new System.Windows.Forms.CheckBox();
             this.closeToTray = new System.Windows.Forms.CheckBox();
@@ -34,6 +36,7 @@
             this.profileComboBox = new System.Windows.Forms.ComboBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.arduino = new System.Windows.Forms.GroupBox();
+            this.refreshButton = new System.Windows.Forms.Button();
             this.turnOffOnClose = new System.Windows.Forms.CheckBox();
             this.responsiveLighting = new System.Windows.Forms.CheckBox();
             this.turnOnWithApp = new System.Windows.Forms.CheckBox();
@@ -41,9 +44,14 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.refreshButton = new System.Windows.Forms.Button();
+            this.updater = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.logs = new System.Windows.Forms.GroupBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.general.SuspendLayout();
             this.arduino.SuspendLayout();
+            this.updater.SuspendLayout();
+            this.logs.SuspendLayout();
             this.SuspendLayout();
             // 
             // general
@@ -131,13 +139,21 @@
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.treeView1.Name = "treeView1";
-            treeNode3.Name = "generalNode";
-            treeNode3.Text = "General";
-            treeNode3.ToolTipText = "General Settings";
-            treeNode4.Name = "arduinoNode";
-            treeNode4.Text = "Arduino";
-            treeNode4.ToolTipText = "Arduino Settings";
+            treeNode1.Name = "generalNode";
+            treeNode1.Text = "General";
+            treeNode1.ToolTipText = "General Settings";
+            treeNode2.Name = "arduinoNode";
+            treeNode2.Text = "Arduino";
+            treeNode2.ToolTipText = "Arduino Settings";
+            treeNode3.Name = "updaterNode";
+            treeNode3.Text = "Updates";
+            treeNode3.ToolTipText = "Update Settings";
+            treeNode4.Name = "logsNode";
+            treeNode4.Text = "Logs";
+            treeNode4.ToolTipText = "Logs Settings";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
             treeNode3,
             treeNode4});
             this.treeView1.ShowLines = false;
@@ -158,6 +174,17 @@
             this.arduino.TabIndex = 6;
             this.arduino.TabStop = false;
             this.arduino.Text = "Arduino";
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.BackgroundImage = global::Spectrum.Properties.Resources.refresh;
+            this.refreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.refreshButton.Location = new System.Drawing.Point(190, 19);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(21, 21);
+            this.refreshButton.TabIndex = 6;
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // turnOffOnClose
             // 
@@ -227,16 +254,41 @@
             this.button3.Text = "OK";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // refreshButton
+            // updater
             // 
-            this.refreshButton.BackgroundImage = global::Spectrum.Properties.Resources.refresh;
-            this.refreshButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.refreshButton.Location = new System.Drawing.Point(190, 19);
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(21, 21);
-            this.refreshButton.TabIndex = 6;
-            this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            this.updater.Controls.Add(this.comboBox1);
+            this.updater.Location = new System.Drawing.Point(131, 254);
+            this.updater.Name = "updater";
+            this.updater.Size = new System.Drawing.Size(252, 191);
+            this.updater.TabIndex = 6;
+            this.updater.TabStop = false;
+            this.updater.Text = "Updates";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(63, 19);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 0;
+            // 
+            // logs
+            // 
+            this.logs.Controls.Add(this.comboBox2);
+            this.logs.Location = new System.Drawing.Point(428, 254);
+            this.logs.Name = "logs";
+            this.logs.Size = new System.Drawing.Size(252, 191);
+            this.logs.TabIndex = 6;
+            this.logs.TabStop = false;
+            this.logs.Text = "Logs";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(63, 19);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.TabIndex = 0;
             // 
             // SettingsForm
             // 
@@ -246,6 +298,8 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.logs);
+            this.Controls.Add(this.updater);
             this.Controls.Add(this.arduino);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.general);
@@ -260,6 +314,8 @@
             this.general.PerformLayout();
             this.arduino.ResumeLayout(false);
             this.arduino.PerformLayout();
+            this.updater.ResumeLayout(false);
+            this.logs.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -283,5 +339,9 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         public System.Windows.Forms.Button refreshButton;
+        private System.Windows.Forms.GroupBox updater;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.GroupBox logs;
+        private System.Windows.Forms.ComboBox comboBox2;
     }
 }

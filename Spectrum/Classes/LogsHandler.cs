@@ -65,7 +65,7 @@ namespace Spectrum.Classes {
 
 
 
-        public void saveLog(string path, string[] s) { File.WriteAllLines(String.Format("{0}\\log.txt", path), s); }
+        public void saveLog(string path, string[] s) { File.WriteAllLines(String.Format("{0}", path), s); }
     }
 
 }

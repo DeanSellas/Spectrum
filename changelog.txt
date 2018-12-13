@@ -10,8 +10,12 @@ TWITTER: https://twitter.com/DeanSellas
 
 Alpha v0.5 : IN DEVELOPMENT
 ---------------------------------------------
++ ADDED: Logs
+	*used to help user debug program*
+
 + ADDED: Settings Handler
 	*Designed to control Spectrum's Settings and allow for multible profiles and more modular code*
+
 + ADDED: Refined Updater
 	*Can handle both regular updates and devbuild updates*
 

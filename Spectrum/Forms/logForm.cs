@@ -20,12 +20,23 @@ namespace Spectrum.Forms {
         }
 
         private void logForm_Shown(object sender, EventArgs e) {
-            path.Text = settings.getSetting("Logging", "logPath");
+            path.Text = settings.getSetting("Logs", "logPath") +"\\log.txt";
         }
 
         private void button2_Click(object sender, EventArgs e) {
             Console.WriteLine("\n-- Log Saved --");
             logHandler.saveLog(path.Text, log.Lines);
+        }
+
+        private void saveFileButton_Click(object sender, EventArgs e) {
+            saveFileDialog1.InitialDirectory = path.Text;
+            saveFileDialog1.ShowDialog();
+            path.Text = saveFileDialog1.FileName;
+        }
+
+        private void logForm_FormClosing(object sender, FormClosingEventArgs e) {
+            e.Cancel = true;
+            Hide();
         }
     }
 }
