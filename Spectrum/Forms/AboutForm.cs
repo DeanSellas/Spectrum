@@ -92,7 +92,12 @@ namespace Spectrum {
         #endregion
 
         private void okButton_Click(object sender, EventArgs e) {
-            Close();
+            Hide();
+        }
+
+        private void About_FormClosing(object sender, FormClosingEventArgs e) {
+            e.Cancel = true;
+            Hide();
         }
     }
 }

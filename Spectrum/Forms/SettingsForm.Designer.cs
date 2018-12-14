@@ -23,10 +23,10 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("General");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Arduino");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Updates");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Logs");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("General");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Arduino");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Updates");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Logs");
             this.general = new System.Windows.Forms.GroupBox();
             this.minimizeToTray = new System.Windows.Forms.CheckBox();
             this.closeToTray = new System.Windows.Forms.CheckBox();
@@ -139,23 +139,23 @@
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "generalNode";
-            treeNode1.Text = "General";
-            treeNode1.ToolTipText = "General Settings";
-            treeNode2.Name = "arduinoNode";
-            treeNode2.Text = "Arduino";
-            treeNode2.ToolTipText = "Arduino Settings";
-            treeNode3.Name = "updaterNode";
-            treeNode3.Text = "Updates";
-            treeNode3.ToolTipText = "Update Settings";
-            treeNode4.Name = "logsNode";
-            treeNode4.Text = "Logs";
-            treeNode4.ToolTipText = "Logs Settings";
+            treeNode9.Name = "generalNode";
+            treeNode9.Text = "General";
+            treeNode9.ToolTipText = "General Settings";
+            treeNode10.Name = "arduinoNode";
+            treeNode10.Text = "Arduino";
+            treeNode10.ToolTipText = "Arduino Settings";
+            treeNode11.Name = "updaterNode";
+            treeNode11.Text = "Updates";
+            treeNode11.ToolTipText = "Update Settings";
+            treeNode12.Name = "logsNode";
+            treeNode12.Text = "Logs";
+            treeNode12.ToolTipText = "Logs Settings";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4});
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12});
             this.treeView1.ShowLines = false;
             this.treeView1.ShowNodeToolTips = true;
             this.treeView1.Size = new System.Drawing.Size(113, 538);
@@ -309,7 +309,8 @@
             this.Name = "SettingsForm";
             this.ShowIcon = false;
             this.Text = "SettingsForm";
-            this.Shown += new System.EventHandler(this.SettingsForm_Shown);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
+            this.VisibleChanged += new System.EventHandler(this.SettingsForm_Shown);
             this.general.ResumeLayout(false);
             this.general.PerformLayout();
             this.arduino.ResumeLayout(false);

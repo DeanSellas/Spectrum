@@ -20,15 +20,19 @@ namespace Spectrum.Classes {
 
             public TextBoxLog() {
                 logForm = new logForm(this);
-                textbox = logForm.log;
+                textbox = new Control();
             }
             
             public override void Write(char value) {
+                // sets log textbox text to the controls text
                 textbox.Text += value;
+                logForm.log.Text = textbox.Text;
             }
 
             public override void Write(string value) {
+                // sets log textbox text to the controls text
                 textbox.Text += value;
+                logForm.log.Text = textbox.Text;
             }
 
             public override Encoding Encoding {

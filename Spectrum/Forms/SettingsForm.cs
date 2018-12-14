@@ -24,11 +24,15 @@ namespace Spectrum.Forms {
             settingsHander = settings;
             InitializeComponent();
 
+            // will be used later
             // MaximumSize = new Size(435, 295);
         }
 
-
+        // builds settings form when shown
         private void SettingsForm_Shown(object sender, EventArgs e) {
+            // since visual studio only using Shown once I needed to reasing this to Visablility changed event
+            // this prevents code from running on close
+            if (!Visible) return;
             buildProfiles();
             buildPorts();
             buildSettings();
@@ -65,6 +69,8 @@ namespace Spectrum.Forms {
             activeProfile = profileComboBox.SelectedItem.ToString();
 
             buildSettingsRecusion(this.Controls, this);
+
+            Console.WriteLine("--------------------------------");
         }
         private void buildSettingsRecusion(Control.ControlCollection controls, Control parent) {
             // goes through controls
@@ -91,5 +97,10 @@ namespace Spectrum.Forms {
         }
 
         private void refreshButton_Click(object sender, EventArgs e) { spectrumMain.refreshButton.PerformClick(); }
+
+        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e) {
+            e.Cancel = true;
+            Hide();
+        }
     }
 }

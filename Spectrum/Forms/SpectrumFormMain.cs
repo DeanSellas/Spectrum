@@ -322,9 +322,9 @@ namespace Spectrum {
         /// </Menu>
         /// 
 
-        public void showSettings() { settingsForm.ShowDialog(); }
+        public void showSettings() { settingsForm.Show(); }
 
-        public void showAbout() { aboutForm.ShowDialog(); }
+        public void showAbout() { aboutForm.Show(); }
 
         public void showLog() { logForm.Show(); }
 

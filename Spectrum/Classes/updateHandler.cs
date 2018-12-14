@@ -92,7 +92,7 @@ namespace Spectrum.Classes {
             
             // saves last check time
             settingsHandler.settings["Default"]["Updater"]["lastCheck"] = DateTime.Now.ToString();
-            settingsHandler.saveSettings();
+            //settingsHandler.saveSettings();
 
             // prompt user if update is avalible
             if (updateAvalible) {

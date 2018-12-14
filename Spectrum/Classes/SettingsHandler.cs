@@ -25,12 +25,12 @@ namespace Spectrum.Classes {
             settings = createSettings();
             if (currentProfile == "") currentProfile = "Default";
             else if (!settings.ContainsKey(currentProfile)) newProfile(currentProfile);
-            printSettings();
 
             //changedSettings.Add("setting to change");
 
             //newProfile("test");
             saveSettings();
+            printSettings();
         }
 
 
@@ -52,9 +52,8 @@ namespace Spectrum.Classes {
                 foreach (string two in settings[one].Keys)
                     foreach (string three in settings[one][two].Keys)
                         Console.WriteLine("Profile: {0} -- Master: {1} -- Settings: {2} -- Value: {3}", one, two, three, settings[one][two][three]);
-            Console.WriteLine("-------------------------------- \n---Profiles Avaliable---");
-            foreach (string profile in profileList) Console.WriteLine("Profile: {0}", profile);
             Console.WriteLine("--------------------------------");
+            
         }
 
         // Checks to see if settings exist, if not creates settings
@@ -79,10 +78,13 @@ namespace Spectrum.Classes {
 
             XmlNode parent = root.SelectSingleNode("descendant::Profiles");
 
+            Console.WriteLine("Profiles Avaliable:");
             // Adds each profile to list
-            foreach (XmlNode child in parent.ChildNodes) 
+            foreach (XmlNode child in parent.ChildNodes) {
                 profiles.Add(child.Name);
-
+                Console.WriteLine("Profile: " + child.Name);
+            }
+            Console.WriteLine("--------------------------------");
             return profiles;
         }
 
@@ -116,8 +118,11 @@ namespace Spectrum.Classes {
                             else tmpSettings[profile][master.Name][setting.Name] = setting.InnerText;
                         }
                         // check for download location and sets to default if none is set
-                        if(profile == "Default" && (setting.Name == "downloadPath" || setting.Name == "logPath"))
+                        if(profile == "Default" && (setting.Name == "downloadPath" || setting.Name == "logPath")) {
                             tmpSettings[profile][master.Name][setting.Name] = Environment.CurrentDirectory;
+                            if (setting.Name == "logPath") tmpSettings[profile][master.Name][setting.Name] += "\\log.txt";
+                        }
+                            
                         if (profile == "Default" && setting.Name == "lastCheck")
                             tmpSettings[profile][master.Name][setting.Name] = launchTime;
                     }
@@ -180,8 +185,10 @@ namespace Spectrum.Classes {
 
             // saves settings then updates them for Spectrum
             doc.Save(settingsFile);
+
+            Console.WriteLine("-- Settings Saved --\n--------------------------------");
         }
-        
+
         // Creates A New Profile
         public void newProfile(string profileName) {
             settings[profileName] = new Dictionary<string, dynamic>();

@@ -19,12 +19,16 @@ namespace Spectrum.Forms {
             logHandler = l;
         }
 
+        // builds settings form when shown
         private void logForm_Shown(object sender, EventArgs e) {
-            path.Text = settings.getSetting("Logs", "logPath") +"\\log.txt";
+            // since visual studio only using Shown once I needed to reasing this to Visablility changed event
+            // this prevents code from running on close
+            if (!Visible) return;
+            path.Text = settings.getSetting("Logs", "logPath");
         }
 
         private void button2_Click(object sender, EventArgs e) {
-            Console.WriteLine("\n-- Log Saved --");
+            Console.WriteLine("-- Log Saved --\n--------------------------------");
             logHandler.saveLog(path.Text, log.Lines);
         }
 
@@ -38,5 +42,18 @@ namespace Spectrum.Forms {
             e.Cancel = true;
             Hide();
         }
+
+        private void timer1_Tick(object sender, EventArgs e) {
+            log.SelectionStart = log.Text.Length;
+            log.ScrollToCaret();
+            timer1.Enabled = false;
+        }
+
+        private void log_TextChanged(object sender, EventArgs e) {
+
+            if(autoScrollCheckBox.Checked)
+                timer1.Enabled = true;
+        }
+
     }
 }
