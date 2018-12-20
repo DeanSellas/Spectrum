@@ -35,7 +35,8 @@ REM MOVE FILES FUNCTION
 	copy ..\Spectrum\bin\Release\*.exe Public\Files
 	copy ..\Spectrum\\Settings\Settings.xml Public\Files\Settings
 
-	makensis Public\Spectrum.nsi
+	Public\Spectrum.nsi
+	pause
 	cls
 	echo Prosses Is Done Spectrum is Built!
 EXIT /B 0
@@ -48,7 +49,8 @@ EXIT /B 0
 	copy ..\Spectrum\bin\Debug\*.exe DevBuild\Files
 	copy ..\Spectrum\\Settings\Settings.xml DevBuild\Files\Settings
 
-	makensis DevBuild\Spectrum.nsi
+	DevBuild\Spectrum.nsi
+	pause
 	cls
 	echo Prosses Is Done Spectrum is Built!
 EXIT /B 0
