@@ -25,8 +25,7 @@ namespace Spectrum.Classes {
             webClient = new WebClient();
 
             // sets download location
-            try { downloadLocation = settingsHandler.settings[settingsHandler.currentProfile]["Updater"]["downloadPath"]; }
-            catch { downloadLocation = settingsHandler.settings["Default"]["Updater"]["downloadPath"]; }
+            downloadLocation = settingsHandler.getSetting("Updater", "downloadPath", settingsHandler.currentProfile);
 
             bool hasInternet = checkConnection();
             if(hasInternet) getOnlineVersion();
@@ -61,6 +60,7 @@ namespace Spectrum.Classes {
             }
             catch {
                 MessageBox.Show("Could not esstablish a connection to the update server. Please Check your Internet and try again.", "No Internet Connection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Console.WriteLine("-- WARNING! --\nCould not connect to Github to recieve updates!\n--------------------------------");
                 return false;
             }
         }

@@ -34,6 +34,7 @@
 
       <Logs>
         <enableLogs>false</enableLogs>
+        <autoScroll>false</autoScroll>
         <reportErrors>false</reportErrors>
         <logPath></logPath>
       </Logs>
