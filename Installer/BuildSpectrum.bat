@@ -36,9 +36,10 @@ REM MOVE FILES FUNCTION
 	copy ..\Spectrum\\Settings\Settings.xml Public\Files\Settings
 
 	Public\Spectrum.nsi
-	pause
-	cls
-	echo Prosses Is Done Spectrum is Built!
+
+	echo ----------------------------------------------
+	
+	echo Process Is Done. & echo.Spectrum is Built!
 EXIT /B 0
 
 :moveFilesDev
@@ -50,7 +51,9 @@ EXIT /B 0
 	copy ..\Spectrum\\Settings\Settings.xml DevBuild\Files\Settings
 
 	DevBuild\Spectrum.nsi
-	pause
-	cls
-	echo Prosses Is Done Spectrum is Built!
+
+
+	echo ----------------------------------------------
+	
+	echo Process Is Done. echo.Spectrum Dev is Built!
 EXIT /B 0

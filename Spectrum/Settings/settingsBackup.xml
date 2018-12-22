@@ -10,14 +10,14 @@
       <General>
         <startWithWindows>false</startWithWindows>
         <connectOnStart>false</connectOnStart>
+        <minimizeToTray>false</minimizeToTray>
         <startMinimized>false</startMinimized>
         <closeToTray>false</closeToTray>
-        <minimizeToTray>false</minimizeToTray>
       </General>
 
       <Updater>
         <checkForUpdate>launch</checkForUpdate>
-        <downloadLocation></downloadLocation>
+        <downloadPath></downloadPath>
         <lastCheck></lastCheck>
       </Updater>
 
@@ -26,24 +26,31 @@
         <defaultPort></defaultPort>
         <stripLength>100</stripLength>
         <turnOffOnClose>true</turnOffOnClose>
-        <turnOnWithConnect>false</turnOnWithConnect>
+        <turnOnWithApp>false</turnOnWithApp>
+        <responsiveLighting>false</responsiveLighting>
         <lastCommand></lastCommand>
         <delay>10</delay>
       </Arduino>
 
+      <Logs>
+        <enableLogs>false</enableLogs>
+        <autoScroll>false</autoScroll>
+        <reportErrors>false</reportErrors>
+        <logPath></logPath>
+      </Logs>
 
       <Colors>
-        <redValue>255</redValue>
-        <greenValue>255</greenValue>
-        <blueValue>255</blueValue>
+        <redValue>0</redValue>
+        <greenValue>0</greenValue>
+        <blueValue>0</blueValue>
       </Colors>
       
       <Advanced>
-        <enableAdvanced>false</enableAdvanced>
+        <advancedSettings>false</advancedSettings>
         <devBuilds>false</devBuilds>
         <advancedLighting>false</advancedLighting>
       </Advanced>
-      
+
     </Default>
 
   </Profiles>
