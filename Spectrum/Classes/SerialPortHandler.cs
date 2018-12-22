@@ -90,6 +90,11 @@ namespace Spectrum.Classes {
                 spectrumForm.solidColorButton.Enabled = true;
                 spectrumForm.animationButton.Enabled = true;
 
+                spectrumForm.statusLabel.Text = "Connected";
+                spectrumForm.statusLabel.BackColor = System.Drawing.Color.Green;
+
+
+
                 isConnected = true;
             }
             catch {
@@ -107,6 +112,10 @@ namespace Spectrum.Classes {
 
             spectrumForm.solidColorButton.Enabled = false;
             spectrumForm.animationButton.Enabled = false;
+
+
+            spectrumForm.statusLabel.Text = "Disconnected";
+            spectrumForm.statusLabel.BackColor = System.Drawing.Color.Red;
 
             isConnected = false;
         }

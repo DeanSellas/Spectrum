@@ -23,10 +23,11 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("General");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Arduino");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Updates");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Logs");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("General");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Arduino");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Updates");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Logs");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Advanced");
             this.general = new System.Windows.Forms.GroupBox();
             this.minimizeToTray = new System.Windows.Forms.CheckBox();
             this.closeToTray = new System.Windows.Forms.CheckBox();
@@ -41,13 +42,24 @@
             this.responsiveLighting = new System.Windows.Forms.CheckBox();
             this.turnOnWithApp = new System.Windows.Forms.CheckBox();
             this.portComboBox = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.applyButton = new System.Windows.Forms.Button();
+            this.okButton = new System.Windows.Forms.Button();
             this.updater = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.checkForUpdate = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.downloadPath = new System.Windows.Forms.TextBox();
             this.logs = new System.Windows.Forms.GroupBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.saveFileButton = new System.Windows.Forms.Button();
+            this.logPathLabel = new System.Windows.Forms.Label();
+            this.logPath = new System.Windows.Forms.TextBox();
+            this.reportErrors = new System.Windows.Forms.CheckBox();
+            this.autoScroll = new System.Windows.Forms.CheckBox();
+            this.enableLogs = new System.Windows.Forms.CheckBox();
+            this.advanced = new System.Windows.Forms.GroupBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.general.SuspendLayout();
             this.arduino.SuspendLayout();
             this.updater.SuspendLayout();
@@ -78,6 +90,7 @@
             this.minimizeToTray.TabIndex = 5;
             this.minimizeToTray.Text = "Minimized To Tray";
             this.minimizeToTray.UseVisualStyleBackColor = true;
+            this.minimizeToTray.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // closeToTray
             // 
@@ -88,6 +101,7 @@
             this.closeToTray.TabIndex = 4;
             this.closeToTray.Text = "Close To Tray";
             this.closeToTray.UseVisualStyleBackColor = true;
+            this.closeToTray.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // startMinimized
             // 
@@ -98,6 +112,7 @@
             this.startMinimized.TabIndex = 3;
             this.startMinimized.Text = "Start Minimized";
             this.startMinimized.UseVisualStyleBackColor = true;
+            this.startMinimized.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // connectOnStart
             // 
@@ -108,6 +123,7 @@
             this.connectOnStart.TabIndex = 2;
             this.connectOnStart.Text = "Connect On Startup";
             this.connectOnStart.UseVisualStyleBackColor = true;
+            this.connectOnStart.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // startWithWindows
             // 
@@ -118,6 +134,7 @@
             this.startWithWindows.TabIndex = 1;
             this.startWithWindows.Text = "Start With Windows";
             this.startWithWindows.UseVisualStyleBackColor = true;
+            this.startWithWindows.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // profileComboBox
             // 
@@ -139,26 +156,30 @@
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.treeView1.Name = "treeView1";
-            treeNode9.Name = "generalNode";
-            treeNode9.Text = "General";
-            treeNode9.ToolTipText = "General Settings";
-            treeNode10.Name = "arduinoNode";
-            treeNode10.Text = "Arduino";
-            treeNode10.ToolTipText = "Arduino Settings";
-            treeNode11.Name = "updaterNode";
-            treeNode11.Text = "Updates";
-            treeNode11.ToolTipText = "Update Settings";
-            treeNode12.Name = "logsNode";
-            treeNode12.Text = "Logs";
-            treeNode12.ToolTipText = "Logs Settings";
+            treeNode1.Name = "generalNode";
+            treeNode1.Text = "General";
+            treeNode1.ToolTipText = "General Settings";
+            treeNode2.Name = "arduinoNode";
+            treeNode2.Text = "Arduino";
+            treeNode2.ToolTipText = "Arduino Settings";
+            treeNode3.Name = "updaterNode";
+            treeNode3.Text = "Updates";
+            treeNode3.ToolTipText = "Update Settings";
+            treeNode4.Name = "logsNode";
+            treeNode4.Text = "Logs";
+            treeNode4.ToolTipText = "Logs Settings";
+            treeNode5.Name = "advancedNode";
+            treeNode5.Text = "Advanced";
+            treeNode5.ToolTipText = "Advanced Settings";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode9,
-            treeNode10,
-            treeNode11,
-            treeNode12});
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5});
             this.treeView1.ShowLines = false;
             this.treeView1.ShowNodeToolTips = true;
-            this.treeView1.Size = new System.Drawing.Size(113, 538);
+            this.treeView1.Size = new System.Drawing.Size(113, 718);
             this.treeView1.TabIndex = 0;
             // 
             // arduino
@@ -195,6 +216,7 @@
             this.turnOffOnClose.TabIndex = 5;
             this.turnOffOnClose.Text = "Turn Off on Close";
             this.turnOffOnClose.UseVisualStyleBackColor = true;
+            this.turnOffOnClose.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // responsiveLighting
             // 
@@ -205,6 +227,7 @@
             this.responsiveLighting.TabIndex = 4;
             this.responsiveLighting.Text = "Responsive Lighting";
             this.responsiveLighting.UseVisualStyleBackColor = true;
+            this.responsiveLighting.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // turnOnWithApp
             // 
@@ -215,6 +238,7 @@
             this.turnOnWithApp.TabIndex = 3;
             this.turnOnWithApp.Text = "Turn On With App";
             this.turnOnWithApp.UseVisualStyleBackColor = true;
+            this.turnOnWithApp.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // portComboBox
             // 
@@ -224,39 +248,47 @@
             this.portComboBox.Size = new System.Drawing.Size(121, 21);
             this.portComboBox.TabIndex = 0;
             // 
-            // button1
+            // cancelButton
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(642, 504);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Cancel";
-            this.button1.UseVisualStyleBackColor = true;
+            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancelButton.Location = new System.Drawing.Point(642, 684);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 7;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // button2
+            // applyButton
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(734, 504);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Apply";
-            this.button2.UseVisualStyleBackColor = true;
+            this.applyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.applyButton.Enabled = false;
+            this.applyButton.Location = new System.Drawing.Point(734, 684);
+            this.applyButton.Name = "applyButton";
+            this.applyButton.Size = new System.Drawing.Size(75, 23);
+            this.applyButton.TabIndex = 8;
+            this.applyButton.Text = "Apply";
+            this.applyButton.UseVisualStyleBackColor = true;
+            this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
             // 
-            // button3
+            // okButton
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(549, 504);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "OK";
-            this.button3.UseVisualStyleBackColor = true;
+            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.okButton.Location = new System.Drawing.Point(549, 684);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.TabIndex = 7;
+            this.okButton.Text = "OK";
+            this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // updater
             // 
-            this.updater.Controls.Add(this.comboBox1);
+            this.updater.Controls.Add(this.button4);
+            this.updater.Controls.Add(this.checkForUpdate);
+            this.updater.Controls.Add(this.label2);
+            this.updater.Controls.Add(this.label1);
+            this.updater.Controls.Add(this.downloadPath);
             this.updater.Location = new System.Drawing.Point(131, 254);
             this.updater.Name = "updater";
             this.updater.Size = new System.Drawing.Size(252, 191);
@@ -264,17 +296,64 @@
             this.updater.TabStop = false;
             this.updater.Text = "Updates";
             // 
-            // comboBox1
+            // button4
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(63, 19);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Location = new System.Drawing.Point(216, 43);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(30, 20);
+            this.button4.TabIndex = 5;
+            this.button4.Text = "...";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.saveFileButton_Click);
+            // 
+            // checkForUpdate
+            // 
+            this.checkForUpdate.FormattingEnabled = true;
+            this.checkForUpdate.Items.AddRange(new object[] {
+            "Launch",
+            "Daily",
+            "Weekly",
+            "Biweekly",
+            "Monthly"});
+            this.checkForUpdate.Location = new System.Drawing.Point(114, 74);
+            this.checkForUpdate.Name = "checkForUpdate";
+            this.checkForUpdate.Size = new System.Drawing.Size(115, 21);
+            this.checkForUpdate.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 79);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(102, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Check For Updates:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Download Path:";
+            // 
+            // downloadPath
+            // 
+            this.downloadPath.Location = new System.Drawing.Point(9, 43);
+            this.downloadPath.Name = "downloadPath";
+            this.downloadPath.Size = new System.Drawing.Size(201, 20);
+            this.downloadPath.TabIndex = 1;
             // 
             // logs
             // 
-            this.logs.Controls.Add(this.comboBox2);
+            this.logs.Controls.Add(this.saveFileButton);
+            this.logs.Controls.Add(this.logPathLabel);
+            this.logs.Controls.Add(this.logPath);
+            this.logs.Controls.Add(this.reportErrors);
+            this.logs.Controls.Add(this.autoScroll);
+            this.logs.Controls.Add(this.enableLogs);
             this.logs.Location = new System.Drawing.Point(428, 254);
             this.logs.Name = "logs";
             this.logs.Size = new System.Drawing.Size(252, 191);
@@ -282,23 +361,92 @@
             this.logs.TabStop = false;
             this.logs.Text = "Logs";
             // 
-            // comboBox2
+            // saveFileButton
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(63, 19);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 0;
+            this.saveFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveFileButton.Location = new System.Drawing.Point(216, 43);
+            this.saveFileButton.Name = "saveFileButton";
+            this.saveFileButton.Size = new System.Drawing.Size(30, 20);
+            this.saveFileButton.TabIndex = 5;
+            this.saveFileButton.Text = "...";
+            this.saveFileButton.UseVisualStyleBackColor = true;
+            this.saveFileButton.Click += new System.EventHandler(this.saveFileButton_Click);
+            // 
+            // logPathLabel
+            // 
+            this.logPathLabel.AutoSize = true;
+            this.logPathLabel.Location = new System.Drawing.Point(6, 23);
+            this.logPathLabel.Name = "logPathLabel";
+            this.logPathLabel.Size = new System.Drawing.Size(53, 13);
+            this.logPathLabel.TabIndex = 2;
+            this.logPathLabel.Text = "Log Path:";
+            // 
+            // logPath
+            // 
+            this.logPath.Location = new System.Drawing.Point(9, 43);
+            this.logPath.Name = "logPath";
+            this.logPath.Size = new System.Drawing.Size(201, 20);
+            this.logPath.TabIndex = 1;
+            // 
+            // reportErrors
+            // 
+            this.reportErrors.AutoSize = true;
+            this.reportErrors.Location = new System.Drawing.Point(63, 122);
+            this.reportErrors.Name = "reportErrors";
+            this.reportErrors.Size = new System.Drawing.Size(88, 17);
+            this.reportErrors.TabIndex = 0;
+            this.reportErrors.Text = "Report Errors";
+            this.reportErrors.UseVisualStyleBackColor = true;
+            this.reportErrors.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            // 
+            // autoScroll
+            // 
+            this.autoScroll.AutoSize = true;
+            this.autoScroll.Location = new System.Drawing.Point(63, 99);
+            this.autoScroll.Name = "autoScroll";
+            this.autoScroll.Size = new System.Drawing.Size(77, 17);
+            this.autoScroll.TabIndex = 0;
+            this.autoScroll.Text = "Auto Scroll";
+            this.autoScroll.UseVisualStyleBackColor = true;
+            this.autoScroll.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            // 
+            // enableLogs
+            // 
+            this.enableLogs.AutoSize = true;
+            this.enableLogs.Location = new System.Drawing.Point(63, 76);
+            this.enableLogs.Name = "enableLogs";
+            this.enableLogs.Size = new System.Drawing.Size(85, 17);
+            this.enableLogs.TabIndex = 0;
+            this.enableLogs.Text = "Enable Logs";
+            this.enableLogs.UseVisualStyleBackColor = true;
+            this.enableLogs.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
+            // 
+            // advanced
+            // 
+            this.advanced.Location = new System.Drawing.Point(131, 489);
+            this.advanced.Name = "advanced";
+            this.advanced.Size = new System.Drawing.Size(252, 191);
+            this.advanced.TabIndex = 6;
+            this.advanced.TabStop = false;
+            this.advanced.Text = "Advanced";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "txt";
+            this.saveFileDialog1.FileName = "log.txt";
+            this.saveFileDialog1.Filter = " Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            this.saveFileDialog1.Title = "Choose Log File Location";
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(822, 538);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(822, 718);
+            this.Controls.Add(this.applyButton);
+            this.Controls.Add(this.okButton);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.logs);
+            this.Controls.Add(this.advanced);
             this.Controls.Add(this.updater);
             this.Controls.Add(this.arduino);
             this.Controls.Add(this.treeView1);
@@ -316,7 +464,9 @@
             this.arduino.ResumeLayout(false);
             this.arduino.PerformLayout();
             this.updater.ResumeLayout(false);
+            this.updater.PerformLayout();
             this.logs.ResumeLayout(false);
+            this.logs.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -336,13 +486,24 @@
         private System.Windows.Forms.CheckBox responsiveLighting;
         private System.Windows.Forms.CheckBox turnOnWithApp;
         private System.Windows.Forms.ComboBox portComboBox;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button applyButton;
+        private System.Windows.Forms.Button okButton;
         public System.Windows.Forms.Button refreshButton;
         private System.Windows.Forms.GroupBox updater;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox checkForUpdate;
         private System.Windows.Forms.GroupBox logs;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.GroupBox advanced;
+        private System.Windows.Forms.CheckBox autoScroll;
+        private System.Windows.Forms.CheckBox enableLogs;
+        private System.Windows.Forms.TextBox logPath;
+        private System.Windows.Forms.Label logPathLabel;
+        private System.Windows.Forms.Button saveFileButton;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox downloadPath;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox reportErrors;
     }
 }

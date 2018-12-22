@@ -12,6 +12,7 @@ using Spectrum.Classes;
 namespace Spectrum.Forms {
     public partial class logForm : Form {
         LogsHandler logHandler;
+
         internal SettingsHandler settings;
         public logForm(LogsHandler l) {
             InitializeComponent();
@@ -25,6 +26,10 @@ namespace Spectrum.Forms {
             // this prevents code from running on close
             if (!Visible) return;
             path.Text = settings.getSetting("Logs", "logPath");
+
+            autoScrollCheckBox.Checked = settings.getSetting("Logs", "autoScroll", settings.currentProfile);
+
+
         }
 
         private void button2_Click(object sender, EventArgs e) {
@@ -33,6 +38,7 @@ namespace Spectrum.Forms {
         }
 
         private void saveFileButton_Click(object sender, EventArgs e) {
+            saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.InitialDirectory = path.Text;
             saveFileDialog1.ShowDialog();
             path.Text = saveFileDialog1.FileName;

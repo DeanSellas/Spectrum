@@ -25,7 +25,7 @@ namespace Spectrum.Classes {
             webClient = new WebClient();
 
             // sets download location
-            downloadLocation = settingsHandler.getSetting("Updater", "downloadPath", settingsHandler.currentProfile);
+            downloadLocation = settingsHandler.getSetting("Updates", "downloadPath", settingsHandler.currentProfile);
 
             bool hasInternet = checkConnection();
             if(hasInternet) getOnlineVersion();
@@ -35,8 +35,8 @@ namespace Spectrum.Classes {
 
             // sets lastcheck and check data
             string check, lastCheck;
-            lastCheck = settingsHandler.settings["Default"]["Updater"]["lastCheck"];
-            try { check = settingsHandler.settings[settingsHandler.currentProfile]["Updater"]["checkForUpdate"]; }
+            lastCheck = settingsHandler.settings["Default"]["Updates"]["lastCheck"];
+            try { check = settingsHandler.settings[settingsHandler.currentProfile]["Updates"]["checkForUpdate"]; }
             catch { check = "launch"; }
 
             Console.WriteLine("Check For Update: " + check + "\n--------------------------------");
@@ -91,7 +91,7 @@ namespace Spectrum.Classes {
             }
             
             // saves last check time
-            settingsHandler.settings["Default"]["Updater"]["lastCheck"] = DateTime.Now.ToString();
+            settingsHandler.settings["Default"]["Updates"]["lastCheck"] = DateTime.Now.ToString();
             //settingsHandler.saveSettings();
 
             // prompt user if update is avalible

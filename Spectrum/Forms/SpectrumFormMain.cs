@@ -57,7 +57,7 @@ namespace Spectrum {
 
             settingsHander = new SettingsHandler();
 
-            // settings will be removed because of the new getSettings method //
+            // settings will be removed because of the new getSettings method //D:\DeanFiles\GoogleDrive\Documents\Projects\C#\Spectrum\Spectrum\Forms\UpdaterForm.cs
             settings = settingsHander.settings;
 
 
@@ -260,7 +260,8 @@ namespace Spectrum {
         }
 
         
-
+        // changes color of preview box
+        // used in val changed and key up
         private void previewColorMaster() {
             // sets background of preview box
             Color preview = Color.FromArgb(Convert.ToInt32(redValue.Value), Convert.ToInt32(greenValue.Value), Convert.ToInt32(blueValue.Value));
@@ -269,8 +270,13 @@ namespace Spectrum {
             colorPreviewPanel.BackColor = preview;
         }
 
-        private void previewBoxColorValueChanged(object sender, EventArgs e) {
-            previewColorMaster(); Console.WriteLine(sender);
+        // calls
+        private void previewBoxColorValueChanged(object sender, EventArgs e) { previewColorMaster(); }
+        private void previewBoxColorKeyUp(object sender, KeyEventArgs e) {
+            // sets value to 0 if empty
+            NumericUpDown me = (NumericUpDown)sender;
+            if (me.Text == "") me.Text = "0";
+            previewColorMaster();
         }
 
         // Highlights all items when box is selected
@@ -278,12 +284,7 @@ namespace Spectrum {
             NumericUpDown selected = (NumericUpDown) sender; selected.Select(0, 3);
         }
 
-        private void previewBoxColorKeyUp(object sender, KeyEventArgs e) {
-            // sets value to 0 if empty
-            NumericUpDown me = (NumericUpDown)sender;
-            if (me.Text == "") me.Text = "0";
-            previewColorMaster();
-        }
+        
 
         // Opens Color Picker and Sets Colors
         private void colorPickerClick(object sender, LinkLabelLinkClickedEventArgs e) {

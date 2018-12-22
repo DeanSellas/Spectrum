@@ -18,6 +18,7 @@ namespace Spectrum.Forms {
 
         string activeProfile;
 
+        bool settingsChanged = false;
 
         public SettingsForm(SpectrumFormMain main, SettingsHandler settings) {
             spectrumMain = main;
@@ -80,6 +81,13 @@ namespace Spectrum.Forms {
                     setCheckbox((CheckBox)item, (GroupBox)parent);
                     continue;
                 }
+                if(item is TextBox) {
+                    item.Text = settingsHander.getSetting(parent.Text, item.Name, activeProfile);
+                }
+                if(item is ComboBox && parent.Name != "general") {
+                    ComboBox combo = (ComboBox)item;
+                    combo.SelectedText = settingsHander.getSetting(parent.Text, combo.Name, activeProfile);
+                }
                 // recurisve call if no checkboxes
                 buildSettingsRecusion(item.Controls, item);
             }
@@ -101,6 +109,70 @@ namespace Spectrum.Forms {
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e) {
             e.Cancel = true;
             Hide();
+        }
+
+        private void saveFileButton_Click(object sender, EventArgs e) {
+            saveFileDialog1.InitialDirectory = logPath.Text;
+            saveFileDialog1.ShowDialog();
+            logPath.Text = saveFileDialog1.FileName;
+        }
+
+        private void checkBox_CheckedChanged(object sender, EventArgs e) {
+            checkSettings((CheckBox)sender);
+        }
+
+        private void checkSettings(CheckBox c) {
+            
+
+            // checks to see if report logs was checked
+            if (c.Checked == true && c.Name == "reportErrors") {
+                var r = MessageBox.Show("By Enabling This Feature you agree to crash reports and logs back to the developer.", "Enable Error Reporting", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                // does nothing if user does not agree
+                if (r == DialogResult.Cancel) {
+                    c.Checked = false;
+                    return;
+                }
+            }
+
+
+            settingsChanged = Controls.OfType<GroupBox>().Any(
+                groupBox =>
+                groupBox.Controls.OfType<CheckBox>().Any(checkSettingsHelper)
+            );
+
+            /*foreach (GroupBox groupBox in this.Controls.OfType<GroupBox>()) {
+                foreach (CheckBox checkbox in groupBox.Controls.OfType<CheckBox>()) {
+                    if(checkSettingsHelper(checkbox)) {
+                        settingsChanged = true;
+                        break;
+                    }
+                    else {
+                        settingsChanged = false;
+                    }
+                }
+                if (settingsChanged) break;
+            }*/
+
+            applyButton.Enabled = settingsChanged;
+        }
+
+        private bool checkSettingsHelper(CheckBox checkbox) {
+            var val = settingsHander.getSetting(checkbox.Parent.Text, checkbox.Name, activeProfile);
+            return val != checkbox.Checked;
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e) {
+            Hide();
+        }
+
+        private void okButton_Click(object sender, EventArgs e) {
+            if(settingsChanged) settingsHander.saveSettings();
+            Hide();
+        }
+
+        private void applyButton_Click(object sender, EventArgs e) {
+            settingsHander.saveSettings();
+            applyButton.Enabled = false;
         }
     }
 }

@@ -40,7 +40,11 @@ namespace Spectrum.Classes {
                 return settings[profile][master][setting];
             }
             catch {
-                return settings["Default"][master][setting];
+                try { return settings["Default"][master][setting]; }
+                catch {
+                    Console.WriteLine(String.Format("-- WARNING! || {0} was not found --", setting));
+                    return null;
+                }
             }
         }
 

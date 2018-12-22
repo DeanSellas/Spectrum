@@ -15,11 +15,11 @@
         <closeToTray>false</closeToTray>
       </General>
 
-      <Updater>
+      <Updates>
         <checkForUpdate>launch</checkForUpdate>
         <downloadPath></downloadPath>
         <lastCheck></lastCheck>
-      </Updater>
+      </Updates>
 
       <Arduino>
         <isConnected>false</isConnected>
@@ -63,9 +63,16 @@
         <minimizeToTray>false</minimizeToTray>
       </General>
 
-      <Updater>
+      <Updates>
+        <checkForUpdate>daily</checkForUpdate>
         <downloadPath>D:\Downloads</downloadPath>
-      </Updater>
+      </Updates>
+
+
+      <Logs>
+        <enableLogs>true</enableLogs>
+        <autoScroll>true</autoScroll>
+      </Logs>
 
       <Advanced>
         <advancedSettings>true</advancedSettings>
