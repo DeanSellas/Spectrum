@@ -23,12 +23,12 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("General");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Arduino");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Updates");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Logs");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Advanced");
-            this.general = new System.Windows.Forms.GroupBox();
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("General");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Arduino");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Updates");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Logs");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Advanced");
+            this.General = new System.Windows.Forms.GroupBox();
             this.minimizeToTray = new System.Windows.Forms.CheckBox();
             this.closeToTray = new System.Windows.Forms.CheckBox();
             this.startMinimized = new System.Windows.Forms.CheckBox();
@@ -36,7 +36,7 @@
             this.startWithWindows = new System.Windows.Forms.CheckBox();
             this.profileComboBox = new System.Windows.Forms.ComboBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.arduino = new System.Windows.Forms.GroupBox();
+            this.Arduino = new System.Windows.Forms.GroupBox();
             this.refreshButton = new System.Windows.Forms.Button();
             this.turnOffOnClose = new System.Windows.Forms.CheckBox();
             this.responsiveLighting = new System.Windows.Forms.CheckBox();
@@ -45,13 +45,13 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.applyButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
-            this.updater = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
+            this.Updates = new System.Windows.Forms.GroupBox();
+            this.downloadLocation = new System.Windows.Forms.Button();
             this.checkForUpdate = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.downloadPath = new System.Windows.Forms.TextBox();
-            this.logs = new System.Windows.Forms.GroupBox();
+            this.Logs = new System.Windows.Forms.GroupBox();
             this.saveFileButton = new System.Windows.Forms.Button();
             this.logPathLabel = new System.Windows.Forms.Label();
             this.logPath = new System.Windows.Forms.TextBox();
@@ -60,26 +60,27 @@
             this.enableLogs = new System.Windows.Forms.CheckBox();
             this.advanced = new System.Windows.Forms.GroupBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.general.SuspendLayout();
-            this.arduino.SuspendLayout();
-            this.updater.SuspendLayout();
-            this.logs.SuspendLayout();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.General.SuspendLayout();
+            this.Arduino.SuspendLayout();
+            this.Updates.SuspendLayout();
+            this.Logs.SuspendLayout();
             this.SuspendLayout();
             // 
-            // general
+            // General
             // 
-            this.general.Controls.Add(this.minimizeToTray);
-            this.general.Controls.Add(this.closeToTray);
-            this.general.Controls.Add(this.startMinimized);
-            this.general.Controls.Add(this.connectOnStart);
-            this.general.Controls.Add(this.startWithWindows);
-            this.general.Controls.Add(this.profileComboBox);
-            this.general.Location = new System.Drawing.Point(131, 12);
-            this.general.Name = "general";
-            this.general.Size = new System.Drawing.Size(252, 191);
-            this.general.TabIndex = 0;
-            this.general.TabStop = false;
-            this.general.Text = "General";
+            this.General.Controls.Add(this.minimizeToTray);
+            this.General.Controls.Add(this.closeToTray);
+            this.General.Controls.Add(this.startMinimized);
+            this.General.Controls.Add(this.connectOnStart);
+            this.General.Controls.Add(this.startWithWindows);
+            this.General.Controls.Add(this.profileComboBox);
+            this.General.Location = new System.Drawing.Point(131, 12);
+            this.General.Name = "General";
+            this.General.Size = new System.Drawing.Size(252, 191);
+            this.General.TabIndex = 0;
+            this.General.TabStop = false;
+            this.General.Text = "General";
             // 
             // minimizeToTray
             // 
@@ -156,45 +157,45 @@
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "generalNode";
-            treeNode1.Text = "General";
-            treeNode1.ToolTipText = "General Settings";
-            treeNode2.Name = "arduinoNode";
-            treeNode2.Text = "Arduino";
-            treeNode2.ToolTipText = "Arduino Settings";
-            treeNode3.Name = "updaterNode";
-            treeNode3.Text = "Updates";
-            treeNode3.ToolTipText = "Update Settings";
-            treeNode4.Name = "logsNode";
-            treeNode4.Text = "Logs";
-            treeNode4.ToolTipText = "Logs Settings";
-            treeNode5.Name = "advancedNode";
-            treeNode5.Text = "Advanced";
-            treeNode5.ToolTipText = "Advanced Settings";
+            treeNode21.Name = "generalNode";
+            treeNode21.Text = "General";
+            treeNode21.ToolTipText = "General Settings";
+            treeNode22.Name = "arduinoNode";
+            treeNode22.Text = "Arduino";
+            treeNode22.ToolTipText = "Arduino Settings";
+            treeNode23.Name = "updaterNode";
+            treeNode23.Text = "Updates";
+            treeNode23.ToolTipText = "Update Settings";
+            treeNode24.Name = "logsNode";
+            treeNode24.Text = "Logs";
+            treeNode24.ToolTipText = "Logs Settings";
+            treeNode25.Name = "advancedNode";
+            treeNode25.Text = "Advanced";
+            treeNode25.ToolTipText = "Advanced Settings";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5});
+            treeNode21,
+            treeNode22,
+            treeNode23,
+            treeNode24,
+            treeNode25});
             this.treeView1.ShowLines = false;
             this.treeView1.ShowNodeToolTips = true;
             this.treeView1.Size = new System.Drawing.Size(113, 718);
             this.treeView1.TabIndex = 0;
             // 
-            // arduino
+            // Arduino
             // 
-            this.arduino.Controls.Add(this.refreshButton);
-            this.arduino.Controls.Add(this.turnOffOnClose);
-            this.arduino.Controls.Add(this.responsiveLighting);
-            this.arduino.Controls.Add(this.turnOnWithApp);
-            this.arduino.Controls.Add(this.portComboBox);
-            this.arduino.Location = new System.Drawing.Point(428, 12);
-            this.arduino.Name = "arduino";
-            this.arduino.Size = new System.Drawing.Size(252, 191);
-            this.arduino.TabIndex = 6;
-            this.arduino.TabStop = false;
-            this.arduino.Text = "Arduino";
+            this.Arduino.Controls.Add(this.refreshButton);
+            this.Arduino.Controls.Add(this.turnOffOnClose);
+            this.Arduino.Controls.Add(this.responsiveLighting);
+            this.Arduino.Controls.Add(this.turnOnWithApp);
+            this.Arduino.Controls.Add(this.portComboBox);
+            this.Arduino.Location = new System.Drawing.Point(428, 12);
+            this.Arduino.Name = "Arduino";
+            this.Arduino.Size = new System.Drawing.Size(252, 191);
+            this.Arduino.TabIndex = 6;
+            this.Arduino.TabStop = false;
+            this.Arduino.Text = "Arduino";
             // 
             // refreshButton
             // 
@@ -282,30 +283,30 @@
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
-            // updater
+            // Updates
             // 
-            this.updater.Controls.Add(this.button4);
-            this.updater.Controls.Add(this.checkForUpdate);
-            this.updater.Controls.Add(this.label2);
-            this.updater.Controls.Add(this.label1);
-            this.updater.Controls.Add(this.downloadPath);
-            this.updater.Location = new System.Drawing.Point(131, 254);
-            this.updater.Name = "updater";
-            this.updater.Size = new System.Drawing.Size(252, 191);
-            this.updater.TabIndex = 6;
-            this.updater.TabStop = false;
-            this.updater.Text = "Updates";
+            this.Updates.Controls.Add(this.downloadLocation);
+            this.Updates.Controls.Add(this.checkForUpdate);
+            this.Updates.Controls.Add(this.label2);
+            this.Updates.Controls.Add(this.label1);
+            this.Updates.Controls.Add(this.downloadPath);
+            this.Updates.Location = new System.Drawing.Point(131, 254);
+            this.Updates.Name = "Updates";
+            this.Updates.Size = new System.Drawing.Size(252, 191);
+            this.Updates.TabIndex = 6;
+            this.Updates.TabStop = false;
+            this.Updates.Text = "Updates";
             // 
-            // button4
+            // downloadLocation
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(216, 43);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(30, 20);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "...";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.saveFileButton_Click);
+            this.downloadLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.downloadLocation.Location = new System.Drawing.Point(216, 43);
+            this.downloadLocation.Name = "downloadLocation";
+            this.downloadLocation.Size = new System.Drawing.Size(30, 20);
+            this.downloadLocation.TabIndex = 5;
+            this.downloadLocation.Text = "...";
+            this.downloadLocation.UseVisualStyleBackColor = true;
+            this.downloadLocation.Click += new System.EventHandler(this.DownloadLocation_Click);
             // 
             // checkForUpdate
             // 
@@ -346,20 +347,20 @@
             this.downloadPath.Size = new System.Drawing.Size(201, 20);
             this.downloadPath.TabIndex = 1;
             // 
-            // logs
+            // Logs
             // 
-            this.logs.Controls.Add(this.saveFileButton);
-            this.logs.Controls.Add(this.logPathLabel);
-            this.logs.Controls.Add(this.logPath);
-            this.logs.Controls.Add(this.reportErrors);
-            this.logs.Controls.Add(this.autoScroll);
-            this.logs.Controls.Add(this.enableLogs);
-            this.logs.Location = new System.Drawing.Point(428, 254);
-            this.logs.Name = "logs";
-            this.logs.Size = new System.Drawing.Size(252, 191);
-            this.logs.TabIndex = 6;
-            this.logs.TabStop = false;
-            this.logs.Text = "Logs";
+            this.Logs.Controls.Add(this.saveFileButton);
+            this.Logs.Controls.Add(this.logPathLabel);
+            this.Logs.Controls.Add(this.logPath);
+            this.Logs.Controls.Add(this.reportErrors);
+            this.Logs.Controls.Add(this.autoScroll);
+            this.Logs.Controls.Add(this.enableLogs);
+            this.Logs.Location = new System.Drawing.Point(428, 254);
+            this.Logs.Name = "Logs";
+            this.Logs.Size = new System.Drawing.Size(252, 191);
+            this.Logs.TabIndex = 6;
+            this.Logs.TabStop = false;
+            this.Logs.Text = "Logs";
             // 
             // saveFileButton
             // 
@@ -445,12 +446,12 @@
             this.Controls.Add(this.applyButton);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.logs);
+            this.Controls.Add(this.Logs);
             this.Controls.Add(this.advanced);
-            this.Controls.Add(this.updater);
-            this.Controls.Add(this.arduino);
+            this.Controls.Add(this.Updates);
+            this.Controls.Add(this.Arduino);
             this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.general);
+            this.Controls.Add(this.General);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -459,21 +460,21 @@
             this.Text = "SettingsForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
             this.VisibleChanged += new System.EventHandler(this.SettingsForm_Shown);
-            this.general.ResumeLayout(false);
-            this.general.PerformLayout();
-            this.arduino.ResumeLayout(false);
-            this.arduino.PerformLayout();
-            this.updater.ResumeLayout(false);
-            this.updater.PerformLayout();
-            this.logs.ResumeLayout(false);
-            this.logs.PerformLayout();
+            this.General.ResumeLayout(false);
+            this.General.PerformLayout();
+            this.Arduino.ResumeLayout(false);
+            this.Arduino.PerformLayout();
+            this.Updates.ResumeLayout(false);
+            this.Updates.PerformLayout();
+            this.Logs.ResumeLayout(false);
+            this.Logs.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox general;
+        private System.Windows.Forms.GroupBox General;
         private System.Windows.Forms.ComboBox profileComboBox;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.CheckBox startWithWindows;
@@ -481,7 +482,7 @@
         private System.Windows.Forms.CheckBox startMinimized;
         private System.Windows.Forms.CheckBox minimizeToTray;
         private System.Windows.Forms.CheckBox closeToTray;
-        private System.Windows.Forms.GroupBox arduino;
+        private System.Windows.Forms.GroupBox Arduino;
         private System.Windows.Forms.CheckBox turnOffOnClose;
         private System.Windows.Forms.CheckBox responsiveLighting;
         private System.Windows.Forms.CheckBox turnOnWithApp;
@@ -490,9 +491,9 @@
         private System.Windows.Forms.Button applyButton;
         private System.Windows.Forms.Button okButton;
         public System.Windows.Forms.Button refreshButton;
-        private System.Windows.Forms.GroupBox updater;
+        private System.Windows.Forms.GroupBox Updates;
         private System.Windows.Forms.ComboBox checkForUpdate;
-        private System.Windows.Forms.GroupBox logs;
+        private System.Windows.Forms.GroupBox Logs;
         private System.Windows.Forms.GroupBox advanced;
         private System.Windows.Forms.CheckBox autoScroll;
         private System.Windows.Forms.CheckBox enableLogs;
@@ -500,10 +501,11 @@
         private System.Windows.Forms.Label logPathLabel;
         private System.Windows.Forms.Button saveFileButton;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button downloadLocation;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox downloadPath;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox reportErrors;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }

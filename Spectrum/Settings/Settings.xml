@@ -34,7 +34,7 @@
 
       <Logs>
         <enableLogs>false</enableLogs>
-        <autoScroll>false</autoScroll>
+        <autoScroll>true</autoScroll>
         <reportErrors>false</reportErrors>
         <logPath></logPath>
       </Logs>
@@ -64,7 +64,7 @@
       </General>
 
       <Updates>
-        <checkForUpdate>daily</checkForUpdate>
+        <checkForUpdate>Daily</checkForUpdate>
         <downloadPath>D:\Downloads</downloadPath>
       </Updates>
 

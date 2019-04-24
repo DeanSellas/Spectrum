@@ -19,6 +19,7 @@ namespace Spectrum.Classes {
 
         XmlDocument doc = new XmlDocument();
         public SettingsHandler() {
+
             settingsExist();
 
             // creates default settings

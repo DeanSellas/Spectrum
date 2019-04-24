@@ -20,30 +20,42 @@ namespace Spectrum.Forms {
 
         bool settingsChanged = false;
 
+        bool formReady = false;
+
+        Dictionary<string, dynamic> tempSettings;
         public SettingsForm(SpectrumFormMain main, SettingsHandler settings) {
             spectrumMain = main;
             settingsHander = settings;
             InitializeComponent();
-
+            
             // will be used later
             // MaximumSize = new Size(435, 295);
         }
 
         // builds settings form when shown
         private void SettingsForm_Shown(object sender, EventArgs e) {
+            
             // since visual studio only using Shown once I needed to reasing this to Visablility changed event
             // this prevents code from running on close
             if (!Visible) return;
+
             buildProfiles();
             buildPorts();
             buildSettings();
+
+            // creates a temp settings
+            tempSettings = settingsHander.createSettings();
+            settingsChanged = false;
+            formReady = true;
         }
 
         public void buildProfiles() {
             int index = 0;
-            
+            profileComboBox.Items.Clear();
             foreach (string item in settingsHander.getSettingProfiles()) {
-
+                if(item == "Default") {
+                    continue;
+                }
                 // sets proper index for profile
                 if (item == settingsHander.currentProfile)
                     index = profileComboBox.Items.Count;
@@ -55,6 +67,7 @@ namespace Spectrum.Forms {
         }
 
         private void buildPorts() {
+            portComboBox.Items.Clear();
             foreach(string i in spectrumMain.serialPortComboBox.Items) {
                 portComboBox.Items.Add(i);
             }
@@ -86,7 +99,9 @@ namespace Spectrum.Forms {
                 }
                 if(item is ComboBox && parent.Name != "general") {
                     ComboBox combo = (ComboBox)item;
-                    combo.SelectedText = settingsHander.getSetting(parent.Text, combo.Name, activeProfile);
+                    string comboText = settingsHander.getSetting(parent.Text, combo.Name, activeProfile);
+                    if (comboText != combo.Text)
+                        combo.SelectedText = comboText;
                 }
                 // recurisve call if no checkboxes
                 buildSettingsRecusion(item.Controls, item);
@@ -118,7 +133,8 @@ namespace Spectrum.Forms {
         }
 
         private void checkBox_CheckedChanged(object sender, EventArgs e) {
-            checkSettings((CheckBox)sender);
+            if(formReady)
+                checkSettings((CheckBox)sender);
         }
 
         private void checkSettings(CheckBox c) {
@@ -135,44 +151,66 @@ namespace Spectrum.Forms {
             }
 
 
-            settingsChanged = Controls.OfType<GroupBox>().Any(
+            /*settingsChanged = Controls.OfType<GroupBox>().Any(
                 groupBox =>
                 groupBox.Controls.OfType<CheckBox>().Any(checkSettingsHelper)
-            );
+            );*/
 
-            /*foreach (GroupBox groupBox in this.Controls.OfType<GroupBox>()) {
+            foreach (GroupBox groupBox in this.Controls.OfType<GroupBox>()) {
                 foreach (CheckBox checkbox in groupBox.Controls.OfType<CheckBox>()) {
                     if(checkSettingsHelper(checkbox)) {
                         settingsChanged = true;
+                        try {
+                            tempSettings[activeProfile][groupBox.Name][checkbox.Name] = checkbox.Checked;
+                        }
+                        catch { /*DO NOTHING */ }
                         break;
                     }
-                    else {
+                    else if(settingsChanged) {
                         settingsChanged = false;
                     }
                 }
-                if (settingsChanged) break;
-            }*/
+                if (settingsChanged) {
+                    break;
+                }
+            }
 
             applyButton.Enabled = settingsChanged;
         }
 
         private bool checkSettingsHelper(CheckBox checkbox) {
-            var val = settingsHander.getSetting(checkbox.Parent.Text, checkbox.Name, activeProfile);
+            bool val = settingsHander.getSetting(checkbox.Parent.Text, checkbox.Name, activeProfile);
             return val != checkbox.Checked;
         }
 
         private void cancelButton_Click(object sender, EventArgs e) {
+            settingsChanged = false;
+            applyButton.Enabled = false;
             Hide();
         }
 
         private void okButton_Click(object sender, EventArgs e) {
-            if(settingsChanged) settingsHander.saveSettings();
+            if (settingsChanged) finalizeSettings();
             Hide();
         }
 
         private void applyButton_Click(object sender, EventArgs e) {
+            finalizeSettings();
+        }
+
+
+        private void finalizeSettings() {
+            settingsHander.settings = tempSettings;
             settingsHander.saveSettings();
+            settingsChanged = false;
             applyButton.Enabled = false;
+        }
+
+        private void DownloadLocation_Click(object sender, EventArgs e) {
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if(result == DialogResult.OK) {
+                downloadPath.Text = folderBrowserDialog1.SelectedPath;
+            }
         }
     }
 }
