@@ -76,7 +76,7 @@
 
       <Advanced>
         <advancedSettings>true</advancedSettings>
-        <devBuilds>true</devBuilds>
+        <devBuilds>false</devBuilds>
       </Advanced>
 
     </Profile1>

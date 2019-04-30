@@ -14,10 +14,10 @@ namespace Spectrum.Forms {
         LogsHandler logHandler;
 
         internal SettingsHandler settings;
-        public logForm(LogsHandler l) {
+        public logForm(LogsHandler logHandler) {
             InitializeComponent();
 
-            logHandler = l;
+            this.logHandler = logHandler;
         }
 
         // builds settings form when shown
@@ -28,17 +28,14 @@ namespace Spectrum.Forms {
             path.Text = settings.getSetting("Logs", "logPath");
 
             autoScrollCheckBox.Checked = settings.getSetting("Logs", "autoScroll", settings.currentProfile);
-
-
         }
 
-        private void button2_Click(object sender, EventArgs e) {
+        private void saveButton_Click(object sender, EventArgs e) {
             Console.WriteLine("-- Log Saved --\n--------------------------------");
             logHandler.saveLog(path.Text, log.Lines);
         }
 
         private void saveFileButton_Click(object sender, EventArgs e) {
-            saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.InitialDirectory = path.Text;
             saveFileDialog1.ShowDialog();
             path.Text = saveFileDialog1.FileName;
@@ -56,7 +53,6 @@ namespace Spectrum.Forms {
         }
 
         private void log_TextChanged(object sender, EventArgs e) {
-
             if(autoScrollCheckBox.Checked)
                 timer1.Enabled = true;
         }

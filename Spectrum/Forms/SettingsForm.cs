@@ -134,53 +134,61 @@ namespace Spectrum.Forms {
 
         private void checkBox_CheckedChanged(object sender, EventArgs e) {
             if(formReady)
-                checkSettings((CheckBox)sender);
+                checkSettings();
         }
 
-        private void checkSettings(CheckBox c) {
+        private void checkSettings() {
             
-
-            // checks to see if report logs was checked
-            if (c.Checked == true && c.Name == "reportErrors") {
-                var r = MessageBox.Show("By Enabling This Feature you agree to crash reports and logs back to the developer.", "Enable Error Reporting", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                // does nothing if user does not agree
-                if (r == DialogResult.Cancel) {
-                    c.Checked = false;
-                    return;
-                }
-            }
-
-
-            /*settingsChanged = Controls.OfType<GroupBox>().Any(
-                groupBox =>
-                groupBox.Controls.OfType<CheckBox>().Any(checkSettingsHelper)
-            );*/
-
+            bool checkChanged = false;
+            bool textChanged = false;
             foreach (GroupBox groupBox in this.Controls.OfType<GroupBox>()) {
+                if (checkChanged) {
+                    break;
+                }
                 foreach (CheckBox checkbox in groupBox.Controls.OfType<CheckBox>()) {
-                    if(checkSettingsHelper(checkbox)) {
-                        settingsChanged = true;
+                    // checks to see if report logs was checked
+                    if (checkbox.Checked == true && checkbox.Name == "reportErrors") {
+                        var r = MessageBox.Show("By Enabling This Feature you agree to crash reports and logs back to the developer.", "Enable Error Reporting", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        // does nothing if user does not agree
+                        if (r == DialogResult.Cancel) {
+                            checkbox.Checked = false;
+                        }
+                    }
+                    if (checkBoxHelper(checkbox)) {
+                        checkChanged = true;
                         try {
                             tempSettings[activeProfile][groupBox.Name][checkbox.Name] = checkbox.Checked;
                         }
                         catch { /*DO NOTHING */ }
                         break;
                     }
-                    else if(settingsChanged) {
-                        settingsChanged = false;
+                    else if(checkChanged) {
+                        checkChanged = false;
                     }
                 }
-                if (settingsChanged) {
-                    break;
+                foreach(TextBox textbox in groupBox.Controls.OfType<TextBox>()) {
+                    if (textBoxHelper(textbox)){
+                        textChanged = true;
+                        try {
+                            tempSettings[activeProfile][groupBox.Name][textbox.Name] = textbox.Text;
+                        }
+                        catch { /* DO NOTHING */ }
+                        break;
+                    }
+                    else if (textChanged) {
+                        textChanged = false;
+                    }
                 }
             }
 
-            applyButton.Enabled = settingsChanged;
+            applyButton.Enabled = checkChanged || textChanged;
         }
 
-        private bool checkSettingsHelper(CheckBox checkbox) {
-            bool val = settingsHander.getSetting(checkbox.Parent.Text, checkbox.Name, activeProfile);
-            return val != checkbox.Checked;
+        private bool checkBoxHelper(CheckBox checkbox) {
+            return settingsHander.getSetting(checkbox.Parent.Text, checkbox.Name, activeProfile) != checkbox.Checked;
+        }
+        private bool textBoxHelper(TextBox textbox) {
+            return settingsHander.getSetting(textbox.Parent.Text, textbox.Name, activeProfile) != textbox.Text; 
         }
 
         private void cancelButton_Click(object sender, EventArgs e) {
@@ -206,11 +214,18 @@ namespace Spectrum.Forms {
             applyButton.Enabled = false;
         }
 
+        // sets the download location
         private void DownloadLocation_Click(object sender, EventArgs e) {
+            folderBrowserDialog1.SelectedPath = downloadPath.Text;
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if(result == DialogResult.OK) {
                 downloadPath.Text = folderBrowserDialog1.SelectedPath;
             }
+        }
+
+        private void DownloadPath_TextChanged(object sender, EventArgs e) {
+            if (downloadPath.Text != settingsHander.getSetting("Updates", "downloadPath", activeProfile))
+                checkSettings();
         }
     }
 }

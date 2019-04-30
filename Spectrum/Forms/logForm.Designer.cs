@@ -27,10 +27,10 @@
             this.path = new System.Windows.Forms.TextBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.saveFileButton = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.autoScrollCheckBox = new System.Windows.Forms.CheckBox();
             this.log = new System.Windows.Forms.RichTextBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // path
@@ -51,7 +51,7 @@
             this.saveButton.TabIndex = 3;
             this.saveButton.Text = "Save Log";
             this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.button2_Click);
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // saveFileButton
             // 
@@ -63,13 +63,6 @@
             this.saveFileButton.Text = "...";
             this.saveFileButton.UseVisualStyleBackColor = true;
             this.saveFileButton.Click += new System.EventHandler(this.saveFileButton_Click);
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.DefaultExt = "txt";
-            this.saveFileDialog1.FileName = "log.txt";
-            this.saveFileDialog1.Filter = " Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            this.saveFileDialog1.Title = "Choose Log File Location";
             // 
             // timer1
             // 
@@ -103,6 +96,13 @@
             this.log.WordWrap = false;
             this.log.TextChanged += new System.EventHandler(this.log_TextChanged);
             // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "txt";
+            this.saveFileDialog1.FileName = "log.txt";
+            this.saveFileDialog1.Filter = " Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            this.saveFileDialog1.Title = "Choose Log File Location";
+            // 
             // logForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -127,9 +127,9 @@
         private System.Windows.Forms.TextBox path;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button saveFileButton;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.CheckBox autoScrollCheckBox;
         public System.Windows.Forms.RichTextBox log;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
